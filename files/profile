@@ -1,0 +1,59 @@
+complete -C ~/.rvm/scripts/rvm-completion.rb -o default rvm
+complete -C ~/.rake_completion -o default rake
+complete -C ~/.capistrano_completion -o default capistrano
+. /usr/local/etc/bash_completion.d/git-completion.bash
+. /etc/bash_completion
+
+PS1='\n\[\033[1;35m\][\t]\[\033[0m\] \[\033[1;33m\][$(~/.rvm/bin/rvm-prompt v g)]\[\033[0m\] \w$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")\$ '
+
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+[[ -r $rvm_path/scripts/completion ]] && . $rvm_path/scripts/completion
+
+reload() { source ~/.profile; }
+
+# set x86_64 flags
+export CFLAGS="-arch x86_64 -O2"
+export ARCHFLAGS="-arch x86_64"
+
+export PATH=.:./script:$PATH
+export EDITOR=vi
+
+export CDPATH=.:~:~/code:~/code/ruby:~/carzen
+
+export HISTIGNORE="&:ls *:[bf]g:exit"
+export HISTCONTROL=ignoredups
+export HISTCONTROL=ignoreboth
+
+export GREP_OPTIONS="--color=auto"
+export GREP_COLOR="4;33"
+export CLICOLOR="auto"
+
+shopt -s cdspell
+shopt -s cmdhist
+shopt -s checkwinsize
+
+alias roll="cd /Users/RoadHouse/code/ruby/love2roll"
+function _basedir {
+  basename `pwd`
+}
+
+alias ls="ls -G"
+alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g --servername `_basedir`'
+alias s="server -u"
+alias c="console"
+alias g="git"
+alias cvr="rake spec:rcov && open coverage/index.html"
+alias td="tail -f log/development.log"
+alias tt="tail -f log/test.log"
+
+_rmate() {
+  $(ls -1 | egrep -v "(diagrams|coverage|log|git|vendor|tmp|doc)" | egrep -v .DS_Store | xargs mate)
+}
+alias rmate="_rmate"
+
+alias gi='gem install'
+alias ackr='ack --ruby'
+alias res='touch tmp/restart.txt'
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+

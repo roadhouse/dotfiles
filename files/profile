@@ -4,7 +4,7 @@ complete -C ~/code/dotfiles/autocomplete/capistrano_autocomplete -o default capi
 . /usr/local/etc/bash_completion.d/git-completion.bash
 . /etc/bash_completion
 
-PS1='\n\[\033[1;35m\][\t]\[\033[0m\] \[\033[1;33m\][$(~/.rvm/bin/rvm-prompt v g)]\[\033[0m\] \w$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")\$ '
+PS1='\n\[\033[1;33m\][$(~/.rvm/bin/rvm-prompt v g)]\[\033[0m\] \w$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")\$ '
 
 reload() { source ~/.profile; }
 
@@ -15,8 +15,7 @@ export ARCHFLAGS="-arch x86_64"
 export PATH=.:./script:$PATH
 export EDITOR=vi
 
-export CDPATH=.:~:~/code:~/code/ruby:~/carzen
-
+export CDPATH=.:~:~/code:~/code/ruby
 export HISTIGNORE="&:[bf]g:exit"
 export HISTCONTROL=ignoredups
 export HISTCONTROL=ignoreboth

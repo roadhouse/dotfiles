@@ -12,7 +12,7 @@ reload() { source ~/.profile; }
 export CFLAGS="-arch x86_64 -O2"
 export ARCHFLAGS="-arch x86_64"
 
-export PATH=.:./script:$PATH
+export PATH=.:./script:/usr/local/sbin:$PATH
 export EDITOR=vi
 
 export CDPATH=.:~:~/code:~/code/ruby

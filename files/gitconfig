@@ -1,0 +1,48 @@
+[user]
+  name = RoadHouse
+  email = poserpride@gmail.com
+
+[alias]
+  st = status
+  ci = commit
+  br = branch
+  co = checkout
+  cot = checkout --track
+  df = diff --word-diff
+  who = shortlog -s --
+  ps = push
+  lg = log --decorate --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %Cblue%an%Creset -  %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  plr = pull --rebase
+
+[color]
+  ui = auto
+
+[color "branch"]
+  current = yellow reverse
+  local = yellow
+  remote = green
+
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+
+[color "status"]
+  added = yellow
+  changed = green
+  untracked = cyan
+
+[core]
+  whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+  excludesfile = .DS_Store,.*.swp,tags,.swo
+
+[branch]
+  autosetupmerge = true
+
+[github]
+  user = roadhouse
+  token = 5e519458af77071ad2ed4055ccd899fc
+
+[push]
+  default = tracking

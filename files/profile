@@ -3,6 +3,7 @@ complete -C ~/code/dotfiles/autocomplete/rake_autocomplete -o default rake
 complete -C ~/code/dotfiles/autocomplete/capistrano_autocomplete -o default capistrano
 . /usr/local/etc/bash_completion.d/git-completion.bash
 . /etc/bash_completion
+source ~/code/dotfiles/autocomplete/terminitor_autocomplete
 
 PS1='\n\[\033[1;33m\][$(~/.rvm/bin/rvm-prompt v g)]\[\033[0m\] \w$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")\$ '
 
@@ -15,7 +16,7 @@ export ARCHFLAGS="-arch x86_64"
 export PATH=.:./script:/usr/local/sbin:$PATH
 export EDITOR=vi
 
-export CDPATH=.:~:~/code:~/code/ruby
+export CDPATH=.:~:~/code:~/code/ruby:~/code/github/
 export HISTIGNORE="&:[bf]g:exit"
 export HISTCONTROL=ignoredups
 export HISTCONTROL=ignoreboth
@@ -52,12 +53,23 @@ alias gi='gem install'
 alias ackr='ack --ruby'
 alias res='touch tmp/restart.txt'
 
+#added default gems to rubies
+adddefgem() {
+  echo "${1}" >> ~/.rvm/gemsets/default.gems
+}
+
 # get the tinyurl
 tinyurl () {
   local tmp=/tmp/tinyurl
   rm $tmp > /dev/null 2>&1
   wget "http://tinyurl.com/api-create.php?url=${1}" -O $tmp > /dev/null 2>&1
   cat $tmp | pbcopy
+}
+
+clone() {
+  cd /tmp
+  git clone "${1}.git"
+  cd $(echo ${1}|cut -d "/" -f 5-|cut -d "." -f 1-2)
 }
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"

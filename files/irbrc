@@ -10,10 +10,10 @@ unless defined?(RUBY_ENGINE) && RUBY_ENGINE == "macruby"
     end
 
     # Load some libraries
-    require "active_record" unless defined?(ActiveRecord)
-    require "active_support/all" unless defined?(ActiveSupport)
-    require "date"
-    require "time"
+    # require "active_record" unless defined?(ActiveRecord)
+    # require "active_support/all" unless defined?(ActiveSupport)
+    # require "date"
+    # require "time"
 
     IRB.conf[:SAVE_HISTORY] = 200
     IRB.conf[:HISTORY_FILE] = "#{ENV["HOME"]}/.irb_history"

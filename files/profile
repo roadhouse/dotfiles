@@ -43,6 +43,7 @@ alias g="git"
 alias cvr="rake spec:rcov && open coverage/index.html"
 alias td="tail -f log/development.log"
 alias tt="tail -f log/test.log"
+alias ensuremigrate="rake db:migrate && rake db:rollback && rake db:migrate"
 
 _rmate() {
   $(ls -1 | egrep -v "(diagrams|coverage|log|git|vendor|tmp|doc)" | egrep -v .DS_Store | xargs mate)
@@ -59,7 +60,7 @@ adddefgem() {
 }
 
 # get the tinyurl
-tinyurl () {
+tinyurl() {
   local tmp=/tmp/tinyurl
   rm $tmp > /dev/null 2>&1
   wget "http://tinyurl.com/api-create.php?url=${1}" -O $tmp > /dev/null 2>&1
@@ -71,6 +72,15 @@ clone() {
   git clone "${1}.git"
   cd $(echo ${1}|cut -d "/" -f 5-|cut -d "." -f 1-2)
 }
+
+initgemset() {
+  echo "rvm use 1.9.2@${1}" >> .rvmrc
+}
+
+wgetgit() {
+  wget --no-check-certificate ${1} 
+}
+
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 

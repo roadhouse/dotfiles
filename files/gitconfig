@@ -56,3 +56,6 @@
 
 [help]
         autocorrect = 1
+
+[apply]
+        whitespace = fix

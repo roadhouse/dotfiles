@@ -16,7 +16,7 @@
         df = diff --word-diff
         who = shortlog -s --
         ps = push
-        lg = log --decorate --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %Cblue%an%Creset -  %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+        lg = log --decorate --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %Cblue%an%Creset - %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
         plr = pull --rebase
         rebm = rebase master
 

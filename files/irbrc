@@ -108,3 +108,15 @@ unless defined?(RUBY_ENGINE) && RUBY_ENGINE == "macruby"
     puts e.message
   end
 end
+
+class Object  
+  def goto_method(sym)  
+    __goto_method(method(sym))  
+  end   
+  def goto_instance_method(sym)  
+    __goto_method(instance_method(sym))  
+  end   
+  def __goto_method(x)  
+    system("$EDITOR -n '+#{x.__line__}' \"#{x.__file__}\"")  
+  end   
+end

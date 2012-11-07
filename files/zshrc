@@ -25,8 +25,8 @@ alias g="git"
 alias cvr="rake spec:rcov && open coverage/index.html"
 alias td="tail -f log/development.log"
 alias tt="tail -f log/test.log"
-alias ensuremigrate="rake db:migrate && rake db:rollback && rake db:migrate"
-alias bndj='bundle --binstubs --path=vendor/gems --without=production'
+alias ensuremigrate="rake db:migrate && rake db:rollback && rake db:migrate && rake db:test:prepare"
+alias bndj='bundle install --binstubs=bin_stubs --path=vendor/gems --without=production'
 
 _rmate() {
   $(ls -1 | egrep -v "(diagrams|coverage|log|git|vendor|tmp|doc)" | egrep -v .DS_Store | xargs mate)
@@ -36,7 +36,7 @@ alias rmate="_rmate"
 alias gmi='gem install'
 alias ackr='ack --ruby'
 alias res='touch tmp/restart.txt'
-alias postgre.start='pg_ctl -D /usr/local/var/postgre -l /usr/local/var/postgre/server.log start'
+alias pg.start='pg_ctl -D /usr/local/var/postgre -l /usr/local/var/postgre/server.log start'
 alias mongo.start='mongod run --config /usr/local/Cellar/mongodb/2.0.1-x86_64/mongod.conf'
 
 # Set to this to use case-sensitive completion
@@ -54,21 +54,23 @@ DISABLE_AUTO_UPDATE="true"
 # Uncomment following line if you want red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
+unsetopt correct_all
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git brew cap github heroku rvm ruby thor vi-mode)
+plugins=(git brew cap github heroku rvm ruby thor vi-mode zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:$HOME/.rbenv/bin:$PATH
+export PATH=./bin_stubs:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:$PATH
 
 # set x86_64 flags
 export CFLAGS="-arch x86_64 -O2"
 export ARCHFLAGS="-arch x86_64"
 export EDITOR=vi
-export CDPATH=.:~:~/code:~/code/ruby:~/code/github/:~/code/work/gonow/
+export CDPATH=.:~/code/work/cinemateca/~:~/code:~/code/ruby:~/code/github/
 export HISTIGNORE="&:[bf]g:exit"
 export HISTCONTROL=ignoredups
 export HISTCONTROL=ignoreboth
@@ -76,8 +78,7 @@ export GREP_OPTIONS="--color=auto"
 export GREP_COLOR="4;33"
 export CLICOLOR="auto"
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 # RBENV setup
 # eval "$(rbenv init -)"
 export PATH=./bin:$PATH
-

@@ -1,17 +1,17 @@
-complete -C ~/code/dotfiles/autocomplete/rvm_autocomplete -o default rvm
-complete -C ~/code/dotfiles/autocomplete/rake_autocomplete -o default rake
-complete -C ~/code/dotfiles/autocomplete/capistrano_autocomplete -o default capistrano
+#complete -C ~/code/dotfiles/autocomplete/rvm_autocomplete -o default rvm
+#complete -C ~/code/dotfiles/autocomplete/rake_autocomplete -o default rake
+#complete -C ~/code/dotfiles/autocomplete/capistrano_autocomplete -o default capistrano
 . /usr/local/etc/bash_completion.d/git-completion.bash
 . /etc/bash_completion
-source ~/code/dotfiles/autocomplete/terminitor_autocomplete
+#source ~/code/dotfiles/autocomplete/terminitor_autocomplete
 
 PS1='\n\w$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")\$ '
 
 reload() { source ~/.profile; }
 
 # set x86_64 flags
-export CFLAGS="-arch x86_64 -O2"
-export ARCHFLAGS="-arch x86_64"
+#export CFLAGS="-arch x86_64 -O2"
+#export ARCHFLAGS="-arch x86_64"
 
 export PATH=.:./script:/usr/local/sbin:$HOME/.rbenv/bin:/Users/RoadHouse/.rbenv/versions/1.9.2-p290/bin:$PATH
 export EDITOR=vi
@@ -34,10 +34,10 @@ function _basedir {
   basename `pwd`
 }
 
-alias vim='/Applications/MacVim.app/Contents/MacOS/Vim '
-alias vi=vim
+#alias vim='/Applications/MacVim.app/Contents/MacOS/Vim '
+#alias vi=vim
 alias ls="ls -G"
-alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g --servername `_basedir`'
+#alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g --servername `_basedir`'
 alias s="rails s"
 alias c="rails c"
 alias g="git"
@@ -55,8 +55,8 @@ alias rmate="_rmate"
 alias gi='gem install'
 alias ackr='ack --ruby'
 alias res='touch tmp/restart.txt'
-alias postgre.start='pg_ctl -D /usr/local/var/postgre -l /usr/local/var/postgre/server.log start'
-alias mongo.start='mongod run --config /usr/local/Cellar/mongodb/2.0.1-x86_64/mongod.conf'
+#alias postgre.start='pg_ctl -D /usr/local/var/postgre -l /usr/local/var/postgre/server.log start'
+#alias mongo.start='mongod run --config /usr/local/Cellar/mongodb/2.0.1-x86_64/mongod.conf'
 
 #added default gems to rubies
 adddefgem() {

@@ -1,5 +1,5 @@
 [user]
-	name = RoadHouse
+	name = Jean Uchoa
 	email = poserpride@gmail.com
 
 [alias]
@@ -16,7 +16,7 @@
         df = diff --word-diff
         who = shortlog -s --
         ps = push
-        lg = log --decorate --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %Cblue%an%Creset -  %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
         plr = pull --rebase
         rebm = rebase master
 

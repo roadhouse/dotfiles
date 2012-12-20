@@ -34,8 +34,8 @@ function _basedir {
   basename `pwd`
 }
 
-#alias vim='/Applications/MacVim.app/Contents/MacOS/Vim '
-#alias vi=vim
+alias vim='/Applications/MacVim.app/Contents/MacOS/Vim '
+alias vi=vim
 alias ls="ls -G"
 #alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g --servername `_basedir`'
 alias s="rails s"
@@ -78,7 +78,7 @@ clone() {
 }
 
 wgetgit() {
-  wget --no-check-certificate ${1} 
+  wget --no-check-certificate ${1}
 }
 
 eval "$(rbenv init -)"

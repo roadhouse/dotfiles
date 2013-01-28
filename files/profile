@@ -1,9 +1,4 @@
-#complete -C ~/code/dotfiles/autocomplete/rvm_autocomplete -o default rvm
-#complete -C ~/code/dotfiles/autocomplete/rake_autocomplete -o default rake
-#complete -C ~/code/dotfiles/autocomplete/capistrano_autocomplete -o default capistrano
 . /usr/local/etc/bash_completion.d/git-completion.bash
-. /etc/bash_completion
-#source ~/code/dotfiles/autocomplete/terminitor_autocomplete
 
 PS1='\n\w$(__git_ps1 " \[\033[1;32m\](%s)\[\033[0m\]")\$ '
 
@@ -13,7 +8,7 @@ reload() { source ~/.profile; }
 #export CFLAGS="-arch x86_64 -O2"
 #export ARCHFLAGS="-arch x86_64"
 
-export PATH=.:./script:/usr/local/sbin:$HOME/.rbenv/bin:/Users/RoadHouse/.rbenv/versions/1.9.2-p290/bin:$PATH
+export PATH=.:./script:/usr/local/sbin:$PATH
 export EDITOR=vi
 
 export CDPATH=.:~:~/code:~/code/ruby:~/code/github/:~/code/work/gonow/
@@ -80,5 +75,3 @@ clone() {
 wgetgit() {
   wget --no-check-certificate ${1}
 }
-
-eval "$(rbenv init -)"

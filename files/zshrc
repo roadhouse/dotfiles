@@ -5,7 +5,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="miloshadzic"
+ZSH_THEME="theunraveler"
 
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
@@ -27,7 +27,7 @@ alias td="tail -f log/development.log"
 alias tt="tail -f log/test.log"
 alias ensuremigrate="rake db:migrate && rake db:rollback && rake db:migrate && rake db:test:prepare"
 alias recreate_all="rake db:drop:all && rake db:create:all && rake db:migrate && rake db:seed && rake db:test:prepare"
-alias bndj='bundle install --binstubs=bin_stubs --path=vendor/gems --without=production'
+alias bndj='bundle install --binstubs=bin_stubs --path=/tmp/gems --without=production'
 alias fs='foreman start'
 
 _rmate() {
@@ -38,7 +38,7 @@ alias rmate="_rmate"
 alias gmi='gem install'
 alias ackr='ack --ruby'
 alias res='touch tmp/restart.txt'
-alias pg.start='pg_ctl -D /usr/local/var/postgre -l /usr/local/var/postgre/server.log start'
+alias pg.start='pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 alias mongo.start='mongod run --config /usr/local/Cellar/mongodb/2.0.1-x86_64/mongod.conf'
 
 # Set to this to use case-sensitive completion
@@ -58,21 +58,23 @@ COMPLETION_WAITING_DOTS="true"
 
 unsetopt correct_all
 
+# bindkey -e
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git brew cap github heroku rvm ruby thor vi-mode zsh-syntax-highlighting)
+plugins=(git brew cap github heroku ruby vi-mode zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
 # Customize to your needs...
-export PATH=./bin_stubs:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:$PATH
+export PATH=./bin_stubs:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:~/.rvm/bin:/usr/local/Cellar/ruby/1.9.3-p327/bin:$PATH
 
 # set x86_64 flags
 export CFLAGS="-arch x86_64 -O2"
 export ARCHFLAGS="-arch x86_64"
 export EDITOR=vim
-export CDPATH=.:~/code/work/cinemateca/:~/code:~/code/ruby:~/code/github/
+export CDPATH=.:~/code/work/cinemateca/:~/code/pet_projects/
 export HISTIGNORE="&:[bf]g:exit"
 export HISTCONTROL=ignoredups
 export HISTCONTROL=ignoreboth
@@ -80,7 +82,5 @@ export GREP_OPTIONS="--color=auto"
 export GREP_COLOR="4;33"
 export CLICOLOR="auto"
 
-export PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
-# RBENV setup
-# eval "$(rbenv init -)"
-export PATH=./bin:$PATH
+export TERM='xterm-256color'
+

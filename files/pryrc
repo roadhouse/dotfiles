@@ -1,6 +1,6 @@
-Pry.config.editor = "mate -w"
+Pry.config.editor = "vi"
 
-#prompt = "\e[1;30m"
+prompt = "\e[1;30m"
 prompt = ""
 prompt << "#{Rails.version}@" if defined?(Rails)
 prompt << "#{RUBY_VERSION}"
@@ -19,8 +19,8 @@ rescue LoadError => err
 end
 
 # Load plugins (only those I whitelist)
-# Pry.config.should_load_plugins = true
-# Pry.plugins["doc"].activate!
+Pry.config.should_load_plugins = true
+Pry.plugins["doc"].activate!
 
 # Launch Pry with access to the entire Rails stack.
 # If you have Pry in your Gemfile, you can pass: ./script/console --irb=pry instead.

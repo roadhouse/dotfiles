@@ -15,10 +15,7 @@ function _basedir {
   basename `pwd`
 }
 
-alias vim='/Applications/MacVim.app/Contents/MacOS/Vim '
-alias vi=vim
 alias ls="ls -G"
-alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g --servername `_basedir`'
 alias s="rails s"
 alias c="rails c"
 alias g="git"
@@ -27,7 +24,7 @@ alias td="tail -f log/development.log"
 alias tt="tail -f log/test.log"
 alias ensuremigrate="rake db:migrate && rake db:rollback && rake db:migrate && rake db:test:prepare"
 alias recreate_all="rake db:drop:all && rake db:create:all && rake db:migrate && rake db:seed && rake db:test:prepare"
-alias bndj='bundle install --binstubs=bin_stubs --path=/tmp/gems --without=production'
+alias bndj='bundle install --binstubs=bin_stubs --path=~/gems --without=production'
 alias fs='foreman start'
 
 _rmate() {

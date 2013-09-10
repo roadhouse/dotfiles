@@ -48,4 +48,6 @@ export CLICOLOR="auto"
 
 export TERM='xterm-256color'
 
+# Tmux/Tmuxinator suff
 source ~/.bin/tmuxinator.zsh
+tmux

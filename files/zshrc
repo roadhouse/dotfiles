@@ -68,8 +68,8 @@ source $ZSH/oh-my-zsh.sh
 export PATH=./bin_stubs:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:~/.rvm/bin:/usr/local/Cellar/ruby/1.9.3-p327/bin:$PATH
 
 # set x86_64 flags
-export CFLAGS="-arch x86_64 -O2"
-export ARCHFLAGS="-arch x86_64"
+# export CFLAGS="-arch x86_64 -O2"
+# export ARCHFLAGS="-arch x86_64"
 export EDITOR=vim
 export CDPATH=.:~/code/work/cinemateca/:~/code/pet_projects/
 export HISTIGNORE="&:[bf]g:exit"
@@ -81,3 +81,5 @@ export CLICOLOR="auto"
 
 export TERM='xterm-256color'
 
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

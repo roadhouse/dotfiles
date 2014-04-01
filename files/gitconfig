@@ -1,6 +1,6 @@
 [user]
 	name = Jean Uchoa
-	email = poserpride@gmail.com
+	email = jean.uchoa@gmail.com
 
 [alias]
         st = status -sb
@@ -41,7 +41,7 @@
 
 [core]
         whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-	excludesfile = /Users/RoadHouse/.gitignore
+	excludesfile = ~/.gitignore
 	pager = less -r
 
 [branch]

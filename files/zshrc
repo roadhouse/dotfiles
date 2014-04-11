@@ -1,6 +1,7 @@
-ZSH=$HOME/.oh-my-zsh
-
+ZSH=/Users/jeanuchoa/.oh-my-zsh
 ZSH_THEME="zhann"
+plugins=(git)
+source $ZSH/oh-my-zsh.sh
 
 alias ls="ls -G"
 alias s="rails s"
@@ -10,43 +11,19 @@ alias td="tail -f log/development.log"
 alias tt="tail -f log/test.log"
 alias ensuremigrate="rake db:migrate && rake db:rollback && rake db:migrate && rake db:test:prepare"
 alias recreate_all="rake db:drop:all && rake db:create:all && rake db:migrate && rake db:seed && rake db:test:prepare"
-alias bndj='bundle install --binstubs=bin_stubs --path=~/gems --without=production'
+alias bi='bundle install --binstubs=~/.bin --without=production'
 alias gmi='gem install'
-alias ackr='ack --ruby'
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
+bindkey -v
+  
+export CDPATH=.:~/code
+export PATH=./bin:$HOME/bin:$PATH:$HOME/.rvm/bin 
 
-# Comment this out to disable weekly auto-update checks
-DISABLE_AUTO_UPDATE="true"
-
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
-
-# unsetopt correct_all
-
-plugins=(git vi-mode)
-
-source $ZSH/oh-my-zsh.sh
-
-# export PATH=./bin_stubs:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin:/usr/local/Cellar/ruby/2.0.0-p247/bin:$PATH
-export PATH=/usr/local/Cellar/ruby/2.0.0-p247/bin:$PATH
-export EDITOR=vim
-export CDPATH=.:~/code/work/cinemateca/:~/code/pet_projects/
-export HISTIGNORE="&:[bf]g:exit"
-export HISTCONTROL=ignoredups
-export HISTCONTROL=ignoreboth
-export GREP_OPTIONS="--color=auto"
-export GREP_COLOR="4;33"
 export CLICOLOR="auto"
-
+export EDITOR=vim
+export GREP_OPTIONS="--color=auto"
+export HISTCONTROL=ignoreboth
+export HISTCONTROL=ignoredups
+export HISTIGNORE="&:[bf]g:exit"
 export TERM='xterm-256color'
-
-# Tmux/Tmuxinator suff
-# source ~/.bin/tmuxinator.zsh
+# export GREP_COLOR="4;33"

@@ -3,6 +3,7 @@
 	email = jean.uchoa@gmail.com
 
 [alias]
+        a = add
         st = status -sb
         ci = commit
         mci = log --pretty=format:'%ad - %s' --abbrev-commit --author=RoadHouse --date=short

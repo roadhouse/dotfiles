@@ -11,13 +11,13 @@ alias td="tail -f log/development.log"
 alias tt="tail -f log/test.log"
 alias ensuremigrate="rake db:migrate && rake db:rollback && rake db:migrate && rake db:test:prepare"
 alias recreate_all="rake db:drop:all && rake db:create:all && rake db:migrate && rake db:seed && rake db:test:prepare"
-alias bi='bundle install --binstubs=./bin --without=production'
+alias bi='bundle install --binstubs=./bin_stubs --without=production'
 alias gmi='gem install'
 
 bindkey -v
   
-export CDPATH=.:~/code/dinda/:~/code/cinemateca/
-export PATH=./bin:$HOME/bin:$PATH:$HOME/.rvm/bin 
+export CDPATH=.:~/code/
+export PATH=./bin_stubs:$HOME/bin:$PATH:$HOME/.rvm/bin 
 
 export CLICOLOR="auto"
 export EDITOR=vim

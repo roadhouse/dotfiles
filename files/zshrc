@@ -17,7 +17,7 @@ alias gmi='gem install'
 bindkey -v
   
 export CDPATH=.:~/code/
-export PATH=./bin_stubs:$HOME/bin:$PATH:$HOME/.rvm/bin 
+export PATH=./bin_stubs:$HOME/bin:$PATH:$HOME/.rvm/bin:$HOME/.gems/bin/ 
 
 export CLICOLOR="auto"
 export EDITOR=vim
@@ -27,3 +27,5 @@ export HISTCONTROL=ignoredups
 export HISTIGNORE="&:[bf]g:exit"
 export TERM='xterm-256color'
 # export GREP_COLOR="4;33"
+export GEM_HOME=$HOME/.gems
+export GEM_PATH=$HOME/.gems

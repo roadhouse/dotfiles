@@ -20,6 +20,9 @@
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
         plr = pull --rebase
         rebm = rebase master
+        rec = rebase --continue
+        rea = rebase --abort
+        res = rebase --skip
 
 [color]
         ui = auto

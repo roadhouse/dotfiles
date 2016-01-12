@@ -13,12 +13,14 @@ alias ensuremigrate="rake db:migrate && rake db:rollback && rake db:migrate && r
 alias recreate_all="rake db:drop:all && rake db:create:all && rake db:migrate && rake db:seed && rake db:test:prepare"
 alias bi='bundle install --binstubs=./bin_stubs --without=production'
 alias gmi='gem install'
+alias editconfig='vi ~/.zshrc'
+alias rehash='source ~/.zshrc'
 
 bindkey -v
 bindkey "^R" history-incremental-pattern-search-backward
-  
+
 export CDPATH=.:~/code/
-export PATH=./bin_stubs:$HOME/bin:$PATH:$HOME/.rvm/bin:$HOME/.gems/bin/:/usr/local/bin/
+export PATH=~/.gems/bin:./bin_stubs:$HOME/bin:/usr/local/bin:$PATH
 
 export CLICOLOR="auto"
 export EDITOR=vim

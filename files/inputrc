@@ -9,16 +9,27 @@
 #
 "\e[B": history-search-forward
 "\e[A": history-search-backward
- 
+
 $if Bash
   # F10 toggles mc on and off
   # Note Ctrl-o toggles panes on and off in mc
   "\e[21~": "mc\C-M"
- 
+
   #do history expansion when space entered
   Space: magic-space
 $endif
- 
+
 # Include system wide settings which are ignored
 # by default if one has their own .inputrc
 $include /etc/inputrc
+
+set editing-mode vi
+$if mode=vi
+  set keymap vi-command
+  # these are for vi-command mode
+  Control-l: clear-screen
+
+  set keymap vi-insert
+  # these are for vi-insert mode
+  Control-l: clear-screen
+$endif

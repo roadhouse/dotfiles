@@ -39,3 +39,4 @@ export GEM_HOME=$HOME/.gems
 export GEM_PATH=$HOME/.gems
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+

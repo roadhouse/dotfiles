@@ -17,6 +17,7 @@ alias editconfig='vi ~/.zshrc'
 alias rehash='source ~/.zshrc'
 alias biodeploy='google-chrome "https://console.aws.amazon.com/opsworks/home?region=us-east-1#/stack/c069cbd9-0780-4454-82c4-c5bf75bf8df3/deployments/deploy-app/043e06a7-eb7c-4017-8e66-d249d9439253"'
 alias portaldeploy='google-chrome "https://cloud.engineyard.com/app_deployments/96197/environment"'
+alias corporatepassdeploy='google-chrome "https://cloud.engineyard.com/apps/49817/environments"'
 
 ticket() { google-chrome "https://bioritmo.zendesk.com/agent/filters/$1" }
 tnewsession() { tmux new-session -s $1 }

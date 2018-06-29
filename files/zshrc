@@ -8,21 +8,15 @@ alias ls="ls -G"
 alias s="rails s"
 alias c="rails c"
 alias g="git"
-alias td="tail -f log/development.log"
-alias tt="tail -f log/test.log"
-alias ensuremigrate="rake db:migrate && rake db:rollback && rake db:migrate && rake db:test:prepare"
-alias recreate_all="rake db:drop:all && rake db:create:all && rake db:migrate && rake db:seed && rake db:test:prepare"
 alias bi='bundle install --binstubs=./bin_stubs --without=production'
 alias gmi='gem install'
 alias editconfig='vi ~/.zshrc'
 alias rehash='source ~/.zshrc'
-alias biodeploy='google-chrome "https://console.aws.amazon.com/opsworks/home?region=us-east-1#/stack/c069cbd9-0780-4454-82c4-c5bf75bf8df3/deployments/deploy-app/043e06a7-eb7c-4017-8e66-d249d9439253"'
-alias portaldeploy='google-chrome "https://cloud.engineyard.com/app_deployments/96197/environment"'
-alias corporatepassdeploy='google-chrome "https://cloud.engineyard.com/apps/49817/environments"'
-alias smartsystemdeploy='google-chrome "https://cloud.engineyard.com/app_deployments/98715/environment"'
-
-ticket() { google-chrome "https://bioritmo.zendesk.com/agent/filters/$1" }
+alias dc='docker-compose'
+dclean() { sudo docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs sudo docker rm }
+dcr() { docker-compose run $@ }
 tnewsession() { tmux new-session -s $1 }
+
 ta() {
   if [ -z "$1"]; then
     tmux attach
@@ -44,9 +38,8 @@ export HISTCONTROL=ignoreboth
 export HISTCONTROL=ignoredups
 export HISTIGNORE="&:[bf]g:exit"
 export TERM='xterm-256color'
-# export GREP_COLOR="4;33"
+export GREP_COLOR="4;33"
 export GEM_HOME=$HOME/.gems
 export GEM_PATH=$HOME/.gems
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-

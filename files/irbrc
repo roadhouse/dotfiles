@@ -1,14 +1,3 @@
-if defined?(::Bundler)
-  global_gemset = "/Users/RoadHouse/.rvm/gems/ruby-1.9.3-p194"
-  if global_gemset
-    all_global_gem_paths = Dir.glob("#{global_gemset}/gems/*")
-    all_global_gem_paths.each do |p|
-      gem_path = "#{p}/lib"
-      $LOAD_PATH << gem_path
-    end
-  end
-end
-
 begin
   require "pry"
   Pry.start

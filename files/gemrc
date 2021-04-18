@@ -1,11 +1,3 @@
 ---
-:backtrace: false
-:benchmark: false
-:bulk_threshold: 1000
-:sources:
-- http://gems.rubyforge.org/
-- http://gemcutter.org
-#- http://pmo_at_gonow_com_br:96e1135f30@modules.locomotivecms.com
 :update_sources: true
 :verbose: true
-rdoc: --inline-source --line-numbers -f hanna

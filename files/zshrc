@@ -16,7 +16,6 @@ alias dc='docker-compose'
 dclean() { sudo docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs sudo docker rm }
 dcr() { docker-compose run $@ }
 tnewsession() { tmux new-session -s $1 }
-disablecaps() { setxkbmap -option ctrl:nocaps; xmodmap -e "keycode 37=" }
 
 ta() {
   if [ -z "$1"]; then

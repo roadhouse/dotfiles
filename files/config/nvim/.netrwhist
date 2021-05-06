@@ -1,0 +1,11 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/home/jeanuchoa/.gems/bundler/gems/overol-5b5b2e88e4d8'
+let g:netrw_dirhist_8='/home/jeanuchoa/.gems/bundler/gems/overol-4840bc6bbf2d'
+let g:netrw_dirhist_7='/home/jeanuchoa/code/overol/tools/docker'
+let g:netrw_dirhist_6='/home/jeanuchoa/code/overol/tools'
+let g:netrw_dirhist_5='/home/jeanuchoa/code/overol-parsers/lib/parsers/property/BR'
+let g:netrw_dirhist_4='/home/jeanuchoa/code/overol/tools/chatbot'
+let g:netrw_dirhist_3='/home/jeanuchoa/code/overol/tools'
+let g:netrw_dirhist_2='/home/jeanuchoa/code/xml-feed-generator/app'
+let g:netrw_dirhist_1='/home/jeanuchoa/code/reloaded/app/Providers'

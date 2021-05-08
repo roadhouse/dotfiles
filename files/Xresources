@@ -1,5 +1,5 @@
 URxvt.transparent: true
-URxvt.shading: 20
+URxvt.shading: 15
 URxvt.font: xft:monoid:size=9:antialias=true
 URxvt.scrollstyle: plain
 URxvt.scrollBar_right: True

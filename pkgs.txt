@@ -1,0 +1,10 @@
+zsh
+git
+tmux
+i3
+urxvt
+i3status
+rofi
+fonts-font-awesome
+fonts-monoid
+fonts-powerline

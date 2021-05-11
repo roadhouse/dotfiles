@@ -1,5 +1,5 @@
 set $mod Mod4
-font pango:monoid 8
+font pango:monoid bold 7
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 
@@ -19,7 +19,7 @@ bindsym $mod+b exec google-chrome
 # kill focused window
 bindsym $mod+Shift+q kill
 
-bindsym $mod+d exec --no-startup-id "rofi -show-icons -show combi  -combi-modi window,ssh,drun -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
+bindsym $mod+d exec --no-startup-id "rofi -show-icons -show combi  -combi-modi window,ssh,drun,run -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 
 # change focus
@@ -157,8 +157,8 @@ client.background       #F8F8F2
 bar {
         status_command i3status
         position top
-        font pango:FontAwesome 10
-        separator_symbol "  "
+        font pango:fontawesome bold 8
+        separator_symbol "|"
         colors {
           background #282A36
             statusline  #6272A4

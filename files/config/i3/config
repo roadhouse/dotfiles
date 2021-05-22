@@ -2,6 +2,7 @@ set $mod Mod4
 font pango:monoid bold 7
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
+exec --no-startup-id feh --bg-fill ~/code/dotfiles/wallpapers/megaman2.png
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -155,13 +156,13 @@ client.background       #F8F8F2
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+        status_command i3blocks
         position top
-        font pango:fontawesome bold 8
-        separator_symbol "|"
+        font pango:Monoid 8
+        separator_symbol " | "
         colors {
-          background #282A36
-            statusline  #6272A4
+            background #282A36
+            statusline #6272A4
 
             focused_workspace  #44475A #44475A #F8F8F2
             active_workspace   #282A36 #44475A #F8F8F2

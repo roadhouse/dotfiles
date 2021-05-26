@@ -7,3 +7,4 @@ i3status
 rofi
 fonts-font-awesome
 fonts-monoid
+neovim

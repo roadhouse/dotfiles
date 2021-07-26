@@ -9,3 +9,4 @@ fonts-font-awesome
 fonts-monoid
 neovim
 brightnessctl
+python3.9-venv

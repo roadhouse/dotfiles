@@ -3,7 +3,7 @@ git
 tmux
 i3
 urxvt
-i3status
+i3blocks
 rofi
 fonts-font-awesome
 fonts-monoid

@@ -34,7 +34,7 @@ HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.cache/zshhistory
 CLICOLOR="auto"
-EDITOR=vim
+EDITOR=nvim
 GREP_OPTIONS="--color=auto"
 HISTCONTROL=ignoreboth
 HISTCONTROL=ignoredups

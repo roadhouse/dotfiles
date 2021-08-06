@@ -43,13 +43,13 @@ GREP_COLOR="4;33"
 GEM_HOME=$HOME/.gems
 GEM_PATH=$HOME/.gems
 
-source /usr/share/zsh-antigen/antigen.zsh
+source ~/code/dotfiles/zsh/antigen.zsh
 antigen theme romkatv/powerlevel10k
 antigen apply
 
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/code/dotfiles/p10k.zsh
+source ~/code/dotfiles/zsh/p10k.zsh
 
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 NVM_DIR="$HOME/.nvm"

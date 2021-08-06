@@ -1,14 +1,7 @@
 zsh
 git
 tmux
-i3
-urxvt
-i3blocks
-rofi
-fonts-font-awesome
-fonts-monoid
 neovim
-brightnessctl
 python3.9-venv
 zsh-autosuggestions
 zsh-syntax-highlighting

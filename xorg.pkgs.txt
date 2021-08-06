@@ -1,0 +1,7 @@
+i3
+urxvt
+i3blocks
+rofi
+fonts-font-awesome
+fonts-monoid
+brightnessctl

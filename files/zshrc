@@ -5,7 +5,7 @@ alias c="rails c"
 alias g="git"
 alias bi='bundle install --binstubs=./bin_stubs --without=production'
 alias gmi='gem install'
-alias editconfig='vi ~/.zshrc'
+alias editconfig='nvim ~/.zshrc'
 alias rehash='source ~/.zshrc'
 alias dc='docker-compose'
 alias apti='sudo apt-get install'
@@ -23,7 +23,7 @@ ta() {
 
 
 CDPATH=.:~/code/
-PATH=~/.gems/bin:./bin_stubs:$HOME/bin:/usr/local/bin:$HOME/.rvm/bin:~/.local/bin/:/snap/bin/:$PATH
+PATH=$HOME/.gems/bin:./bin_stubs:$HOME/.rvm/bin:$HOME/.local/bin:/usr/local/bin:/snap/bin/:$PATH
 
 setopt appendhistory
 setopt autocd

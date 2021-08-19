@@ -12,7 +12,6 @@ alias apti='sudo apt-get install'
 dclean() { sudo docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs sudo docker rm }
 dcr() { docker-compose run $@ }
 tnewsession() { tmux new-session -s $1 }
-
 ta() {
   if [ -z "$1"]; then
     tmux attach
@@ -21,15 +20,13 @@ ta() {
   fi
 }
 
-
-CDPATH=.:~/code/
-PATH=$HOME/.gems/bin:./bin_stubs:$HOME/.rvm/bin:$HOME/.local/bin:/usr/local/bin:/snap/bin/:$PATH
-
 setopt appendhistory
 setopt autocd
 bindkey -v
 bindkey "^R" history-incremental-pattern-search-backward
 # History in cache directory:
+CDPATH=.:~/code/
+PATH=$HOME/.gems/bin:./bin_stubs:$HOME/.rvm/bin:$HOME/.local/bin:/usr/local/bin:/snap/bin/:$PATH
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.cache/zshhistory

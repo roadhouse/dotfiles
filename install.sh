@@ -25,6 +25,7 @@ download_dotfiles() {
 }
 
 main() {
+  echo "RoadHouse Bootstrap Script"
   export CODE_DIR="$HOME/code/"
 
   install_git

@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
 
+change_shell_to_zsh() {
+  [ -x "$(command -v zsh)" ] && chsh -s $(command -v zsh)
+}
+
 install_group() {
   local group_file_name="$1.pkgs.txt"
   if [ -f $group_file_name ]; then
     info_message "installing pkgs in $group_file_name"
-    xargs -a $group_file_name sudo apt-get install --quiet
+    xargs -a $group_file_name sudo DEBIAN_FRONTEND=noninteractive apt-get -yq install
   else
     error_message "$group_file_name not found"
   fi

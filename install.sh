@@ -2,7 +2,7 @@
 
 install_git() {
   #verify if git is a executable and is in the path, otherwise install
-  [ ! -x "$(command -v git)" ] && sudo apt-get install git || echo "git installed"
+  [ ! -x "$(command -v git)" ] && sudo apt-get -y install git || echo "git installed"
 }
 
 create_code_dir() {
@@ -35,6 +35,7 @@ main() {
   source "helpers.sh"
   install_group "base"
   create_symlinks
+  change_shell_to_zsh
 }
 
 #running setup

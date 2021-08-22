@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 install_git() {
-  #verify if git is a executable and is in the path
+  #verify if git is a executable and is in the path, otherwise install
   [ ! -x "$(command -v git)" ] && sudo apt-get install git || echo "git installed"
 }
-
 
 create_code_dir() {
   if [ ! -d $CODE_DIR ]; then

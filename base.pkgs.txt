@@ -7,3 +7,4 @@ zsh-autosuggestions
 zsh-syntax-highlighting
 zsh-antigen
 bat
+fzf

@@ -1,5 +1,5 @@
 i3
-urxvt
+rxvt-unicode
 i3blocks
 rofi
 fonts-font-awesome

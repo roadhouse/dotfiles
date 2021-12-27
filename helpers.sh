@@ -6,7 +6,13 @@ change_shell_to_zsh() {
 }
 
 install_group() {
-  local group_file_name="$1.pkgs.txt"
+  local os=""
+  if [[ "$1" != "base" ]]; then
+    local os=$(lsb_release -is|tr '[:upper:]' '[:lower:]').
+  fi
+  # local group_file_name="$os$1.pkgs.txt"
+  # echo $group_file_name
+
   if [ -f $group_file_name ]; then
     info_message "installing pkgs in $group_file_name"
     xargs -a $group_file_name sudo DEBIAN_FRONTEND=noninteractive apt-get -yq install

@@ -1,6 +1,6 @@
 URxvt.transparent: true
 URxvt.shading: 15
-URxvt.font: xft:Monoid:style=Regular:size=8:antialias=true
+URxvt.font: xft:Monoid:style=Regular:size=9:antialias=true
 ! URxvt.font: xft:Cascadia Code PL:size=9:antialias=true
 URxvt.scrollstyle: plain
 URxvt.scrollBar_right: True

@@ -1,48 +1,32 @@
-alias t="tmux"
-alias ls="ls -G --color"
-alias g="git"
-alias editconfig='nvim ~/.zshrc'
-alias rehash='source ~/.zshrc'
-alias dc='docker-compose'
-alias apti='sudo apt-get install'
-dclean() { sudo docker ps -a | grep Exit | cut -d ' ' -f 1 | xargs sudo docker rm }
-dcr() { docker-compose run $@ }
-tnewsession() { tmux new-session -s $1 }
-download() { http get $1 --download }
-ta() {
-  if [ -z "$1"]; then
-    tmux attach
-  else
-    tmux attach -t $1
-  fi
-}
-
 _load_scripts_from() {
   for file in $(ls -d "$1/"*); do source $file; done
 }
+
 setopt appendhistory
 setopt autocd
 bindkey -v
 bindkey "^R" history-incremental-pattern-search-backward
+
 CDPATH=.:~/code/
-PATH=$HOME/.local/bin:/usr/local/bin:/snap/bin/:$PATH
-HISTSIZE=10000
-SAVEHIST=10000
-# History in cache directory:
-HISTFILE=~/.cache/zshhistory
 CLICOLOR="auto"
 EDITOR=nvim
+GREP_COLOR="4;33"
 GREP_OPTIONS="--color=auto"
 HISTCONTROL=ignoreboth
-HISTCONTROL=ignoredups
+HISTFILE=~/.cache/zshhistory
+HISTSIZE=10000
+PATH=$HOME/.local/bin:/usr/local/bin:/snap/bin/:$HOME/go/bin:$PATH
+SAVEHIST=10000
 TERM='xterm-256color'
-GREP_COLOR="4;33"
-_load_scripts_from ~/code/dotfiles/zsh/lang
-source ~/code/dotfiles/zsh/antigen.zsh
-antigen bundle 'wfxr/forgit'
-antigen theme romkatv/powerlevel10k
-antigen apply
 
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+source ~/code/dotfiles/zsh/antigen.zsh
+antigen theme romkatv/powerlevel10k
+antigen apply
+
 source ~/code/dotfiles/zsh/p10k.zsh
+
+source ~/code/dotfiles/zsh/machines/$(hostname).sh
+_load_scripts_from ~/code/dotfiles/zsh/lang

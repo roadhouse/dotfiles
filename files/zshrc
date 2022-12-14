@@ -22,9 +22,12 @@ TERM='xterm-256color'
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-source ~/code/dotfiles/zsh/antigen.zsh
-antigen theme romkatv/powerlevel10k
-antigen apply
+source ~/code/zsh-snap/znap.zsh
+znap prompt romkatv/powerlevel10k
+
+# source ~/code/dotfiles/zsh/antigen.zsh
+# antigen theme romkatv/powerlevel10k
+# antigen apply
 
 source ~/code/dotfiles/zsh/p10k.zsh
 

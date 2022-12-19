@@ -14,6 +14,7 @@ main() {
   install_group "base"
   create_symlinks
   change_shell_to_zsh
+  enable_tap_on_touchpad
 }
 
 #running setup

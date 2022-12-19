@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export CODE_DIR="$HOME/code/"
+
 #from here: https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
 say() {
   echo "$@" | sed \
@@ -68,6 +70,9 @@ change_shell_to_zsh() {
   [ -x "$(command -v zsh)" ] && chsh -s $(command -v zsh)
 }
 
-change_shell_to_zsh() {
-  [ -x "$(command -v zsh)" ] && chsh -s $(command -v zsh)
+enable_tap_on_touchpad() {
+  local repo_dir=$CODE_DIR"dotfiles"
+  sudo cp $repo_dir/files/touchpad-tap.conf /etc/X11/xorg.conf.d
+
+  info_message "tap on trackpad enable (restart X required)"
 }

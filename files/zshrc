@@ -19,17 +19,12 @@ PATH=$HOME/.local/bin:/usr/local/bin:/snap/bin/:$HOME/go/bin:$PATH
 SAVEHIST=10000
 TERM='xterm-256color'
 
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 source ~/code/zsh-snap/znap.zsh
 znap prompt romkatv/powerlevel10k
 
-# source ~/code/dotfiles/zsh/antigen.zsh
-# antigen theme romkatv/powerlevel10k
-# antigen apply
-
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/code/dotfiles/zsh/p10k.zsh
-
 source ~/code/dotfiles/zsh/machines/$(hostname).sh
+
 _load_scripts_from ~/code/dotfiles/zsh/lang

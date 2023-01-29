@@ -70,6 +70,15 @@ change_shell_to_zsh() {
   [ -x "$(command -v zsh)" ] && chsh -s $(command -v zsh)
 }
 
+download_zsnap() {
+  local repo_dir=$CODE_DIR"zsh-snap"
+  if [ ! -d $repo_dir ]; then
+    git clone https://github.com/marlonrichert/zsh-snap.git $repo_dir
+  else
+    error_message "zsh-snap dir already exists"
+  fi
+}
+
 enable_tap_on_touchpad() {
   local repo_dir=$CODE_DIR"dotfiles"
   sudo cp $repo_dir/files/touchpad-tap.conf /etc/X11/xorg.conf.d

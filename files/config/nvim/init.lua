@@ -40,17 +40,6 @@ vim.keymap.set('n', '<leader>a', ':keepjumps normal! ggVG<cr>')
 vim.keymap.set({'n', 'x'}, 'cp', '"+y')
 vim.keymap.set({'n', 'x'}, 'cv', '"+p')
 
--- Telescope
-local builtin = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-vim.keymap.set('n', '<leader>fm', builtin.lsp_document_symbols, {})
-
--- UFO (folding)
-vim.keymap.set('n', 'zR', require('ufo').openAllFolds)
-vim.keymap.set('n', 'zM', require('ufo').closeAllFolds)
-
 -- ========================================================================== --
 -- ==                               COMMANDS                               == --
 -- ========================================================================== --
@@ -226,8 +215,20 @@ require'nvim-treesitter.configs'.setup {
 ---
 -- UFO (folding)
 ---
-require('ufo').setup {
+local ufo = require('ufo')
+ufo.setup {
   provider_selector = function(bufnr, filetype, buftype)
     return {'treesitter', 'indent'}
   end
 }
+vim.keymap.set('n', 'zR', ufo.openAllFolds)
+vim.keymap.set('n', 'zM', ufo.closeAllFolds)
+
+---
+-- Telescope
+---
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fm', builtin.lsp_document_symbols, {})

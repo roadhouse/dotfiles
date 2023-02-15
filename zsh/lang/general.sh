@@ -1,12 +1,13 @@
-alias cat="bat"
-alias t="tmux"
-alias ls="ls -G --color"
-alias g="git"
-alias editconfig='nvim ~/.zshrc'
-alias rehash='source ~/.zshrc'
 alias apti='sudo apt-get install'
+alias b='x-www-browser --new-window'
+alias cat="bat"
+alias editconfig='nvim ~/code/dotfiles'
 alias externalkbd='setxkbmap -layout us -variant intl'
+alias g="git"
+alias ls="ls -G --color"
 alias notekbd='setxkbmap -model abnt2 -layout br'
+alias rehash='source ~/.zshrc'
+alias t="tmux"
 tnewsession() { tmux new-session -s $1 }
 download() { http get $1 --download }
 xmldownload() { http get $1 --follow | xmlstarlet fo >> $2 }

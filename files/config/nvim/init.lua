@@ -207,7 +207,7 @@ vim.g.gist_post_private = 1
 -- TreeSitter (syntax tree)
 ---
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = {'ruby', 'lua', 'vim', 'help', 'python'},
+  ensure_installed = {'ruby', 'lua', 'vim', 'help', 'python', 'bash'},
   sync_install = false,
   auto_install = true,
 }
@@ -228,6 +228,7 @@ vim.keymap.set('n', 'zM', ufo.closeAllFolds)
 -- Telescope
 ---
 local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>fh', builtin.current_buffer_fuzzy_find, {})
 vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})

@@ -85,3 +85,18 @@ enable_tap_on_touchpad() {
 
   info_message "tap on trackpad enable (restart X required)"
 }
+
+
+patch_monoid_with_nerdfont() {
+  #local start=$(pwd)
+
+  #cd $CODE_DIR
+  git clone --deepth 1 "https://github.com/ryanoasis/nerd-fonts.git"
+  cd nerd-fonts
+  ./install_sh Monoid
+  sudo cp ~/.local/share/fonts/NerdFonts/* /usr/share/fonts
+  fc-cache -f -v
+  success_message "Monoid patched!!"
+
+  #cd $start
+}

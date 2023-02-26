@@ -70,7 +70,8 @@ local install_plugins = ensure_packer()
 
 require('packer').startup(function(use)
   use {'wbthomason/packer.nvim'}
-  use {'cschlueter/vim-wombat'}
+  use {'nvim-tree/nvim-web-devicons'}
+  use {'folke/tokyonight.nvim'}
   use {'nvim-lualine/lualine.nvim'}
   use {'alvan/vim-closetag'}
   use {'jiangmiao/auto-pairs'}
@@ -80,12 +81,18 @@ require('packer').startup(function(use)
   use {'tpope/vim-surround'}
   use {'dense-analysis/ale'}
   use {'numirias/semshi'}
-  use {'neovim/nvim-lspconfig'}
+  use {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
+}
+  --use {'neovim/nvim-lspconfig'}
   use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
   use {'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim'}
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
   use {'mattn/gist-vim', requires = 'mattn/webapi-vim'}
   use {'L3MON4D3/luasnip', requires = 'rafamadriz/friendly-snippets'}
+  use {'williamboman/mason.nvim'}
   use({
     'hrsh7th/nvim-cmp',
     'saadparwaiz1/cmp_luasnip',
@@ -113,11 +120,11 @@ end
 ---
 -- Colorscheme
 ---
-vim.cmd('colorscheme wombat256')
+vim.cmd('colorscheme tokyonight-moon')
 vim.cmd('highlight Normal ctermbg=NONE guibg=NONE')
 vim.cmd('highlight NonText ctermbg=NONE guibg=NONE')
-
--- ========================================================================== --
+;
+-- ========================================================kk================== --
 -- ==                         PLUGIN CONFIGURATION                         == --
 -- ========================================================================== --
 
@@ -126,7 +133,6 @@ vim.cmd('highlight NonText ctermbg=NONE guibg=NONE')
 ---
 require('lualine').setup({
     options = {
-      icons_enabled = false,
       component_separators = '|',
       section_separators = '',
     },
@@ -178,16 +184,33 @@ cmp.setup({
 require('luasnip.loaders.from_vscode').lazy_load()
 
 ---
+-- Mason
+--
+require('mason').setup()
+require("mason-lspconfig").setup {
+    ensure_installed = { "lua_ls", "bashls", "solargraph", "jedi_language_server" },
+    automatic_installation = true,
+}
+--require("mason-lspconfig").setup_handlers {
+    ---- The first entry (without a key) will be the default handler
+    ---- and will be called for each installed server that doesn't have
+    ---- a dedicated handler.
+    --function (server_name) -- default handler (optional)
+        --require("lspconfig")[server_name].setup {}
+    --end,
+--}
+
+---
 -- language server
 ---
-local servers = {'solargraph', 'jedi_language_server'}
-local lspconfig = require('lspconfig')
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    capabilities = capabilities,
-  }
-end
+--local servers = {'solargraph', 'jedi_language_server', 'bash-language-server'}
+--local lspconfig = require('lspconfig')
+--local capabilities = require('cmp_nvim_lsp').default_capabilities()
+--for _, lsp in ipairs(servers) do
+  --lspconfig[lsp].setup {
+    --capabilities = capabilities,
+  --}
+--end
 
 ---
 -- ALE
@@ -229,7 +252,9 @@ vim.keymap.set('n', 'zM', ufo.closeAllFolds)
 ---
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>fh', builtin.current_buffer_fuzzy_find, {})
-vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>ff', builtin.git_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fm', builtin.lsp_document_symbols, {})
+
+require'nvim-web-devicons'.setup()

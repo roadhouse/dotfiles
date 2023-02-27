@@ -86,13 +86,11 @@ require('packer').startup(function(use)
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
 }
-  --use {'neovim/nvim-lspconfig'}
   use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
   use {'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim'}
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
   use {'mattn/gist-vim', requires = 'mattn/webapi-vim'}
   use {'L3MON4D3/luasnip', requires = 'rafamadriz/friendly-snippets'}
-  use {'williamboman/mason.nvim'}
   use({
     'hrsh7th/nvim-cmp',
     'saadparwaiz1/cmp_luasnip',
@@ -188,29 +186,17 @@ require('luasnip.loaders.from_vscode').lazy_load()
 --
 require('mason').setup()
 require("mason-lspconfig").setup {
-    ensure_installed = { "lua_ls", "bashls", "solargraph", "jedi_language_server" },
+    ensure_installed = { "lua_ls", "bashls", "solargraph" },
     automatic_installation = true,
 }
---require("mason-lspconfig").setup_handlers {
-    ---- The first entry (without a key) will be the default handler
-    ---- and will be called for each installed server that doesn't have
-    ---- a dedicated handler.
-    --function (server_name) -- default handler (optional)
-        --require("lspconfig")[server_name].setup {}
-    --end,
---}
-
----
--- language server
----
---local servers = {'solargraph', 'jedi_language_server', 'bash-language-server'}
---local lspconfig = require('lspconfig')
---local capabilities = require('cmp_nvim_lsp').default_capabilities()
---for _, lsp in ipairs(servers) do
-  --lspconfig[lsp].setup {
-    --capabilities = capabilities,
-  --}
---end
+require("mason-lspconfig").setup_handlers {
+    -- The first entry (without a key) will be the default handler
+    -- and will be called for each installed server that doesn't have
+    -- a dedicated handler.
+    function (server_name) -- default handler (optional)
+        require("lspconfig")[server_name].setup {}
+    end,
+}
 
 ---
 -- ALE

@@ -1,7 +1,3 @@
--- ========================================================================== --
--- ==                               PLUGINS                                == --
--- ========================================================================== --
-
 local function ensure_packer()
   local install_path = vim.fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
@@ -24,25 +20,47 @@ require('packer').startup(function(use)
   use {'wbthomason/packer.nvim'}
   use {'nvim-tree/nvim-web-devicons'}
   use {'folke/tokyonight.nvim'}
-  use {'nvim-lualine/lualine.nvim'}
+  use({
+    'nvim-lualine/lualine.nvim',
+    config = function() require('plugins.lualine') end
+  })
   use {'alvan/vim-closetag'}
   use {'jiangmiao/auto-pairs'}
   use {'mileszs/ack.vim'}
-
   use {'scrooloose/nerdcommenter'}
-  --use {'sheerun/vim-polyglot'}
   use {'tpope/vim-surround'}
-  use {'dense-analysis/ale'}
+  use({
+    'dense-analysis/ale',
+    config = function() require('plugins.ale') end,
+  })
   use {'numirias/semshi'}
-  use {
+  use ({
     "williamboman/mason.nvim",
+    config = function() require('plugins.mason') end,
+  })
+  use ({
     "williamboman/mason-lspconfig.nvim",
-    "neovim/nvim-lspconfig",
-}
-  use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
+    config = function() require('plugins.mason-lspconfig') end,
+  })
+  use ({
+    'neovim/nvim-lspconfig',
+  })
+  use({
+    'kevinhwang91/nvim-ufo',
+    requires = 'kevinhwang91/promise-async',
+    config = function() require('plugins.ufo') end,
+  })
   use {'nvim-telescope/telescope.nvim', requires = 'nvim-lua/plenary.nvim'}
-  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
-  use {'mattn/gist-vim', requires = 'mattn/webapi-vim'}
+  use({
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = function() require('plugins.treesitter') end,
+  })
+  use({
+    'mattn/gist-vim',
+    requires = 'mattn/webapi-vim',
+    config = function() require('plugins.gist') end,
+  })
   use {'L3MON4D3/luasnip', requires = 'rafamadriz/friendly-snippets'}
   use({
     'hrsh7th/nvim-cmp',
@@ -51,6 +69,7 @@ require('packer').startup(function(use)
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-cmdline',
     'hrsh7th/cmp-nvim-lua',
+    config = function() require('plugins.cmp') end,
   })
 
   if install_plugins then

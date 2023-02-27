@@ -91,7 +91,7 @@ patch_monoid_with_nerdfont() {
   #local start=$(pwd)
 
   #cd $CODE_DIR
-  git clone --deepth 1 "https://github.com/ryanoasis/nerd-fonts.git"
+  git clone --depth 1 "https://github.com/ryanoasis/nerd-fonts.git"
   cd nerd-fonts
   ./install_sh Monoid
   sudo cp ~/.local/share/fonts/NerdFonts/* /usr/share/fonts

@@ -70,7 +70,6 @@ require('luasnip.loaders.from_vscode').lazy_load()
 --
 require('mason').setup()
 require("mason-lspconfig").setup {
-    ensure_installed = { "lua_ls", "bashls", "solargraph" },
     automatic_installation = true,
 }
 require("mason-lspconfig").setup_handlers {

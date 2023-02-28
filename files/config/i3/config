@@ -1,10 +1,11 @@
 set $wallpaper ~/code/dotfiles/wallpapers/megaman2.png
 set $mod Mod4
+
 font pango:monoid bold 11
-exec -no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -i $wallpaper
-exec -no-startup-id compton
+
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -i $wallpaper
+exec --no-startup-id compton
 exec --no-startup-id nm-applet
-#exec --no-startup-id feh --bg-fill ~/code/dotfiles/wallpapers/megaman2.png
 exec --no-startup-id feh --bg-fill $wallpaper
 
 # Use pactl to adjust volume in PulseAudio.
@@ -12,7 +13,6 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
-
 # Brightness control
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl -q s +10%
 bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl -q s 10%-
@@ -25,14 +25,13 @@ bindsym $mod+minus scratchpad show
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-bindsym $mod+Return exec urxvt
+bindsym $mod+Return exec alacritty
 bindsym $mod+b exec x-www-browser
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 bindsym $mod+d exec --no-startup-id "rofi -show-icons -show combi  -combi-modi window,ssh,drun,run -run-shell-command '{terminal} -e \\" {cmd}; read -n 1 -s\\"'"
-# There also is the (new) i3-dmenu-desktop which only displays applications
 
 # change focus
 bindsym $mod+j focus left

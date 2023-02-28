@@ -79,12 +79,6 @@ _G.packer_plugins = {
     path = "/home/jeanuchoa/.local/share/nvim/site/pack/packer/start/ack.vim",
     url = "https://github.com/mileszs/ack.vim"
   },
-  ale = {
-    config = { "\27LJ\2\n+\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\16plugins.ale\frequire\0" },
-    loaded = true,
-    path = "/home/jeanuchoa/.local/share/nvim/site/pack/packer/start/ale",
-    url = "https://github.com/dense-analysis/ale"
-  },
   ["auto-pairs"] = {
     loaded = true,
     path = "/home/jeanuchoa/.local/share/nvim/site/pack/packer/start/auto-pairs",

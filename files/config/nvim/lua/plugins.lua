@@ -29,10 +29,6 @@ require('packer').startup(function(use)
   use {'mileszs/ack.vim'}
   use {'scrooloose/nerdcommenter'}
   use {'tpope/vim-surround'}
-  use({
-    'dense-analysis/ale',
-    config = function() require('plugins.ale') end,
-  })
   use {'numirias/semshi'}
   use ({
     "williamboman/mason.nvim",

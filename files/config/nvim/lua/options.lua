@@ -17,3 +17,4 @@ o.scrolloff = 3
 o.shiftwidth = 2
 o.smartcase = true
 o.tabstop = 2
+o.termguicolors = true

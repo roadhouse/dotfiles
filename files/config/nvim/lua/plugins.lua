@@ -26,10 +26,6 @@ require('packer').startup(function(use)
   use {'tpope/vim-surround'}
   use {'numirias/semshi'}
   use {'folke/tokyonight.nvim'}
-  use ({
-    'rcarriga/nvim-notify',
-    config = function() require('plugins.notify') end
-  })
   use({
     'nvim-lualine/lualine.nvim',
     config = function() require('plugins.lualine') end
@@ -79,6 +75,10 @@ require('packer').startup(function(use)
     'hrsh7th/cmp-cmdline',
     'hrsh7th/cmp-nvim-lua',
     config = function() require('plugins.cmp') end,
+  })
+  use ({
+    'rcarriga/nvim-notify',
+    config = function() require('plugins.notify') end
   })
 
   if install_plugins then

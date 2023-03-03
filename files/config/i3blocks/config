@@ -3,7 +3,7 @@ separator_block_width=21
 markup=none
 
 [memory]
-label=MEM
+label=󰍛
 interval=30
 
 [memory]
@@ -12,33 +12,31 @@ instance=swap
 interval=30
 
 [disk]
-label=HOME
+label=
 interval=30
 
 [iface]
-color=#00FF00
+label=󰈀
 interval=10
 
 [cpu_usage]
-label=CPU
+label=󰻠
 interval=10
 
 [battery]
-label=⚡
+label=󱐋
 interval=30
 
 [uptime]
+label=
 command=uptime -p
 interval=3600
 
-
 [time]
+label=
 command=date '+%d-%m-%Y %H:%M:%S'
 interval=5
 
-# [openvpn]
-# interval=20
-
 [temperature]
-label=TEMP
+label=
 interval=10

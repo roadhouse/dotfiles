@@ -86,7 +86,6 @@ enable_tap_on_touchpad() {
   info_message "tap on trackpad enable (restart X required)"
 }
 
-
 patch_monoid_with_nerdfont() {
   #local start=$(pwd)
 
@@ -99,4 +98,17 @@ patch_monoid_with_nerdfont() {
   success_message "Monoid patched!!"
 
   #cd $start
+}
+
+install_nvim_from_github() {
+  local start=$(pwd)
+
+  cd $CODE_DIR
+  git clone --depth 1 "https://github.com/neovim/neovim.git"
+  cd neovim
+  make
+  make install
+  success_message "Neovim installed from Github repo"
+
+  cd $start
 }

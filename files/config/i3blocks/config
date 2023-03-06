@@ -27,11 +27,6 @@ interval=10
 label=󱐋
 interval=30
 
-[uptime]
-label=
-command=uptime -p
-interval=3600
-
 [time]
 label=
 command=date '+%d-%m-%Y %H:%M:%S'

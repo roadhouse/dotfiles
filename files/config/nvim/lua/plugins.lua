@@ -19,13 +19,26 @@ local install_plugins = ensure_packer()
 require('packer').startup(function(use)
   use {'wbthomason/packer.nvim'}
   use {'nvim-tree/nvim-web-devicons'}
+  use {'airblade/vim-rooter'}
+  use({
+    'folke/tokyonight.nvim',
+    'shaunsingh/nord.nvim',
+    'rebelot/kanagawa.nvim',
+    'Mofiqul/dracula.nvim',
+    'jacoborus/tender.vim',
+    "EdenEast/nightfox.nvim",
+  })
+  use { "catppuccin/nvim", as = "catppuccin" }
   use {'alvan/vim-closetag'}
   use {'jiangmiao/auto-pairs'}
   use {'mileszs/ack.vim'}
   use {'scrooloose/nerdcommenter'}
   use {'tpope/vim-surround'}
   use {'numirias/semshi'}
-  use {'folke/tokyonight.nvim'}
+  use({
+    'brenoprata10/nvim-highlight-colors',
+    config = function() require('nvim-highlight-colors').setup() end,
+  })
   use({
     'nvim-lualine/lualine.nvim',
     config = function() require('plugins.lualine') end

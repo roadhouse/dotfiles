@@ -2,12 +2,14 @@
 -- ==                           EDITOR SETTINGS                            == --
 -- ========================================================================== --
 local o = vim.opt
+o.foldenable = true
+o.foldmethod = "expr"
+o.foldexpr = "nvim_treesitter#foldexpr()"
+o.foldlevel = 1
+o.termguicolors = true
 o.colorcolumn = '80'
 o.cursorcolumn = true
 o.expandtab = true
-o.foldenable = true
-o.foldlevel = 99
-o.foldlevelstart = 99
 o.hlsearch = true
 o.ignorecase = true
 o.mouse = 'a'
@@ -17,4 +19,7 @@ o.scrolloff = 3
 o.shiftwidth = 2
 o.smartcase = true
 o.tabstop = 2
-o.termguicolors = true
+
+-- to fix bug on treesitter not display folding, from here:
+-- https://github.com/nvim-telescope/telescope.nvim/issues/699#issuecomment-1159637962
+vim.api.nvim_create_autocmd({ "BufEnter" }, { pattern = { "*" }, command = "normal zx", })

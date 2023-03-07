@@ -59,9 +59,19 @@ require('packer').startup(function(use)
     'folke/trouble.nvim',
   })
   use({
-    'kevinhwang91/nvim-ufo',
-    requires = 'kevinhwang91/promise-async',
-    config = function() require('plugins.ufo') end,
+    'anuvyklack/pretty-fold.nvim',
+    config = function() require('pretty-fold').setup({
+      keep_indentation = false,
+      fill_char = '━',
+      sections = {
+        left = {
+          '━ ', function() return string.rep('*', vim.v.foldlevel) end, ' ━┫', 'content', '┣'
+        },
+        right = {
+          '┫ ', 'number_of_folded_lines', ': ', 'percentage', ' ┣━━',
+        }
+      }
+    }) end,
   })
   use({
     'nvim-telescope/telescope.nvim',

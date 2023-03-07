@@ -10,13 +10,6 @@ vim.keymap.set({'n', 'x'}, 'cp', '"+y')
 vim.keymap.set({'n', 'x'}, 'cv', '"+p')
 
 ---
--- Ufo
----
-local ufo = require('ufo')
-vim.keymap.set('n', 'zR', ufo.openAllFolds)
-vim.keymap.set('n', 'zM', ufo.closeAllFolds)
-
----
 -- Telescope
 ---
 local builtin = require('telescope.builtin')

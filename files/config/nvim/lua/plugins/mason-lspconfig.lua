@@ -1,5 +1,6 @@
 local mason = require('mason-lspconfig')
 local lspconfig = require('lspconfig')
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local langconf = {
   lua_ls = {
@@ -17,7 +18,8 @@ mason.setup({
 mason.setup_handlers({
   function(server)
     lspconfig[server].setup({
-      settings = langconf[server]
+      settings = langconf[server],
+      capabilities = capabilities,
     })
   end,
 })

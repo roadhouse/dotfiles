@@ -27,8 +27,9 @@ require('packer').startup(function(use)
     'Mofiqul/dracula.nvim',
     'jacoborus/tender.vim',
     "EdenEast/nightfox.nvim",
+    { "catppuccin/nvim", as = "catppuccin" },
   })
-  use { "catppuccin/nvim", as = "catppuccin" }
+  --use { "catppuccin/nvim", as = "catppuccin" }
   use {'alvan/vim-closetag'}
   use {'jiangmiao/auto-pairs'}
   use {'mileszs/ack.vim'}
@@ -76,17 +77,17 @@ require('packer').startup(function(use)
     requires = 'mattn/webapi-vim',
     config = function() require('plugins.gist') end,
   })
-  use ({
-    'L3MON4D3/luasnip',
-    requires = 'rafamadriz/friendly-snippets'
-  })
   use({
     'hrsh7th/nvim-cmp',
-    'saadparwaiz1/cmp_luasnip',
-    'hrsh7th/cmp-nvim-lsp',
-    'hrsh7th/cmp-buffer',
-    'hrsh7th/cmp-cmdline',
-    'hrsh7th/cmp-nvim-lua',
+    requires = {
+      'saadparwaiz1/cmp_luasnip',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-cmdline',
+      'hrsh7th/cmp-nvim-lua',
+      'L3MON4D3/luasnip',
+      'rafamadriz/friendly-snippets'
+    },
     config = function() require('plugins.cmp') end,
   })
   use ({

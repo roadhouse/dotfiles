@@ -36,6 +36,10 @@ require('packer').startup(function(use)
   use {'scrooloose/nerdcommenter'}
   use {'tpope/vim-surround'}
   use {'numirias/semshi'}
+  use {
+    'lewis6991/gitsigns.nvim',
+    config = function() require('plugins.gitsigns') end,
+  }
   use({
     'brenoprata10/nvim-highlight-colors',
     config = function() require('nvim-highlight-colors').setup() end,

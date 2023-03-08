@@ -29,7 +29,6 @@ require('packer').startup(function(use)
     "EdenEast/nightfox.nvim",
     { "catppuccin/nvim", as = "catppuccin" },
   })
-  --use { "catppuccin/nvim", as = "catppuccin" }
   use {'alvan/vim-closetag'}
   use {'jiangmiao/auto-pairs'}
   use {'mileszs/ack.vim'}

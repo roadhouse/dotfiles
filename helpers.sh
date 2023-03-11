@@ -106,8 +106,8 @@ install_nvim_from_github() {
   cd $CODE_DIR
   git clone --depth 1 "https://github.com/neovim/neovim.git"
   cd neovim
-  make
-  make install
+  make CMAKE_BUILD_TYPE=RelWithDebInfo
+  sudo make install
   success_message "Neovim installed from Github repo"
 
   cd $start

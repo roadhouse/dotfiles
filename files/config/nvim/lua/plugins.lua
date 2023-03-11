@@ -4,7 +4,7 @@ local function ensure_packer()
   if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
     print('Installing packer...')
     local packer_url = 'https://github.com/wbthomason/packer.nvim'
-    vim.fn.system({'git', 'clone', '--depth', '1', packer_url, install_path})
+    vim.fn.system({ 'git', 'clone', '--depth', '1', packer_url, install_path })
     print('Done.')
 
     vim.cmd('packadd packer.nvim')
@@ -17,9 +17,9 @@ end
 local install_plugins = ensure_packer()
 
 require('packer').startup(function(use)
-  use {'wbthomason/packer.nvim'}
-  use {'nvim-tree/nvim-web-devicons'}
-  use {'airblade/vim-rooter'}
+  use { 'wbthomason/packer.nvim' }
+  use { 'nvim-tree/nvim-web-devicons' }
+  use { 'airblade/vim-rooter' }
   use({
     'folke/tokyonight.nvim',
     'shaunsingh/nord.nvim',
@@ -29,12 +29,12 @@ require('packer').startup(function(use)
     "EdenEast/nightfox.nvim",
     { "catppuccin/nvim", as = "catppuccin" },
   })
-  use {'alvan/vim-closetag'}
-  use {'jiangmiao/auto-pairs'}
-  use {'mileszs/ack.vim'}
-  use {'scrooloose/nerdcommenter'}
-  use {'tpope/vim-surround'}
-  use {'numirias/semshi'}
+  use { 'alvan/vim-closetag' }
+  use { 'jiangmiao/auto-pairs' }
+  use { 'mileszs/ack.vim' }
+  use { 'scrooloose/nerdcommenter' }
+  use { 'tpope/vim-surround' }
+  use { 'numirias/semshi' }
   use {
     'lewis6991/gitsigns.nvim',
     config = function() require('plugins.gitsigns') end,
@@ -47,18 +47,26 @@ require('packer').startup(function(use)
     'nvim-lualine/lualine.nvim',
     config = function() require('plugins.lualine') end
   })
-  use ({
+  use({
     "williamboman/mason.nvim",
     config = function() require('plugins.mason') end,
   })
-  use ({
+  use({
     "williamboman/mason-lspconfig.nvim",
     config = function() require('plugins.mason-lspconfig') end,
   })
-  use ({
+  use({
     'neovim/nvim-lspconfig',
   })
-  use ({
+  use {
+    'mfussenegger/nvim-lint',
+    config = function() require('lint') end,
+  }
+  use { 'mhartington/formatter.nvim' }
+  --use {
+  --"lukas-reineke/lsp-format.nvim",
+  --}
+  use({
     'folke/trouble.nvim',
   })
   use({
@@ -92,7 +100,7 @@ require('packer').startup(function(use)
     },
     config = function() require('plugins.cmp') end,
   })
-  use ({
+  use({
     'rcarriga/nvim-notify',
     config = function() require('plugins.notify') end
   })

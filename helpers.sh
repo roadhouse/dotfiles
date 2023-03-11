@@ -17,9 +17,18 @@ say() {
     -e "s/@b/$(tput bold)/g" \
     -e "s/@u/$(tput sgr 0 1)/g"
 }
-info_message() { say "@b@blue[[[INFO]]]: $@"; }
-error_message() { say "@b@red[[[ERROR]]]: $@"; }
-success_message() { say "@b@green[[[SUCESS]]]: $@"; }
+
+info_message() {
+  say "@b@blue[[[INFO]]]: $*"
+}
+
+error_message() {
+  say "@b@red[[[ERROR]]]: $*"
+}
+
+success_message() {
+  say "@b@green[[[SUCESS]]]: $*"
+}
 
 install_git() {
   #verify if git is a executable and is in the path, otherwise install
@@ -27,9 +36,9 @@ install_git() {
 }
 
 create_code_dir() {
-  if [ ! -d $CODE_DIR ]; then
+  if [ ! -d "$CODE_DIR" ]; then
     info_message "creating code dir"
-    mkdir $CODE_DIR
+    mkdir "$CODE_DIR"
   else
     error_message "code dir already exists"
   fi
@@ -37,7 +46,7 @@ create_code_dir() {
 
 download_dotfiles() {
   local repo_dir=$CODE_DIR"dotfiles"
-  if [ ! -d $repo_dir ]; then
+  if [ ! -d "$repo_dir" ]; then
     git clone https://github.com/roadhouse/dotfiles.git
   else
     error_message "dotfiles dir already exists"
@@ -45,35 +54,35 @@ download_dotfiles() {
 }
 
 install_group() {
-  local os=""
-  if [[ "$1" != "base" ]]; then
-    local os=$(lsb_release -is|tr '[:upper:]' '[:lower:]').
-  fi
-  # local group_file_name="$os$1.pkgs.txt"
-  # echo $group_file_name
+  #local os=""
+  #if [[ "$1" != "base" ]]; then
+    #local os=$(lsb_release -is|tr '[:upper:]' '[:lower:]').
+  #fi
+  local group_file_name="$1.pkgs.txt"
+  echo "$group_file_name"
 
-  if [ -f $group_file_name ]; then
+  if [ -f "$group_file_name" ]; then
     info_message "installing pkgs in $group_file_name"
-    xargs -a $group_file_name sudo DEBIAN_FRONTEND=noninteractive apt-get -yq install
+    xargs -a "$group_file_name" sudo DEBIAN_FRONTEND=noninteractive apt-get -yq install
   else
     error_message "$group_file_name not found"
   fi
 }
 
 create_symlinks() {
-  for i in $(ls files); do
-    ln -s $PWD/files/$i ~/.$i;
+  for i in files/*; do
+    ln -s "$PWD"/files/"$i" ~/."$i";
   done
 }
 
 change_shell_to_zsh() {
-  [ -x "$(command -v zsh)" ] && chsh -s $(command -v zsh)
+  [ -x "$(command -v zsh)" ] && chsh -s "$(command -v zsh)"
 }
 
 download_zsnap() {
   local repo_dir=$CODE_DIR"zsh-snap"
-  if [ ! -d $repo_dir ]; then
-    git clone https://github.com/marlonrichert/zsh-snap.git $repo_dir
+  if [ ! -d "$repo_dir" ]; then
+    git clone https://github.com/marlonrichert/zsh-snap.git "$repo_dir"
   else
     error_message "zsh-snap dir already exists"
   fi
@@ -81,7 +90,7 @@ download_zsnap() {
 
 enable_tap_on_touchpad() {
   local repo_dir=$CODE_DIR"dotfiles"
-  sudo cp $repo_dir/files/touchpad-tap.conf /etc/X11/xorg.conf.d
+  sudo cp "$repo_dir"/files/touchpad-tap.conf /etc/X11/xorg.conf.d
 
   info_message "tap on trackpad enable (restart X required)"
 }
@@ -91,7 +100,7 @@ patch_monoid_with_nerdfont() {
 
   #cd $CODE_DIR
   git clone --depth 1 "https://github.com/ryanoasis/nerd-fonts.git"
-  cd nerd-fonts
+  cd nerd-fonts || exit
   ./install_sh Monoid
   sudo cp ~/.local/share/fonts/NerdFonts/* /usr/share/fonts
   fc-cache -f -v
@@ -101,14 +110,15 @@ patch_monoid_with_nerdfont() {
 }
 
 install_nvim_from_github() {
-  local start=$(pwd)
+  local start
+  start="$(pwd)"
 
-  cd $CODE_DIR
+  cd "$CODE_DIR" || exit
   git clone --depth 1 "https://github.com/neovim/neovim.git"
-  cd neovim
+  cd neovim || exit
   make CMAKE_BUILD_TYPE=RelWithDebInfo
   sudo make install
   success_message "Neovim installed from Github repo"
 
-  cd $start
+  cd "$start" || exit
 }

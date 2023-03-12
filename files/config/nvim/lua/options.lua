@@ -19,6 +19,8 @@ o.scrolloff = 3
 o.shiftwidth = 2
 o.smartcase = true
 o.tabstop = 2
+o.backup = false
+o.writebackup = false
 
 -- to fix bug on treesitter not display folding, from here:
 -- https://github.com/nvim-telescope/telescope.nvim/issues/699#issuecomment-1159637962

@@ -47,7 +47,7 @@ create_code_dir() {
 download_dotfiles() {
   local repo_dir=$CODE_DIR"dotfiles"
   if [ ! -d "$repo_dir" ]; then
-    git clone https://github.com/roadhouse/dotfiles.git
+    git clone --depth 1 https://github.com/roadhouse/dotfiles.git
   else
     error_message "dotfiles dir already exists"
   fi
@@ -82,7 +82,7 @@ change_shell_to_zsh() {
 download_zsnap() {
   local repo_dir=$CODE_DIR"zsh-snap"
   if [ ! -d "$repo_dir" ]; then
-    git clone https://github.com/marlonrichert/zsh-snap.git "$repo_dir"
+    git clone --depth 1 https://github.com/marlonrichert/zsh-snap.git "$repo_dir"
   else
     error_message "zsh-snap dir already exists"
   fi

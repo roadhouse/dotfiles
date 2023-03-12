@@ -60,12 +60,17 @@ require('packer').startup(function(use)
   })
   use {
     'mfussenegger/nvim-lint',
-    config = function() require('lint') end,
+    config = function()
+      require('lint').linters_by_ft = {
+        ruby = { 'rubocop' },
+        lua = { 'luacheck' }
+      }
+    end,
   }
-  use { 'mhartington/formatter.nvim' }
-  --use {
-  --"lukas-reineke/lsp-format.nvim",
-  --}
+  use {
+    'mhartington/formatter.nvim',
+    --config = function () require('formatter') end,
+  }
   use({
     'folke/trouble.nvim',
   })

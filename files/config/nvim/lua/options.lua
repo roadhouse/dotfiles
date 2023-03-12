@@ -1,7 +1,5 @@
--- ========================================================================== --
--- ==                           EDITOR SETTINGS                            == --
--- ========================================================================== --
 local o = vim.opt
+o.autoindent = true
 o.foldenable = true
 o.foldmethod = "expr"
 o.foldexpr = "nvim_treesitter#foldexpr()"

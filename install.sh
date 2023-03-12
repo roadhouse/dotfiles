@@ -8,9 +8,9 @@ main() {
 
   install_git
   create_code_dir
-  cd $CODE_DIR
+  cd "$CODE_DIR" || exit
   download_dotfiles
-  cd "dotfiles"
+  cd "dotfiles" || exit
   install_group "base"
   create_symlinks
   change_shell_to_zsh

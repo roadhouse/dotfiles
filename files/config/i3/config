@@ -1,7 +1,7 @@
 set $wallpaper ~/code/dotfiles/wallpapers/megaman2.png
 set $mod Mod4
 font pango:monoid bold 11
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -i $wallpaper
+exec -no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -i $wallpaper
 exec --no-startup-id nm-applet
 #exec --no-startup-id feh --bg-fill ~/code/dotfiles/wallpapers/megaman2.png
 exec --no-startup-id feh --bg-fill $wallpaper
@@ -18,7 +18,6 @@ bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl -q s 10%-
 
 # Make the currently focused window a scratchpad
 bindsym $mod+Shift+minus move scratchpad
-
 # Show the first scratchpad window
 bindsym $mod+minus scratchpad show
 

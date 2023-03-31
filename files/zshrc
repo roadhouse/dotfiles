@@ -15,7 +15,7 @@ GREP_OPTIONS="--color=auto"
 HISTCONTROL=ignoreboth
 HISTFILE=~/.cache/zshhistory
 HISTSIZE=10000
-PATH=$HOME/.local/bin:/usr/local/bin:/snap/bin/:$HOME/go/bin:$PATH
+PATH=$HOME/.local/bin:/usr/local/go/bin:/usr/local/bin:/snap/bin/:$HOME/go/bin:$PATH
 SAVEHIST=10000
 TERM='tmux-256color'
 

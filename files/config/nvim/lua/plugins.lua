@@ -32,7 +32,7 @@ require('packer').startup(function(use)
   use { 'alvan/vim-closetag' }
   use { 'jiangmiao/auto-pairs' }
   use { 'mileszs/ack.vim' }
-  use { 'scrooloose/nerdcommenter' }
+  use { 'scrooloose/nerdcommenter', config = function() vim.g.NERDSpaceDelims = true; end }
   use { 'tpope/vim-surround' }
   use { 'numirias/semshi' }
   use {
@@ -69,7 +69,6 @@ require('packer').startup(function(use)
   }
   use {
     'mhartington/formatter.nvim',
-    --config = function () require('formatter') end,
   }
   use({
     'folke/trouble.nvim',

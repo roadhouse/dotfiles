@@ -15,7 +15,7 @@ main() {
   create_symlinks
   change_shell_to_zsh
   enable_tap_on_touchpad
-  patch_monoid_with_nerdfont
+  install_monoid_patched_font
 }
 
 #running setup

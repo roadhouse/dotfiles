@@ -57,6 +57,11 @@ schemes:
       magenta: '#bb9af7'
       cyan:    '#0db9d7'
       white:   '#acb0d0'
+
 colors: *tokyo-night
+font:
+  size: 10.0
+  normal:
+    family: Monoid Nerd Font Mono
 window:
   opacity: 0.9

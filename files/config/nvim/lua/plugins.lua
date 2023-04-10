@@ -34,7 +34,6 @@ require('packer').startup(function(use)
   use { 'mileszs/ack.vim' }
   use { 'scrooloose/nerdcommenter', config = function() vim.g.NERDSpaceDelims = true; end }
   use { 'tpope/vim-surround' }
-  use { 'numirias/semshi' }
   use {
     'lewis6991/gitsigns.nvim',
     config = function() require('plugins.gitsigns') end,

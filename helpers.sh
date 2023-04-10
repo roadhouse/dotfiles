@@ -109,6 +109,7 @@ install_nvim_from_github() {
   git clone --depth 1 --branch 'stable' "https://github.com/neovim/neovim.git"
   cd neovim || exit
   make CMAKE_BUILD_TYPE=RelWithDebInfo
+  sudo apt-get install ninja-build gettext libtool-bin cmake g++ pkg-config unzip curl
   sudo make install
   success_message "Neovim installed from Github repo"
 

@@ -14,8 +14,12 @@ main() {
   install_group "base"
   create_symlinks
   change_shell_to_zsh
+  download_zsnap
   enable_tap_on_touchpad
   install_monoid_patched_font
+  install_nvim_from_github
+
+  echo "Finished system configuration"
 }
 
 #running setup

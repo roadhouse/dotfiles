@@ -1,6 +1,7 @@
 !/files/config
 /files/config/*
 !/files/config/autorandr
+!/files/config/alacritty
 !/files/config/i3
 !/files/config/istatus
 !/files/config/nvim

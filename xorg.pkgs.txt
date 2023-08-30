@@ -1,7 +1,8 @@
+alacritty
+blueman
+bpytop
+brightnessctl
 i3
-rxvt-unicode
 i3blocks
 rofi
-fonts-font-awesome
-fonts-monoid
-brightnessctl
+rxvt-unicode

@@ -1,19 +1,9 @@
-Pry.config.editor = "vi"
-
-prompt = "\e[1;30m"
-prompt = ""
-# prompt << "#{Rails.version}@" if defined?(Rails)
-prompt << "#{RUBY_VERSION}"
-Pry.config.prompt = proc {|obj, nest_level, _| "#{prompt} (#{obj})> "}
+Pry.config.editor = "nvim"
 
 Pry.config.exception_handler = proc do |output, exception, _|
   output.puts "\e[31m#{exception.class}: #{exception.message}"
   output.puts "from #{exception.backtrace.first}\e[0m"
 end
-
-# Load plugins (only those I whitelist)
-Pry.config.should_load_plugins = true
-Pry.plugins["doc"].activate!
 
 # Launch Pry with access to the entire Rails stack.
 # If you have Pry in your Gemfile, you can pass: ./script/console --irb=pry instead.
@@ -32,4 +22,13 @@ if File.exist?(rails) && ENV['SKIP_RAILS'].nil?
   else
     warn "[WARN] cannot load Rails console commands (Not on Rails2 or Rails3?)"
   end
+end
+
+def notify_roadhouse(message)
+  Net::HTTP.post_form(
+    URI('https://api.pushover.net/1/messages'),
+    user: 'u9sh4ah5kdmwd5utk5vsszqgwpth1p', 
+    token:'ajhkz4dqk5a3gnkckqi33cjmo7pwu6', 
+    message: message
+  )
 end

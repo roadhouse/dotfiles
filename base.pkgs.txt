@@ -1,7 +1,6 @@
 zsh
 git
 tmux
-neovim
 python3.9-venv
 zsh-autosuggestions
 zsh-syntax-highlighting

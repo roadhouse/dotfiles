@@ -16,6 +16,7 @@ o.relativenumber = true
 o.scrolloff = 3
 o.shiftwidth = 2
 o.smartcase = true
+o.swapfile = false
 o.tabstop = 2
 o.backup = false
 o.writebackup = false

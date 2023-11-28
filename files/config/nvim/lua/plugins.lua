@@ -34,17 +34,26 @@ require('packer').startup(function(use)
   use { 'mileszs/ack.vim' }
   use { 'scrooloose/nerdcommenter', config = function() vim.g.NERDSpaceDelims = true; end }
   use { 'tpope/vim-surround' }
+  use { 'tpope/vim-rbenv' }
+  use { "lukas-reineke/indent-blankline.nvim" }
+  use {
+    'nvim-tree/nvim-tree.lua',
+    config = function() require('nvim-tree').setup() end
+  }
   use {
     'lewis6991/gitsigns.nvim',
     config = function() require('plugins.gitsigns') end,
   }
   use({
     'brenoprata10/nvim-highlight-colors',
-    config = function() require('nvim-highlight-colors').setup() end,
   })
   use({
     'nvim-lualine/lualine.nvim',
     config = function() require('plugins.lualine') end
+  })
+  use({
+    'VonHeikemen/lsp-zero.nvim',
+    config = function() require('lsp-zero').setup() end
   })
   use({
     "williamboman/mason.nvim",

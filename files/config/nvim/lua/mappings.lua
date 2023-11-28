@@ -20,7 +20,16 @@ vim.keymap.set('n', '<leader>ff', builtin.git_files, {})
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fm', builtin.lsp_document_symbols, {})
+-- vim.keymap.set('n', '<leader>fr', builtin.lsp_document_symbols, {})
+vim.keymap.set('n', '<leader>fr', builtin.lsp_references, {})
+vim.keymap.set('n', '<leader>fd', builtin.lsp_definitions, {})
+
+-- Trouble
 vim.keymap.set('n', '<leader>ft', ':TroubleToggle<cr>', {})
+
+-- NvimTree
+vim.keymap.set('n', '<leader>t', ':NvimTreeToggle<cr>', {})
+vim.keymap.set('n', '<leader>st', ':NvimTreeFindFile<cr>', {})
 
 -- Alias
 vim.cmd("ab pry require 'pry'; binding.pry;")

@@ -1,5 +1,17 @@
 -- Comma as leader key
-vim.g.mapleader = ','
+-- vim.g.mapleader = ','
+vim.keymap.set("n", " ", "<Nop>", { silent = true, remap = false })
+vim.g.mapleader = " "
+
+local hush = { silent = true }
+
+vim.keymap.set("v", "<return>", ":fold<CR>", hush)
+vim.keymap.set("n", "<return>", "za", hush)
+
+vim.keymap.set('n', '<DOWN>', '<C-W><C-J>')
+vim.keymap.set('n', '<UP>', '<C-W><C-K>')
+vim.keymap.set('n', '<RIGHT>', '<C-W><C-L>')
+vim.keymap.set('n', '<LEFT>', '<C-W><C-H>')
 
 -- Activate command mode using ';' (less typing)
 vim.keymap.set('n', ';', ':',{})

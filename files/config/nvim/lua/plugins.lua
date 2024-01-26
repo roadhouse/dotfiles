@@ -35,7 +35,7 @@ require('packer').startup(function(use)
   use { 'scrooloose/nerdcommenter', config = function() vim.g.NERDSpaceDelims = true; end }
   use { 'tpope/vim-surround' }
   use { 'tpope/vim-rbenv' }
-  use { "lukas-reineke/indent-blankline.nvim" }
+  use { "lukas-reineke/indent-blankline.nvim", config = function() require("ibl").setup() end }
   use {
     'nvim-tree/nvim-tree.lua',
     config = function() require('nvim-tree').setup() end
@@ -121,6 +121,10 @@ require('packer').startup(function(use)
   use({
     'rcarriga/nvim-notify',
     config = function() require('plugins.notify') end
+  })
+
+  use({
+   'wakatime/vim-wakatime',
   })
 
   if install_plugins then

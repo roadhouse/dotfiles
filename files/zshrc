@@ -5,7 +5,10 @@ _load_scripts_from() {
 setopt appendhistory
 setopt autocd
 bindkey -v
+# CTRL+R activate search history
 bindkey "^R" history-incremental-pattern-search-backward
+# TAB TAB accept autosuggest
+bindkey '^I^I' autosuggest-accept
 
 CDPATH=.:~/code/
 CLICOLOR="auto"

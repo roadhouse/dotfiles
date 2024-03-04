@@ -63,7 +63,7 @@ install_group() {
 
   if [ -f "$group_file_name" ]; then
     info_message "installing pkgs in $group_file_name"
-    xargs -a "$group_file_name" sudo DEBIAN_FRONTEND=noninteractive apt-get -yq install
+    xargs -a "$group_file_name" sudo DEBIAN_FRONTEND=noninteractive apt-get -yqq install
   else
     error_message "$group_file_name not found"
   fi
@@ -71,7 +71,7 @@ install_group() {
 
 create_symlinks() {
   for i in files/*; do
-    ln -s "$PWD"/files/"$i" ~/."$i";
+    ln -s "$i" ~/."$(basename $i)";
   done
 }
 

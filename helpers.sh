@@ -72,6 +72,7 @@ install_group() {
 create_symlinks() {
   for i in files/*; do
     ln -s "$i" ~/."$(basename $i)";
+    info_message "link to $i created"
   done
 }
 
@@ -96,7 +97,7 @@ enable_tap_on_touchpad() {
 }
 
 install_monoid_patched_font() {
-  sudo http 'https://github.com/ryanoasis/nerd-fonts/raw/v2.3.3/patched-fonts/Monoid/Regular/complete/Monoid%20Regular%20Nerd%20Font%20Complete%20Mono.ttf' --download --output /usr/share/fonts/Monoid-Regular-Nerd-Font-Complete-Mono.ttf
+  sudo wget 'https://github.com/ryanoasis/nerd-fonts/raw/v2.3.3/patched-fonts/Monoid/Regular/complete/Monoid%20Regular%20Nerd%20Font%20Complete%20Mono.ttf'
   fc-cache -f -v
   success_message "Monoid patched!!"
 }

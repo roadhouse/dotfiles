@@ -1,9 +1,31 @@
 #!/usr/bin/env bash
 
-source 'helpers.sh'
+install_git() {
+  #verify if git is a executable and is in the path, otherwise install
+  [ ! -x "$(command -v git)" ] && sudo apt-get -y install git || echo "git installed"
+}
+
+create_code_dir() {
+  if [ ! -d "$CODE_DIR" ]; then
+    echo "creating code dir"
+    mkdir "$CODE_DIR"
+  else
+    echo "code dir already exists"
+  fi
+}
+
+download_dotfiles() {
+  local repo_dir=$CODE_DIR"dotfiles"
+  if [ ! -d "$repo_dir" ]; then
+    git clone --depth 1 https://github.com/roadhouse/dotfiles.git
+  else
+    echo "dotfiles dir already exists"
+  fi
+}
 
 main() {
   echo "RoadHouse Bootstrap Script"
+
   export CODE_DIR="$HOME/code/"
 
   install_git
@@ -11,6 +33,7 @@ main() {
   cd "$CODE_DIR" || exit
   download_dotfiles
   cd "dotfiles" || exit
+  source 'helpers.sh'
   install_group "base"
   create_symlinks
   change_shell_to_zsh

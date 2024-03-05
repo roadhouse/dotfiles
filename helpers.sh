@@ -70,8 +70,9 @@ install_group() {
 }
 
 create_symlinks() {
+  local repo_dir=$CODE_DIR"dotfiles/"
   for i in files/*; do
-    ln -s "$i" ~/."$(basename $i)";
+    ln -s "$repo_dir$i" ~/."$(basename $i)";
     info_message "link to $i created"
   done
 }

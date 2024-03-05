@@ -97,7 +97,7 @@ enable_tap_on_touchpad() {
 }
 
 install_monoid_patched_font() {
-  sudo wget 'https://github.com/ryanoasis/nerd-fonts/raw/v2.3.3/patched-fonts/Monoid/Regular/complete/Monoid%20Regular%20Nerd%20Font%20Complete%20Mono.ttf'
+  sudo wget 'https://github.com/ryanoasis/nerd-fonts/raw/v2.3.3/patched-fonts/Monoid/Regular/complete/Monoid%20Regular%20Nerd%20Font%20Complete%20Mono.ttf' -o /usr/share/fonts/Monoid-Regular-Nerd-Font-Complete-Mono.ttf
   fc-cache -f -v
   success_message "Monoid patched!!"
 }

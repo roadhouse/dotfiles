@@ -28,6 +28,8 @@ main() {
 
   export CODE_DIR="$HOME/code/"
 
+  sudo apt-get update
+
   install_git
   create_code_dir
   cd "$CODE_DIR" || exit

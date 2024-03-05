@@ -47,12 +47,6 @@ require('packer').startup(function(use)
   use({
     'brenoprata10/nvim-highlight-colors',
   })
-  local lsp = require('lsp-zero').preset({})
-  lsp.on_attach(function(client, bufnr)
-    lsp.default_keymaps({buffer = bufnr})
-  end)
-  lsp.setup()
-
   use({
     'nvim-lualine/lualine.nvim',
     config = function() require('plugins.lualine') end
@@ -61,6 +55,12 @@ require('packer').startup(function(use)
     'VonHeikemen/lsp-zero.nvim',
     config = function() require('lsp-zero').setup() end
   })
+  local lsp = require('lsp-zero').preset({})
+  lsp.on_attach(function(client, bufnr)
+    lsp.default_keymaps({buffer = bufnr})
+  end)
+  lsp.setup()
+
   use({
     "williamboman/mason.nvim",
     config = function() require('plugins.mason') end,

@@ -107,7 +107,7 @@ install_nvim_from_github() {
   start="$(pwd)"
 
   cd "$CODE_DIR" || exit
-  sudo apt-get install ninja-build gettext libtool-bin cmake g++ pkg-config unzip curl
+  sudo DEBIAN_FRONTEND=noninteractive apt-get -yqq install ninja-build gettext libtool-bin cmake g++ pkg-config unzip curl
   git clone --depth 1 --branch 'stable' "https://github.com/neovim/neovim.git"
   cd neovim || exit
   make CMAKE_BUILD_TYPE=RelWithDebInfo

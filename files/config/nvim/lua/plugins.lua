@@ -53,14 +53,8 @@ require('packer').startup(function(use)
   })
   use({
     'VonHeikemen/lsp-zero.nvim',
-    config = function() require('lsp-zero').setup() end
+    config = function() require('plugins.lsp-zero') end
   })
-  local lsp = require('lsp-zero').preset({})
-  lsp.on_attach(function(client, bufnr)
-    lsp.default_keymaps({buffer = bufnr})
-  end)
-  lsp.setup()
-
   use({
     "williamboman/mason.nvim",
     config = function() require('plugins.mason') end,

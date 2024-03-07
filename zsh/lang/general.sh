@@ -5,17 +5,23 @@ alias editconfig='nvim ~/code/dotfiles'
 alias externalkbd='setxkbmap -layout us -variant intl'
 alias g="git"
 alias ls="ls -G --color"
+alias n='nvim'
 alias notekbd='setxkbmap -model abnt2 -layout br'
 alias rehash='source ~/.zshrc'
 alias t="tmux"
-tnewsession() { tmux new-session -s $1 }
-download() { http get $1 --download }
-xmldownload() { http get $1 --follow | xmlstarlet fo >> $2 }
+alias tns='tmux new-session -s'
+
 ta() { [ -z "$1"] && tmux attach || tmux attach -t $1 }
+
 notify() {
   local url="https://api.pushover.net/1/messages"
   local user="u9sh4ah5kdmwd5utk5vsszqgwpth1p"
   local token="ajhkz4dqk5a3gnkckqi33cjmo7pwu6"
 
   http post $url user=$user token=$token message=$*
+}
+
+expose-http-server() {
+  python3 -m http.server&
+  ngrok http 8000
 }

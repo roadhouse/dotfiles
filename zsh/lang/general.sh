@@ -9,7 +9,12 @@ alias n='nvim'
 alias notekbd='setxkbmap -model abnt2 -layout br'
 alias rehash='source ~/.zshrc'
 alias t="tmux"
-alias tns='tmux new-session -s'
+
+tns() {
+  selected=$(find ~/code/ -mindepth 1 -maxdepth 1 -type d | fzf)
+  selected_name=$(basename "$selected")
+  tmux new-session -s $selected_name -c $selected
+}
 
 ta() { [ -z "$1"] && tmux attach || tmux attach -t $1 }
 

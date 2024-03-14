@@ -17,8 +17,9 @@ end
 local install_plugins = ensure_packer()
 
 require('packer').startup(function(use)
-  use { 'tpope/vim-fugitive' }
   use { 'wbthomason/packer.nvim' }
+  use { 'akinsho/toggleterm.nvim', config = function() require('toggleterm').setup(); end }
+  use { 'tpope/vim-fugitive' }
   use { 'nvim-tree/nvim-web-devicons' }
   use { 'airblade/vim-rooter' }
   use({
@@ -27,8 +28,8 @@ require('packer').startup(function(use)
     'rebelot/kanagawa.nvim',
     'Mofiqul/dracula.nvim',
     'jacoborus/tender.vim',
-    "EdenEast/nightfox.nvim",
-    { "catppuccin/nvim", as = "catppuccin" },
+    'EdenEast/nightfox.nvim',
+    { 'catppuccin/nvim', as = 'catppuccin' },
   })
   use { 'alvan/vim-closetag' }
   use { 'jiangmiao/auto-pairs' }
@@ -36,7 +37,7 @@ require('packer').startup(function(use)
   use { 'scrooloose/nerdcommenter', config = function() vim.g.NERDSpaceDelims = true; end }
   use { 'tpope/vim-surround' }
   use { 'tpope/vim-rbenv' }
-  use { "lukas-reineke/indent-blankline.nvim", config = function() require("ibl").setup() end }
+  use { 'lukas-reineke/indent-blankline.nvim', config = function() require('ibl').setup() end }
   use {
     'nvim-tree/nvim-tree.lua',
     config = function() require('nvim-tree').setup() end
@@ -57,12 +58,11 @@ require('packer').startup(function(use)
     config = function() require('plugins.lsp-zero') end
   })
   use({
-    "williamboman/mason.nvim",
+    'williamboman/mason.nvim',
     config = function() require('plugins.mason') end,
   })
   use({
-    "williamboman/mason-lspconfig.nvim",
-    config = function() require('plugins.mason-lspconfig') end,
+    'williamboman/mason-lspconfig.nvim', config = function() require('plugins.mason-lspconfig') end,
   })
   use({
     'neovim/nvim-lspconfig',
@@ -93,7 +93,7 @@ require('packer').startup(function(use)
   use({
     'nvim-treesitter/nvim-treesitter',
     requires = {
-      "nvim-treesitter/nvim-treesitter-textobjects"
+      'nvim-treesitter/nvim-treesitter-textobjects'
     },
     run = ':TSUpdate',
     config = function() require('plugins.treesitter') end,

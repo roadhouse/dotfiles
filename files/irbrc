@@ -1,10 +1,12 @@
 begin
   require "pry"
   Pry.start
+  Pry.config.editor = proc { |file, line| "nvim +#{line} #{file}" }
   exit
 rescue LoadError => e
   warn "=> Unable to load pry"
 end
+
 
 def notify_roadhouse(message)
   Net::HTTP.post-form(

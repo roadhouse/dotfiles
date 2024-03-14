@@ -58,6 +58,7 @@
 
 [push]
         default = tracking
+	autoSetupRemote = true
 
 [help]
         autocorrect = 1

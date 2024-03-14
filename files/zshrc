@@ -26,8 +26,8 @@ TERM='tmux-256color'
 source ~/code/powerlevel10k/powerlevel10k.zsh-theme
 source ~/code/dotfiles/zsh/p10k.zsh
 
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 [ -f ~/code/dotfiles/zsh/machines/$(hostname).sh ] && source ~/code/dotfiles/zsh/machines/$(hostname).sh
 

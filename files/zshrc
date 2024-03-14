@@ -18,16 +18,17 @@ GREP_OPTIONS="--color=auto"
 HISTCONTROL=ignoreboth
 HISTFILE=~/.cache/zshhistory
 HISTSIZE=10000
-PATH=$HOME/.local/bin:/usr/local/go/bin:/usr/local/bin:/snap/bin/:$HOME/go/bin:$PATH
+PATH=$HOME/.local/bin:/usr/local/bin:/snap/bin/:$PATH
 SAVEHIST=10000
 TERM='tmux-256color'
 
-source ~/code/zsh-snap/znap.zsh
-znap prompt romkatv/powerlevel10k
+# configure prompt
+source ~/code/powerlevel10k/powerlevel10k.zsh-theme
+source ~/code/dotfiles/zsh/p10k.zsh
 
 source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/code/dotfiles/zsh/p10k.zsh
+
 [ -f ~/code/dotfiles/zsh/machines/$(hostname).sh ] && source ~/code/dotfiles/zsh/machines/$(hostname).sh
 
 _load_scripts_from ~/code/dotfiles/zsh/lang

@@ -17,6 +17,7 @@ end
 local install_plugins = ensure_packer()
 
 require('packer').startup(function(use)
+  use { 'tpope/vim-fugitive' }
   use { 'wbthomason/packer.nvim' }
   use { 'nvim-tree/nvim-web-devicons' }
   use { 'airblade/vim-rooter' }

@@ -81,12 +81,12 @@ change_shell_to_zsh() {
   [ -x "$(command -v zsh)" ] && chsh -s "$(command -v zsh)"
 }
 
-download_zsnap() {
-  local repo_dir=$CODE_DIR"zsh-snap"
+download_powerlevel10k() {
+  local repo_dir=$CODE_DIR"powerlevel10k"
   if [ ! -d "$repo_dir" ]; then
-    git clone --depth 1 https://github.com/marlonrichert/zsh-snap.git "$repo_dir"
+    git clone --depth 1 https://github.com/romkatv/powerlevel10k.git "$repo_dir"
   else
-    error_message "zsh-snap dir already exists"
+    error_message "powerlevel10k dir already exists"
   fi
 }
 

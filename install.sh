@@ -28,18 +28,18 @@ main() {
 
   export CODE_DIR="$HOME/code/"
 
-  sudo apt-get update
+  sudo apt-get -q update
 
   install_git
   create_code_dir
   cd "$CODE_DIR" || exit
   download_dotfiles
   cd "dotfiles" || exit
-  source 'helpers.sh'
+  source "helpers.sh"
   install_group "base"
   create_symlinks
   change_shell_to_zsh
-  download_zsnap
+  download_powerlevel10k
   enable_tap_on_touchpad
   install_monoid_patched_font
   install_nvim_from_github

@@ -38,9 +38,8 @@ vim.keymap.set('n', '<leader>fd', ':Telescope lsp_definitions<cr>', {})
 -- Trouble
 vim.keymap.set('n', '<leader>ft', ':TroubleToggle<cr>', {})
 
--- NvimTree
-vim.keymap.set('n', '<leader>t', ':NvimTreeToggle<cr>', {})
-vim.keymap.set('n', '<leader>st', ':NvimTreeFindFile<cr>', {})
+-- ToggleTerm
+vim.keymap.set('n', '<leader>t', ':ToggleTerm direction=float<cr>', {})
 
 -- Alias
 vim.cmd("ab pry require 'pry'; binding.pry;")

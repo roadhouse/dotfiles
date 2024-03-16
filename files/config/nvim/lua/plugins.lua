@@ -14,11 +14,21 @@ local function ensure_packer()
   return false
 end
 
+
 local install_plugins = ensure_packer()
 
 require('packer').startup(function(use)
   use { 'wbthomason/packer.nvim' }
   use { 'akinsho/toggleterm.nvim', config = function() require('toggleterm').setup(); end }
+  use {
+    'Exafunction/codeium.vim',
+    config = function ()
+    vim.keymap.set('i', '<C-g>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+    vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true, silent = true })
+    vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true, silent = true })
+    vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
+  end
+  }
   use { 'tpope/vim-fugitive' }
   use { 'nvim-tree/nvim-web-devicons' }
   use { 'airblade/vim-rooter' }

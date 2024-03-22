@@ -32,15 +32,7 @@ require('packer').startup(function(use)
   use { 'tpope/vim-fugitive' }
   use { 'nvim-tree/nvim-web-devicons' }
   use { 'airblade/vim-rooter' }
-  use({
-    'folke/tokyonight.nvim',
-    'shaunsingh/nord.nvim',
-    'rebelot/kanagawa.nvim',
-    'Mofiqul/dracula.nvim',
-    'jacoborus/tender.vim',
-    'EdenEast/nightfox.nvim',
-    { 'catppuccin/nvim', as = 'catppuccin' },
-  })
+  use { 'folke/tokyonight.nvim' }
   use { 'alvan/vim-closetag' }
   use { 'jiangmiao/auto-pairs' }
   use { 'mileszs/ack.vim' }

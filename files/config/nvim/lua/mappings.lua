@@ -27,8 +27,8 @@ vim.keymap.set('n','<leader>l', ':e#<cr>')
 vim.keymap.set('n', '<leader>a', ':keepjumps normal! ggVG<cr>')
 
 -- Basic clipboard interaction
-vim.keymap.set({'n', 'x'}, 'cp', '"+y')
-vim.keymap.set({'n', 'x'}, 'cv', '"+p')
+vim.keymap.set({'n', 'x'}, 'cv', '"+y')
+vim.keymap.set({'n', 'x'}, 'cp', '"+p')
 
 -- Telescope
 vim.keymap.set('n', '<leader>fh', ':Telescope current_buffer_fuzzy_find<cr>', {})

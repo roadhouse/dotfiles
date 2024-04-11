@@ -24,9 +24,9 @@ require('packer').startup(function(use)
     'Exafunction/codeium.vim',
     config = function ()
     vim.keymap.set('i', '<C-g>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
-    vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true, silent = true })
-    vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true, silent = true })
-    vim.keymap.set('i', '<c-x>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
+    vim.keymap.set('i', '<C-i>', function() return vim.fn['codeium#CycleCompletions'](1) end, { expr = true, silent = true })
+    vim.keymap.set('i', '<C-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end, { expr = true, silent = true })
+    vim.keymap.set('i', '<C-x>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
   end
   }
   use { 'tpope/vim-fugitive' }
@@ -74,7 +74,8 @@ require('packer').startup(function(use)
     config = function()
       require('lint').linters_by_ft = {
         ruby = { 'rubocop' },
-        lua = { 'luacheck' }
+        lua = { 'luacheck' },
+        go = { 'golangci-lint' },
       }
     end,
   }
@@ -122,9 +123,12 @@ require('packer').startup(function(use)
     'rcarriga/nvim-notify',
     config = function() require('plugins.notify') end
   })
-
   use({
    'wakatime/vim-wakatime',
+  })
+
+  use({
+   'fatih/vim-go',
   })
 
   if install_plugins then

@@ -7,9 +7,7 @@ local hush = { silent = true }
 vim.keymap.set("v", "<return>", ":fold<CR>", hush)
 vim.keymap.set("n", "<return>", "zA", hush)
 
--- Ctrl-j/k deletes blank line below/above, and Alt-j/k inserts.
--- vim.keymap.set('n', '<C-j>', 'm`:silent +g/\m^\s*$/d<CR>``:noh<CR>')
--- vim.keymap.set('n', '<C-k>', 'm`:silent -g/\m^\s*$/d<CR>``:noh<CR>')
+-- Alt-j/k inserts blank line below/above
 vim.keymap.set('n', '<A-j>', ':set paste<CR>m`o<Esc>``:set nopaste<CR>')
 vim.keymap.set('n', '<A-k>', ':set paste<CR>m`O<Esc>``:set nopaste<CR>')
 

@@ -1,9 +1,20 @@
-_load_scripts_from() {
-  for file in $(ls -d "$1/"*); do source $file; done
-}
-
+# history config, sharing across sessions
+HISTCONTROL=ignoreboth
+HISTDUP=erase
+HISTFILE=~/.cache/zshhistory
+HISTSIZE=10000
+SAVEHIST=$HISTSIZE
 setopt appendhistory
+setopt hist_find_no_dups
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_save_no_dups
+setopt sharehistory
+
 setopt autocd
+
+# Vim mode
 bindkey -v
 # CTRL+R activate search history
 bindkey "^R" history-incremental-pattern-search-backward
@@ -15,20 +26,17 @@ CLICOLOR="auto"
 EDITOR=nvim
 GREP_COLOR="4;33"
 GREP_OPTIONS="--color=auto"
-HISTCONTROL=ignoreboth
-HISTFILE=~/.cache/zshhistory
-HISTSIZE=10000
 PATH=$HOME/.local/bin:/usr/local/bin:/snap/bin/:$PATH
-SAVEHIST=10000
 TERM='tmux-256color'
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 
 # configure prompt
 source ~/code/powerlevel10k/powerlevel10k.zsh-theme
 source ~/code/dotfiles/zsh/p10k.zsh
 
-[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ] && source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ] && source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 [ -f ~/code/dotfiles/zsh/machines/$(hostname).sh ] && source ~/code/dotfiles/zsh/machines/$(hostname).sh
 
-_load_scripts_from ~/code/dotfiles/zsh/lang
+for file in $(ls -d ~/code/dotfiles/zsh/lang/*); do source $file; done

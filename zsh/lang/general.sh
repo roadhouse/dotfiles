@@ -31,6 +31,9 @@ urlngrok() {
 }
 
 expose-http-server() {
-  python3 -m http.server&
-  ngrok http 8000
+  tmux new-session -d -s MySession -n Shell1 -d "/usr/bin/env sh -c \"go run ~/code/dotfiles/zsh/server.go -port 8081\"; /usr/bin/env sh -i"
+  tmux split-window -t MySession:1 "/usr/bin/env sh -c \"ngrok http 8081\"; /usr/bin/env sh -i"
+  sleep 1
+  urlngrok | pbcopy
+  urlngrok
 }

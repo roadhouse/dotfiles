@@ -26,6 +26,10 @@ notify() {
   http post $url user=$user token=$token message=$*
 }
 
+urlngrok() {
+  curl --silent --show-error http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url'
+}
+
 expose-http-server() {
   python3 -m http.server&
   ngrok http 8000

@@ -31,8 +31,12 @@ urlngrok() {
 }
 
 expose-http-server() {
-  tmux new-session -d -s MySession -n Shell1 -d "/usr/bin/env sh -c \"go run ~/code/dotfiles/zsh/server.go -port 8081\"; /usr/bin/env sh -i"
-  tmux split-window -t MySession:1 "/usr/bin/env sh -c \"ngrok http 8081\"; /usr/bin/env sh -i"
+  local sessionName="http-server"
+  local startHtppServer="/usr/bin/env sh -c \"go run ~/code/dotfiles/zsh/server.go -port 8081\"; /usr/bin/env sh -i"
+  local startNgrok="/usr/bin/env sh -c \"ngrok http 8081\"; /usr/bin/env sh -i"
+
+  tmux new-session -d -s $sessionName -n Shell1 -d $startHtppServer
+  tmux split-window -t $sessionName:1 $startNgrok
   sleep 1
   urlngrok | pbcopy
   urlngrok

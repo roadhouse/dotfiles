@@ -1,14 +1,17 @@
 alias apti='sudo apt-get install'
 alias b='x-www-browser --new-window'
-alias cat="bat"
+alias cat="batcat"
 alias editconfig='nvim ~/code/dotfiles'
 alias externalkbd='setxkbmap -layout us -variant intl'
 alias g="git"
 alias ls="ls -G --color"
 alias n='nvim'
 alias notekbd='setxkbmap -model abnt2 -layout br'
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
 alias rehash='source ~/.zshrc'
 alias t="tmux"
+
 
 tns() {
   selected=$(find ~/code/ -mindepth 1 -maxdepth 1 -type d | fzf)
@@ -37,7 +40,7 @@ expose-http-server() {
 
   tmux new-session -d -s $sessionName -n Shell1 -d $startHtppServer
   tmux split-window -t $sessionName:1 $startNgrok
-  sleep 1
+  sleep 2
   urlngrok | pbcopy
   urlngrok
 }

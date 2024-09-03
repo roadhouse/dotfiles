@@ -7,3 +7,5 @@ zsh-syntax-highlighting
 zsh-antigen
 bat
 fzf
+xclip
+jq

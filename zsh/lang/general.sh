@@ -19,7 +19,7 @@ tns() {
   tmux new-session -s $selected_name -c $selected
 }
 
-ta() { [ -z "$1"] && tmux attach || tmux attach -t $1 }
+ta() { [ -z "$1" ] && tmux attach || tmux attach -t $1 }
 
 notify() {
   local url="https://api.pushover.net/1/messages"

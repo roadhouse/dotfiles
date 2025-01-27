@@ -12,7 +12,6 @@ alias pbpaste='xclip -selection clipboard -o'
 alias rehash='source ~/.zshrc'
 alias t="tmux"
 
-
 tns() {
   selected=$(find ~/code/ -mindepth 1 -maxdepth 1 -type d | fzf)
   selected_name=$(basename "$selected")
@@ -41,8 +40,11 @@ expose-http-server() {
   tmux new-session -d -s $sessionName -n Ngrok-HTPPServer $startNgrok
   tmux split-window -t $sessionName:1 $startHtppServer
   sleep 2
-  urlngrok | pbcopy
-  urlngrok
+
+  local urlngrok=$(urlngrok)
+  echo $urlngrok | pbcopy
+  echo "host: $urlngrok"
+  echo "usage: curl -X POST $urlngrok/upload -F 'file=@path-to-file'"
 }
 
 http-server() {

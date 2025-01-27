@@ -1,9 +1,20 @@
-# history config, sharing across sessions
+# General config
+CDPATH=.:~/code/
+CLICOLOR="auto"
+EDITOR=nvim
+GREP_COLOR="4;33"
+GREP_OPTIONS="--color=auto"
+PATH=$HOME/.local/bin:/usr/local/bin:/snap/bin/:$PATH
+TERM='tmux-256color'
+setopt autocd
+
+# History config, sharing across sessions
 HISTCONTROL=ignoreboth
 HISTDUP=erase
 HISTFILE=~/.cache/zshhistory
 HISTSIZE=10000
 SAVEHIST=$HISTSIZE
+HISTIGNORE="ls:cd:pwd:exit:history"
 setopt appendhistory
 setopt hist_find_no_dups
 setopt hist_ignore_all_dups
@@ -12,35 +23,21 @@ setopt hist_ignore_space
 setopt hist_save_no_dups
 setopt sharehistory
 
-setopt autocd
-
 # Vim mode
 bindkey -v
-# CTRL+R activate search history
-bindkey "^R" history-incremental-pattern-search-backward
+
 # TAB TAB accept autosuggest
 bindkey '^I^I' autosuggest-accept
 
-CDPATH=.:~/code/
-CLICOLOR="auto"
-EDITOR=nvim
-GREP_COLOR="4;33"
-GREP_OPTIONS="--color=auto"
-PATH=$HOME/.local/bin:/usr/local/bin:/snap/bin/:$PATH
-TERM='tmux-256color'
-
-# Completion styling
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-
-# configure prompt
-source ~/code/powerlevel10k/powerlevel10k.zsh-theme
-source ~/code/dotfiles/zsh/p10k.zsh
-
-[ -f ~/code/dotfiles/zsh/machines/$(hostname).sh ] && source ~/code/dotfiles/zsh/machines/$(hostname).sh
-
+# Customizations
+files_to_load=(
+  "/usr/share/doc/fzf/examples/completion.zsh"
+  "/usr/share/doc/fzf/examples/key-bindings.zsh"
+  "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+  "$HOME/code/powerlevel10k/powerlevel10k.zsh-theme"
+  "$HOME/code/dotfiles/zsh/p10k.zsh"
+  "$HOME/code/dotfiles/zsh/machines/$(hostname).sh"
+)
+for file in "${files_to_load[@]}"; do [ -f $file ] && source $file; done
 for file in $(ls -d ~/code/dotfiles/zsh/lang/*); do source $file; done
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

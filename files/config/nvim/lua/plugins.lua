@@ -44,10 +44,10 @@ require('packer').startup(function(use)
     'nvim-tree/nvim-tree.lua',
     config = function() require('nvim-tree').setup() end
   }
-  use {
-    'lewis6991/gitsigns.nvim',
-    config = function() require('plugins.gitsigns') end,
-  }
+  -- use {
+    -- 'lewis6991/gitsigns.nvim',
+    -- config = function() require('plugins.gitsigns') end,
+  -- }
   use({
     'brenoprata10/nvim-highlight-colors',
   })
@@ -81,14 +81,21 @@ require('packer').startup(function(use)
   }
   use {
     'mhartington/formatter.nvim',
+    config = function()
+      require('formatter').setup({
+        filetype = {
+          python = { require("formatter.filetypes.python").autopep8 }
+        }
+      })
+    end,
   }
   use({
     'folke/trouble.nvim',
   })
-  use({
-    'anuvyklack/pretty-fold.nvim',
-    config = function() require('plugins.pretty-fold') end,
-  })
+  -- use(
+    -- 'anuvyklack/pretty-fold.nvim',
+    -- config = function() require('plugins.pretty-fold') end,
+  -- })
   use({
     'nvim-telescope/telescope.nvim',
     requires = 'nvim-lua/plenary.nvim'

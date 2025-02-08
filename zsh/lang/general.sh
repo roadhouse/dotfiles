@@ -32,6 +32,16 @@ urlngrok() {
   curl --silent http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url'
 }
 
+downloadsite() {
+  local url=$1
+  local timeout=5
+  local tries=3
+
+  [[ -z "$url" ]] && echo "Usage: $0 <url>" && return 1
+
+  wget -r -np -k -p --timeout=$timeout --tries=$tries --no-check-certificate $url
+}
+
 expose-http-server() {
   local sessionName="HTTPServer"
   local startHtppServer="/usr/bin/env sh -c \"go run ~/code/dotfiles/zsh/server.go -port 8081\"; /usr/bin/env sh -i"

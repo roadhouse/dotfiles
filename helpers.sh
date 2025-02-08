@@ -77,6 +77,15 @@ create_symlinks() {
   done
 }
 
+populate_config() {
+  local config_dir=$CODE_DIR"dotfiles/files/config/"
+  for i in $(ls $config_dir); do
+    echo "$config_dir$i" ~/.config/$(basename $i);
+    # ln -s "$repo_dir$i" ~/.config/$(basename $i);
+    info_message "link to $i created"
+  done
+}
+
 change_shell_to_zsh() {
   [ -x "$(command -v zsh)" ] && chsh -s "$(command -v zsh)"
 }

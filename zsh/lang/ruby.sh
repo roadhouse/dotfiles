@@ -1,4 +1,4 @@
-PATH=$HOME/.gems/bin:./bin_stubs:$HOME/.rvm/bin:$PATH
+PATH=$HOME/.gems/bin:./bin_stubs:$HOME/.rbenv/bin:$PATH
 
 alias s="rails s"
 alias c="rails c"
@@ -7,5 +7,4 @@ alias gmi='gem install'
 alias sp='RAILS_ENV=test bundle exec rspec -fp'
 alias be='bundle exec'
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
+eval "$(rbenv init -)"

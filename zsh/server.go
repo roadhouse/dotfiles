@@ -46,7 +46,7 @@ func startServer(config serverConfig) {
 func makeUploadHandler(dir string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "GET" {
-			fmt.Fprintf(w, "curl -X POST -F \"file=@/path/to/yourfile.ext\" https://ip/u")
+			fmt.Fprintf(w, "curl -X POST -F \"file=@/path/to/yourfile.ext\" http://ip/u")
 			return
 		}
 		if r.Method != "POST" {

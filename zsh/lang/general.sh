@@ -13,7 +13,7 @@ alias rehash='source ~/.zshrc'
 alias t="tmux"
 
 ta() {
-  ([ -z "$1" ] && tmux attach) || tmux attach -t "$1"
+  ([ -z "$1" ] && tmux attach) || tmux attach -t "$1" 
 }
 
 html_unescape() {
@@ -68,6 +68,6 @@ nerdfontinstall() {
   file_name=$(basename "$font_url")
 
   curl -L -O "$font_url"
-  unzip -d ~/.local/share/fonts "$file_name"
+  unzip -d ~/.local/share/fonts "$file_name" 
   fc-cache -f -v
 }

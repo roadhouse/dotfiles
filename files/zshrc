@@ -4,9 +4,11 @@ CLICOLOR="auto"
 EDITOR=nvim
 GREP_COLOR="4;33"
 GREP_OPTIONS="--color=auto"
-PATH=$HOME/.local/bin:/usr/local/bin:/snap/bin/:$PATH
+PATH=./bin:$HOME/.local/bin:/usr/local/bin:/snap/bin/:$PATH
 TERM='tmux-256color'
 setopt autocd
+# ensures that all variables defined in the .env file become environment variables in your current shell session
+set -o allexport; [ -f .env ] && source .env; set +o allexport
 
 # History config, sharing across sessions
 HISTCONTROL=ignoreboth

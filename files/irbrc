@@ -1,4 +1,4 @@
-Pry.config.editor = "nvim"
+# Pry.config.editor = "nvim"
 # begin
   # require "pry"
   # Pry.start

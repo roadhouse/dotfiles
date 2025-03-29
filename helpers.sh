@@ -124,5 +124,5 @@ install_nvim_from_github() {
   sudo make install
   success_message "Neovim installed from Github repo"
 
-  cd "$start" || exit
+  cd $start || exit
 }

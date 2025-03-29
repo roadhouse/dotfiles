@@ -1,4 +1,4 @@
-require("plugins")
 require("options")
 require("mappings")
-require("colorscheme")
+require("config.lazy")
+vim.cmd('colorscheme tokyonight')

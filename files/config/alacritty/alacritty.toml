@@ -33,3 +33,16 @@ family = "RobotoMono Nerd Font Mono"
 
 [window]
 opacity = 0.9
+
+[selection]
+save_to_clipboard = true
+
+[[keyboard.bindings]]
+key = "C"
+mods = "Control|Shift"
+action = "Copy"
+
+[[keyboard.bindings]]
+key = "V"
+mods = "Control|Shift"
+action = "Paste"

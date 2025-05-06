@@ -1,3 +1,0 @@
-vulture
-flake8
-jedi-language-server

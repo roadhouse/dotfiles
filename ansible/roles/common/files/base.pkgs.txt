@@ -1,0 +1,6 @@
+bat
+curl
+fzf
+jq
+software-properties-common
+xclip

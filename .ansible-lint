@@ -1,0 +1,20 @@
+---
+skip_list:
+  - 'fqcn[action-core]'  # Allow using short module names instead of FQCN
+  - 'var-naming[read-only]'  # Allow using special variables like role_name
+  - 'var-naming[no-role-prefix]'  # Allow variables without role prefix
+  - 'name[casing]'  # Allow emoji in task names
+  - 'name[template]'  # Allow Jinja templates in task names
+  - 'yaml[truthy]'  # Allow yes/no for boolean values
+  - 'no-changed-when'  # Allow commands without changed_when
+  - 'no-handler'  # Allow tasks that could be handlers
+  - 'command-instead-of-module'  # Allow using curl and other commands
+  - 'command-instead-of-shell'  # Allow using shell when appropriate
+  - 'risky-shell-pipe'  # Allow shell pipes without pipefail
+  - 'risky-file-permissions'  # Allow file operations without explicit permissions
+  - 'jinja[spacing]'  # Allow current Jinja2 spacing style
+
+# Exclude specific files from linting
+exclude_paths:
+  - '.github/'  # Exclude GitHub workflows
+  - 'molecule/'  # Exclude molecule test files

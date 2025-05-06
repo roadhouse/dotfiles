@@ -1,0 +1,23 @@
+---
+- name: 🔗 Link atuin config directory
+  file:
+    src: "{{ role_path }}/files/config"
+    dest: "{{ lookup('env', 'HOME') }}/.config/atuin"
+    state: link
+    force: no
+  tags: [atuin, config]
+
+- name: 💾 Download atuin installer
+  get_url:
+    url: https://setup.atuin.sh
+    dest: /tmp/atuin-installer.sh
+    mode: '0755'
+  register: atuin_download
+  tags: atuin
+
+- name: 💾 Install atuin shell history
+  command: /usr/bin/sh -s -- -y
+  args:
+    stdin: "{{ lookup('file', '/tmp/atuin-installer.sh') }}"
+    creates: /usr/local/bin/atuin
+  tags: atuin

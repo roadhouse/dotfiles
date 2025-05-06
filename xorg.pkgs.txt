@@ -1,8 +1,0 @@
-alacritty
-blueman
-bpytop
-brightnessctl
-i3
-i3blocks
-rofi
-rxvt-unicode

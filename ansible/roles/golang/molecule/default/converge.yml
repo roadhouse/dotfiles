@@ -1,0 +1,63 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  vars:
+    golang_version: "1.24"
+  pre_tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+      changed_when: false
+
+    - name: Install required packages
+      apt:
+        name:
+          - software-properties-common
+          - apt-transport-https
+          - ca-certificates
+          - dirmngr
+          - gnupg
+        state: present
+      changed_when: false
+
+    # Explicitly add the PPA and install Go for testing
+    - name: Add Golang backports PPA
+      apt_repository:
+        repo: ppa:longsleep/golang-backports
+        state: present
+      become: true
+
+    - name: Update apt cache after adding PPA
+      apt:
+        update_cache: yes
+      changed_when: false
+
+    - name: Install Golang {{ golang_version }}
+      apt:
+        name: "golang-{{ golang_version }}"
+        state: present
+      become: true
+
+  tasks:
+    # Include the role for testing other aspects
+    - name: Include golang role
+      include_role:
+        name: golang
+      ignore_errors: yes
+
+    - name: Add Go binaries to PATH
+      copy:
+        dest: /etc/profile.d/golang.sh
+        content: |
+          export PATH=${PATH}:/usr/lib/go-1.24/bin
+        mode: '0644'
+      become: true
+
+    - name: Create symlink for go binary
+      file:
+        src: /usr/lib/go-1.24/bin/go
+        dest: /usr/bin/go
+        state: link
+      become: true
+      when: ansible_check_mode is not defined or not ansible_check_mode

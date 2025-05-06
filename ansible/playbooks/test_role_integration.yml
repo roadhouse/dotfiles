@@ -1,0 +1,55 @@
+---
+- name: Test Role Integration
+  hosts: localhost
+  connection: local
+  become: false
+  vars:
+    # Override variables for testing
+    ruby_version: "3.4.3-test"
+    testing_mode: true
+    code_dir: "~/code"
+  tasks:
+    # Common role simulation
+    - name: 📂 Test common role - directory creation
+      ansible.builtin.debug:
+        msg: "Would create directory {{ item }}"
+      loop:
+        - "{{ lookup('env', 'HOME') }}/.config"
+        - "{{ code_dir }}"
+      tags: [common, test]
+
+    # Git role simulation
+    - name: 💾 Test git role - installation
+      ansible.builtin.debug:
+        msg: "Would install git package"
+      tags: [git, test]
+
+    - name: 🔗 Test git role - dotfiles linking
+      include_tasks: ../roles/common/tasks/includes/link_dotfiles.yml
+      vars:
+        dotfiles:
+          - { src: 'gitconfig', dest: '.gitconfig.test' }
+        role_name: git
+        source_path: /home/roadhouse/code/dotfiles/ansible/roles/git
+      tags: [git, test]
+
+    # Ruby role simulation
+    - name: 💾 Test ruby role - rbenv installation
+      ansible.builtin.debug:
+        msg: "Would install rbenv"
+      tags: [ruby, test]
+
+    - name: 💎 Test ruby role - Ruby installation
+      ansible.builtin.debug:
+        msg: "Would install Ruby {{ ruby_version }}"
+      tags: [ruby, test]
+
+    - name: 🔗 Test ruby role - dotfiles linking
+      include_tasks: ../roles/common/tasks/includes/link_dotfiles.yml
+      vars:
+        dotfiles:
+          - { src: 'irbrc', dest: '.irbrc.test' }
+          - { src: 'pryrc', dest: '.pryrc.test' }
+        role_name: ruby
+        source_path: /home/roadhouse/code/dotfiles/ansible/roles/ruby
+      tags: [ruby, test]

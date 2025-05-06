@@ -1,0 +1,38 @@
+---
+- name: 💻 Install Neovim build dependencies
+  apt:
+    name:
+      - ninja-build
+      - gettext
+      - libtool-bin
+      - cmake
+      - g++
+      - pkg-config
+      - unzip
+      - curl
+    state: present
+
+- name: 🔍 Clone Neovim repo
+  git:
+    repo: https://github.com/neovim/neovim.git
+    dest: /tmp/neovim
+    depth: 1
+    version: stable
+
+- name: 🔨 Build Neovim
+  command: make CMAKE_BUILD_TYPE=RelWithDebInfo
+  args:
+    chdir: /tmp/neovim
+
+- name: 💾 Install Neovim
+  command: make install
+  args:
+    chdir: /tmp/neovim
+
+- name: 🔗 Link Neovim config directory
+  file:
+    src: "{{ role_path }}/files/config"
+    dest: "{{ lookup('env', 'HOME') }}/.config/nvim"
+    state: link
+    force: no
+  tags: [nvim, config]

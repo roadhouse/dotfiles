@@ -1,0 +1,79 @@
+---
+- name: Test Dotfiles Linking
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: true
+  vars:
+    # Set test directory for dotfiles
+    test_dir: "{{ lookup('env', 'HOME') }}/.test_dotfiles"
+    # Determine repo root based on environment
+    repo_root: "{{ lookup('env', 'GITHUB_WORKSPACE') | default(playbook_dir ~ '/../../', true) }}"
+  tasks:
+    - name: Create test directory
+      file:
+        path: "{{ test_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Display test information
+      debug:
+        msg: "Testing dotfiles linking in {{ test_dir }}"
+
+    # Test Git dotfiles
+    - name: 🔗 Test Git dotfiles linking
+      file:
+        src: "{{ repo_root }}/ansible/roles/git/files/gitconfig"
+        dest: "{{ test_dir }}/.gitconfig"
+        state: link
+        force: no
+      register: git_link_result
+      failed_when: false
+      tags: git
+
+    - name: Report Git dotfiles status
+      debug:
+        msg: "Git dotfiles linking {{ 'succeeded' if git_link_result is succeeded else 'failed' }}"
+      tags: git
+
+    # Test Ruby dotfiles
+    - name: 🔗 Test Ruby dotfiles linking
+      file:
+        src: "{{ repo_root }}/ansible/roles/ruby/files/{{ item }}"
+        dest: "{{ test_dir }}/.{{ item }}"
+        state: link
+        force: no
+      loop:
+        - irbrc
+        - pryrc
+      register: ruby_link_result
+      failed_when: false
+      tags: ruby
+
+    - name: Report Ruby dotfiles status
+      debug:
+        msg: "Ruby dotfiles linking {{ 'succeeded' if ruby_link_result is succeeded else 'failed' }}"
+      tags: ruby
+
+    # Test Nushell dotfiles
+    - name: 🔗 Test Nushell dotfiles linking
+      file:
+        src: "{{ repo_root }}/ansible/roles/nushell/files/config"
+        dest: "{{ test_dir }}/.config.nushell"
+        state: link
+        force: no
+      register: nushell_link_result
+      failed_when: false
+      tags: nushell
+
+    - name: Report Nushell dotfiles status
+      debug:
+        msg: "Nushell dotfiles linking {{ 'succeeded' if nushell_link_result is succeeded else 'failed' }}"
+      tags: nushell
+
+    # Cleanup test directory
+    - name: Clean up test directory
+      file:
+        path: "{{ test_dir }}"
+        state: absent
+      when: cleanup_test_dir | default(true)

@@ -1,0 +1,15 @@
+---
+- name: 💾 Install alacritty
+  apt:
+    name: alacritty
+    state: present
+  become: true
+  tags: alacritty
+
+- name: 🔗 Link alacritty config directory
+  file:
+    src: "{{ role_path }}/files/config"
+    dest: "{{ lookup('env', 'HOME') }}/.config/alacritty"
+    state: link
+    force: no
+  tags: [alacritty, config]

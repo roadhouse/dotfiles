@@ -1,0 +1,43 @@
+---
+- name: Test Installation Tasks
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: true
+  vars:
+    repo_root: "{{ lookup('env', 'GITHUB_WORKSPACE') | default(playbook_dir ~ '/../../', true) }}"
+    test_mode: true  # Set to false to actually run commands (with caution)
+  tasks:
+    - name: Display test information
+      debug:
+        msg: "Testing installation tasks in check mode (no actual changes)"
+
+    # Test Git installation
+    - name: 💾 Test Git installation
+      apt:
+        name: git
+        state: present
+      check_mode: "{{ test_mode }}"
+      register: git_install_result
+      failed_when: false
+      tags: git
+
+    - name: Report Git installation status
+      debug:
+        msg: "Git installation {{ 'would succeed' if git_install_result.changed else 'already satisfied' }}"
+      tags: git
+
+    # Test Nushell installation
+    - name: 🔄 Test Nushell repository setup
+      apt_repository:
+        repo: ppa:nushell/nushell
+        state: present
+      check_mode: "{{ test_mode }}"
+      register: nushell_repo_result
+      failed_when: false
+      tags: nushell
+
+    - name: Report Nushell repository status
+      debug:
+        msg: "Nushell repository {{ 'would be added' if nushell_repo_result.changed else 'already present' }}"
+      tags: nushell

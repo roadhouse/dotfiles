@@ -1,0 +1,52 @@
+---
+- name: Test Shell Command Tasks
+  hosts: localhost
+  connection: local
+  become: false
+  gather_facts: true
+  vars:
+    repo_root: "{{ lookup('env', 'GITHUB_WORKSPACE') | default(playbook_dir ~ '/../../', true) }}"
+    test_dir: "{{ lookup('env', 'HOME') }}/.test_shell_commands"
+    ruby_version: "3.1.2"
+  tasks:
+    - name: Create test directory
+      file:
+        path: "{{ test_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Display test information
+      debug:
+        msg: "Testing shell commands in simulation mode"
+
+    # Test rbenv installation
+    - name: 💾 Test rbenv installation command
+      command: "echo 'Simulating: curl -fsSL https://rbenv.org/install.sh | bash'"
+      register: rbenv_result
+      changed_when: false
+      tags: ruby
+
+    - name: Report rbenv installation simulation
+      debug:
+        msg: "{{ rbenv_result.stdout }}"
+      tags: ruby
+
+    # Test Ruby installation
+    - name: 💎 Test Ruby installation command
+      command: "echo 'Simulating: rbenv install -s {{ ruby_version }}'"
+      register: ruby_result
+      changed_when: false
+      tags: ruby
+
+    - name: Report Ruby installation simulation
+      debug:
+        msg: "{{ ruby_result.stdout }}"
+      tags: ruby
+
+    # Clean up test directory
+    - name: Clean up test directory
+      file:
+        path: "{{ test_dir }}"
+        state: absent
+      when: cleanup_test_dir | default(true)
+      tags: ruby

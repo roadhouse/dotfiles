@@ -1,0 +1,3 @@
+---
+golang_version: "1.24"
+golang_bin_path: "/usr/lib/go-{{ golang_version }}/bin"

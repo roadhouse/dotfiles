@@ -1,0 +1,43 @@
+---
+- name: 💾 Ensure Ruby dependencies
+  apt:
+    name:
+      - git
+      - curl
+    state: present
+  become: true
+  tags: ruby
+
+- name: 💾 Download rbenv installer
+  get_url:
+    url: https://rbenv.org/install.sh
+    dest: /tmp/rbenv-installer.sh
+    mode: '0755'
+  register: rbenv_download
+  tags: ruby
+
+- name: 💾 Install rbenv via official script
+  command: /usr/bin/bash
+  args:
+    stdin: "{{ lookup('file', '/tmp/rbenv-installer.sh') }}"
+    creates: "{{ lookup('env', 'HOME') }}/.rbenv/bin/rbenv"
+  register: rbenv_install
+  notify: Show rbenv installation output
+  tags: ruby
+
+# - name: 💎 Install Ruby {{ ruby_version }}
+#   shell: |
+#     source ~/.bashrc
+#     rbenv install -s {{ ruby_version }}
+#     rbenv global {{ ruby_version }}
+#   args:
+#     creates: "{{ lookup('env','HOME') }}/.rbenv/versions/{{ ruby_version }}/bin/ruby"
+#   tags: ruby
+
+- name: 🔗 Link Ruby dotfiles
+  include_tasks: ../../common/tasks/includes/link_dotfiles.yml
+  vars:
+    dotfiles:
+      - { src: 'irbrc', dest: '.irbrc' }
+      - { src: 'pryrc', dest: '.pryrc' }
+    role_name: ruby

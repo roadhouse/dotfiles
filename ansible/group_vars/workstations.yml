@@ -1,0 +1,10 @@
+---
+# Variables specific to workstation hosts
+code_dir: "{{ lookup('env', 'HOME') }}/code"
+
+# Package management
+package_state: present
+
+# Desktop environment settings
+desktop_environment: true
+touchpad_enabled: true

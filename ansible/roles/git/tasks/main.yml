@@ -1,0 +1,14 @@
+---
+- name: 💾 Install git
+  apt:
+    name: git
+    state: present
+  become: true
+  tags: git
+
+- name: 🔗 Link git dotfiles
+  include_tasks: ../../common/tasks/includes/link_dotfiles.yml
+  vars:
+    dotfiles:
+      - { src: 'gitconfig', dest: '.gitconfig' }
+    role_name: git

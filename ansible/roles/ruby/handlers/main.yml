@@ -1,0 +1,6 @@
+---
+- name: Show rbenv installation output
+  debug:
+    var: rbenv_install.stdout_lines
+  when: rbenv_install.changed
+  tags: ruby

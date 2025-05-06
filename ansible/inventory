@@ -1,0 +1,8 @@
+[workstations]
+localhost ansible_connection=local
+
+[servers]
+# future servers
+
+[development:children]
+workstations

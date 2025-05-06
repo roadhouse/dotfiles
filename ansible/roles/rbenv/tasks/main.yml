@@ -1,0 +1,42 @@
+---
+- name: Ensure rbenv dependencies
+  apt:
+    name:
+      - git
+      - curl
+    state: present
+  become: true
+
+- name: 💾 Download rbenv installer
+  get_url:
+    url: https://rbenv.org/install.sh
+    dest: /tmp/rbenv-installer.sh
+    mode: '0755'
+  register: rbenv_download
+  tags: [rbenv, ruby]
+
+- name: 💾 Install rbenv via official script
+  command: bash
+  args:
+    stdin: "{{ lookup('file', '/tmp/rbenv-installer.sh') }}"
+    creates: "{{ lookup('env', 'HOME') }}/.rbenv/bin/rbenv"
+  tags: [rbenv, ruby]
+
+- name: 💎 Install Ruby {{ rbenv_ruby_version }}
+  shell: |
+    rbenv install -s {{ rbenv_ruby_version }}
+    rbenv global {{ rbenv_ruby_version }}
+  args:
+    creates: "{{ lookup('env', 'HOME') }}/.rbenv/versions/{{ rbenv_ruby_version }}/bin/ruby"
+  tags: [rbenv, ruby]
+
+- name: 🔗 Link irbrc and pryrc
+  file:
+    src: "{{ role_path }}/files/{{ item.src }}"
+    dest: "{{ lookup('env', 'HOME') }}/{{ item.dest }}"
+    state: link
+    force: no
+  loop:
+    - { src: 'irbrc', dest: '.irbrc' }
+    - { src: 'pryrc', dest: '.pryrc' }
+  tags: [rbenv, config]

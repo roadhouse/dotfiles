@@ -1,0 +1,38 @@
+---
+- name: Verify
+  hosts: all
+  tasks:
+    - name: Check if specific Go path exists
+      stat:
+        path: /usr/lib/go-1.24/bin/go
+      register: go_specific_path
+      changed_when: false
+
+    - name: Check if golang is installed (specific path)
+      command: /usr/lib/go-1.24/bin/go version
+      register: go_version_specific
+      changed_when: false
+      when: go_specific_path.stat.exists
+
+    - name: Check if golang is installed (general path)
+      command: which go
+      register: go_path
+      changed_when: false
+      failed_when: not go_specific_path.stat.exists and go_path.rc != 0
+      when: not go_specific_path.stat.exists
+
+    - name: Check golang version (general path)
+      command: go version
+      register: go_version_general
+      changed_when: false
+      when: not go_specific_path.stat.exists
+
+    - name: Set go version fact
+      set_fact:
+        go_version_stdout: "{{ go_version_specific.stdout | default(go_version_general.stdout | default('')) }}"
+
+    - name: Assert golang version
+      assert:
+        that:
+          - "'go1.24' in go_version_stdout"
+        fail_msg: "Unexpected golang version: {{ go_version_stdout }}"

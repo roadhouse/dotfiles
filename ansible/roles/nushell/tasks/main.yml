@@ -1,0 +1,31 @@
+---
+- name: 🔐 Add Nushell GPG key
+  apt_key:
+    url: https://apt.fury.io/nushell/gpg.key
+    keyring: /etc/apt/trusted.gpg.d/fury-nushell.gpg
+    state: present
+  become: true
+  tags: nushell
+
+- name: 📚 Add Nushell repository
+  apt_repository:
+    repo: deb https://apt.fury.io/nushell/ /
+    state: present
+    filename: fury
+  become: true
+  tags: nushell
+
+- name: 🔗 Link nushell config files
+  include_tasks: ../../common/tasks/includes/link_dotfiles.yml
+  vars:
+    dotfiles:
+      - { src: 'config', dest: '.config/nushell' }
+    role_name: nushell
+
+- name: 💾 Install nushell
+  apt:
+    name: nushell
+    state: present
+    update_cache: yes
+  become: true
+  tags: nushell

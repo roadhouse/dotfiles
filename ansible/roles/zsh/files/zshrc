@@ -1,0 +1,40 @@
+# General config
+CDPATH=.:~/code/
+CLICOLOR="auto"
+EDITOR=nvim
+GREP_COLOR="4;33"
+GREP_OPTIONS="--color=auto"
+PATH=./bin:$HOME/.local/bin:/usr/local/bin:/snap/bin/:$PATH
+TERM='tmux-256color'
+# ensures that all variables defined in the .env file become environment variables in your current shell session
+set -o allexport; [ -f .env ] && source .env; set +o allexport
+
+# History config, sharing across sessions
+HISTCONTROL=ignoreboth
+HISTDUP=erase
+HISTFILE=~/.cache/zshhistory
+HISTSIZE=10000
+SAVEHIST=$HISTSIZE
+HISTIGNORE="ls:cd:pwd:exit:history"
+setopt appendhistory
+setopt autocd
+setopt hist_find_no_dups
+setopt hist_ignore_all_dups
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt hist_save_no_dups
+setopt sharehistory
+
+# Vim mode
+bindkey -v
+
+# TAB TAB accept autosuggest
+bindkey '^I^I' autosuggest-accept
+
+# Customizations
+for file in $HOME/code/dotfiles/ansible/roles/zsh/files/configs/*.sh; do source $file; done
+
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"

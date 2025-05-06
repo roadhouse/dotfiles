@@ -1,0 +1,15 @@
+---
+- name: 💾 Install tmux
+  apt:
+    name: tmux
+    state: present
+  become: true
+  tags: tmux
+
+- name: 🔗 Link tmux config directory
+  file:
+    src: "{{ role_path }}/files/config"
+    dest: "{{ lookup('env', 'HOME') }}/.config/tmux"
+    state: link
+    force: no
+  tags: [tmux, config]

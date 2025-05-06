@@ -1,0 +1,25 @@
+---
+- name: 💾 Install zsh and plugins
+  apt:
+    name:
+      - zsh
+      - zsh-autosuggestions
+      - zsh-syntax-highlighting
+    state: present
+  become: true
+  tags: zsh
+
+- name: 🔄 Change shell to zsh
+  shell: |
+    [ -x "$(command -v zsh)" ] && chsh -s "$(command -v zsh)"
+  become: yes
+
+- name: 🔗 Link dotfiles to home directory
+  file:
+    src: "{{ role_path }}/files/{{ item.src }}"
+    dest: "{{ lookup('env', 'HOME') }}/{{ item.dest }}"
+    state: link
+    force: no
+  loop:
+    - { src: 'zshrc', dest: '.zshrc' }
+  tags: [zsh, config]

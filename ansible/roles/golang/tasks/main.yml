@@ -1,0 +1,13 @@
+---
+- name: 📚 Add Golang backports PPA
+  apt_repository:
+    repo: ppa:longsleep/golang-backports
+    state: present
+  become: true
+  notify: Update apt cache
+
+- name: 🐋 Install Golang {{ golang_version }}
+  apt:
+    name: "golang-{{ golang_version }}"
+    state: present
+  become: true

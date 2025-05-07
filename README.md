@@ -2,6 +2,20 @@
 
 This repository contains Ansible roles and playbooks for setting up a personal development environment with various tools and configurations.
 
+## Git File Management Notes
+
+### Atuin Config
+
+To exclude personal Atuin server settings from git tracking:
+
+```bash
+# Ignore changes to atuin config file
+git update-index --skip-worktree ansible/roles/atuin/files/config/config.toml
+
+# Resume tracking changes when needed
+git update-index --no-skip-worktree ansible/roles/atuin/files/config/config.toml
+```
+
 ## Structure
 
 - `playbooks/`: Contains the main playbook (`site.yml`) and test playbooks

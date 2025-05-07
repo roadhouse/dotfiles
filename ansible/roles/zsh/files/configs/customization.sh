@@ -6,5 +6,3 @@ files_to_load=(
   "$HOME/code/dotfiles/zsh/machines/$(hostname).sh"
 )
 for file in "${files_to_load[@]}"; do [ -f "$file" ] && source "$file"; done
-
-eval "$(starship init zsh)"

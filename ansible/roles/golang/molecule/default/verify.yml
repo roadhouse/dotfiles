@@ -1,15 +1,17 @@
 ---
 - name: Verify
   hosts: all
+  vars_files:
+    - ../../defaults/main.yml
   tasks:
     - name: Check if specific Go path exists
       stat:
-        path: /usr/lib/go-1.24/bin/go
+        path: "{{ golang_bin_path }}/go"
       register: go_specific_path
       changed_when: false
 
     - name: Check if golang is installed (specific path)
-      command: /usr/lib/go-1.24/bin/go version
+      command: "{{ golang_bin_path }}/go version"
       register: go_version_specific
       changed_when: false
       when: go_specific_path.stat.exists

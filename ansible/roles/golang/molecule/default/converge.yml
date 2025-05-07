@@ -2,6 +2,8 @@
 - name: Converge
   hosts: all
   become: true
+  vars_files:
+    - ../../defaults/main.yml
   vars:
     golang_version: "1.24"
   pre_tasks:
@@ -46,17 +48,10 @@
         name: golang
       ignore_errors: yes
 
-    - name: Add Go binaries to PATH
-      copy:
-        dest: /etc/profile.d/golang.sh
-        content: |
-          export PATH=${PATH}:/usr/lib/go-1.24/bin
-        mode: '0644'
-      become: true
 
     - name: Create symlink for go binary
       file:
-        src: /usr/lib/go-1.24/bin/go
+        src: "{{ golang_bin_path }}/go"
         dest: /usr/bin/go
         state: link
       become: true

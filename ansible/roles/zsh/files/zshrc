@@ -6,6 +6,7 @@ GREP_COLOR="4;33"
 GREP_OPTIONS="--color=auto"
 PATH=./bin:$HOME/.local/bin:/usr/local/bin:/snap/bin/:$PATH
 TERM='tmux-256color'
+
 # ensures that all variables defined in the .env file become environment variables in your current shell session
 set -o allexport; [ -f .env ] && source .env; set +o allexport
 
@@ -32,10 +33,4 @@ bindkey -v
 bindkey '^I^I' autosuggest-accept
 
 # Customizations
-for file in $HOME/code/dotfiles/ansible/roles/zsh/files/configs/*.sh; do source $file; done
 for file in $HOME/code/dotfiles/ansible/roles/**/files/*.zsh; do source $file; done
-
-
-. "$HOME/.atuin/bin/env"
-
-eval "$(atuin init zsh)"

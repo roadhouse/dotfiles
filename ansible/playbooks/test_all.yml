@@ -1,77 +1,38 @@
 ---
-- name: Test All Role Tasks
+- name: Comprehensive Ansible Test Suite
   hosts: localhost
   connection: local
   become: false
-  tasks:
-    # Common role tests
-    - name: 📂 Test directory creation
-      ansible.builtin.debug:
-        msg: "Would create directory {{ item }}"
-      loop:
-        - "{{ lookup('env', 'HOME') }}/.config"
-        - "~/code"
-      tags: [common, test]
+  gather_facts: true
+  vars_files:
+    - ../vars/test_config.yml
+  vars:
+    test_dir: "{{ test_base_dir }}"
+    test_summary: {}
 
-    # Git role tests
-    - name: 💾 Test Git installation
-      ansible.builtin.debug:
-        msg: "Would install git package"
-      tags: [git, test]
+  pre_tasks:
+    - name: Create test base directory
+      file:
+        path: "{{ test_base_dir }}"
+        state: directory
+        mode: '0755'
 
-    - name: 🔗 Test Git dotfiles linking
-      include_tasks: ../roles/common/tasks/includes/link_dotfiles.yml
-      vars:
-        dotfiles:
-          - { src: 'gitconfig', dest: '.gitconfig.test' }
-        role_name: git
-        source_path: /home/roadhouse/code/dotfiles/ansible/roles/git
-      tags: [git, test]
+    - name: Display test information
+      debug:
+        msg: "Running comprehensive test suite in {{ test_base_dir }}"
 
-    # Ruby role tests
-    - name: 💾 Test rbenv installation
-      ansible.builtin.debug:
-        msg: "Would run: curl -fsSL https://rbenv.org/install.sh | /usr/bin/bash"
-      tags: [ruby, test]
+- name: Import dotfiles test
+  import_playbook: test_dotfiles.yml
+  tags: [dotfiles, test]
 
-    - name: 💎 Test Ruby installation
-      ansible.builtin.debug:
-        msg: "Would install Ruby {{ ruby_version }}"
-      vars:
-        ruby_version: "3.4.3"
-      tags: [ruby, test]
+- name: Import installation test
+  import_playbook: test_install.yml
+  tags: [install, test]
 
-    - name: 🔗 Test Ruby dotfiles linking
-      include_tasks: ../roles/common/tasks/includes/link_dotfiles.yml
-      vars:
-        dotfiles:
-          - { src: 'irbrc', dest: '.irbrc.test' }
-          - { src: 'pryrc', dest: '.pryrc.test' }
-        role_name: ruby
-        source_path: /home/roadhouse/code/dotfiles/ansible/roles/ruby
-      tags: [ruby, test]
+- name: Import shell commands test
+  import_playbook: test_shell_commands.yml
+  tags: [shell, test]
 
-    # Nushell role tests
-    - name: 🔐 Test Nushell GPG key
-      ansible.builtin.debug:
-        msg: "Would add Nushell GPG key"
-      tags: [nushell, test]
-
-    - name: 📚 Test Nushell repository
-      ansible.builtin.debug:
-        msg: "Would add Nushell repository"
-      tags: [nushell, test]
-
-    - name: 🔗 Test Nushell config linking
-      include_tasks: ../roles/common/tasks/includes/link_dotfiles.yml
-      vars:
-        dotfiles:
-          - { src: 'config', dest: '.config/nushell.test' }
-        role_name: nushell
-        source_path: /home/roadhouse/code/dotfiles/ansible/roles/nushell
-      tags: [nushell, test]
-
-    - name: 💾 Test Nushell installation
-      ansible.builtin.debug:
-        msg: "Would install nushell package"
-      tags: [nushell, test]
+- name: Import role integration test
+  import_playbook: test_role_integration.yml
+  tags: [integration, test]

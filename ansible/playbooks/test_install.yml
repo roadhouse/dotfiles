@@ -4,9 +4,11 @@
   connection: local
   become: false
   gather_facts: true
+  vars_files:
+    - ../vars/test_config.yml
   vars:
-    repo_root: "{{ lookup('env', 'GITHUB_WORKSPACE') | default(playbook_dir ~ '/../../', true) }}"
-    test_mode: true  # Set to false to actually run commands (with caution)
+    test_dir: "{{ test_base_dir }}/install"
+    test_type: "install"
   tasks:
     - name: Display test information
       debug:

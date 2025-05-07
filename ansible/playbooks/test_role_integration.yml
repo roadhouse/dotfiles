@@ -3,53 +3,81 @@
   hosts: localhost
   connection: local
   become: false
+  gather_facts: true
+  vars_files:
+    - ../vars/test_config.yml
   vars:
-    # Override variables for testing
-    ruby_version: "3.4.3-test"
-    testing_mode: true
-    code_dir: "~/code"
+    # Set test directory for role integration tests
+    test_dir: "{{ test_base_dir }}/role_integration"
+    test_type: "role_integration"
+    code_dir: "{{ test_dir }}/code"
   tasks:
-    # Common role simulation
+    - name: Create test directory
+      file:
+        path: "{{ test_dir }}"
+        state: directory
+        mode: '0755'
+
+    - name: Display test information
+      debug:
+        msg: "Testing role integration in {{ test_dir }}"
+
+    # Test common role
     - name: 📂 Test common role - directory creation
-      ansible.builtin.debug:
-        msg: "Would create directory {{ item }}"
+      file:
+        path: "{{ item }}"
+        state: directory
+        mode: '0755'
       loop:
-        - "{{ lookup('env', 'HOME') }}/.config"
+        - "{{ test_dir }}/.config"
         - "{{ code_dir }}"
-      tags: [common, test]
+      register: common_dir_result
+      failed_when: false
+      tags: common
 
-    # Git role simulation
-    - name: 💾 Test git role - installation
-      ansible.builtin.debug:
-        msg: "Would install git package"
-      tags: [git, test]
+    - name: Report common role status
+      debug:
+        msg: "Common role directory creation {{ 'succeeded' if common_dir_result is succeeded else 'failed' }}"
+      tags: common
 
-    - name: 🔗 Test git role - dotfiles linking
-      include_tasks: ../roles/common/tasks/includes/link_dotfiles.yml
-      vars:
-        dotfiles:
-          - { src: 'gitconfig', dest: '.gitconfig.test' }
-        role_name: git
-        source_path: /home/roadhouse/code/dotfiles/ansible/roles/git
-      tags: [git, test]
+    # Test Git role
+    - name: 🔗 Test Git role - dotfiles linking
+      file:
+        src: "{{ repo_root }}/ansible/roles/git/files/gitconfig"
+        dest: "{{ test_dir }}/.gitconfig"
+        state: link
+        force: no
+      register: git_link_result
+      failed_when: false
+      tags: git
 
-    # Ruby role simulation
-    - name: 💾 Test ruby role - rbenv installation
-      ansible.builtin.debug:
-        msg: "Would install rbenv"
-      tags: [ruby, test]
+    - name: Report Git role status
+      debug:
+        msg: "Git role dotfiles linking {{ 'succeeded' if git_link_result is succeeded else 'failed' }}"
+      tags: git
 
-    - name: 💎 Test ruby role - Ruby installation
-      ansible.builtin.debug:
-        msg: "Would install Ruby {{ ruby_version }}"
-      tags: [ruby, test]
+    # Test Ruby role
+    - name: 🔗 Test Ruby role - dotfiles linking
+      file:
+        src: "{{ repo_root }}/ansible/roles/ruby/files/{{ item }}"
+        dest: "{{ test_dir }}/.{{ item }}"
+        state: link
+        force: no
+      loop:
+        - irbrc
+        - pryrc
+      register: ruby_link_result
+      failed_when: false
+      tags: ruby
 
-    - name: 🔗 Test ruby role - dotfiles linking
-      include_tasks: ../roles/common/tasks/includes/link_dotfiles.yml
-      vars:
-        dotfiles:
-          - { src: 'irbrc', dest: '.irbrc.test' }
-          - { src: 'pryrc', dest: '.pryrc.test' }
-        role_name: ruby
-        source_path: /home/roadhouse/code/dotfiles/ansible/roles/ruby
-      tags: [ruby, test]
+    - name: Report Ruby role status
+      debug:
+        msg: "Ruby role dotfiles linking {{ 'succeeded' if ruby_link_result is succeeded else 'failed' }}"
+      tags: ruby
+
+    # Cleanup test directory
+    - name: Clean up test directory
+      file:
+        path: "{{ test_dir }}"
+        state: absent
+      when: cleanup_test_dir | default(true)

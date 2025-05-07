@@ -4,11 +4,12 @@
   connection: local
   become: false
   gather_facts: true
+  vars_files:
+    - ../vars/test_config.yml
   vars:
     # Set test directory for dotfiles
-    test_dir: "{{ lookup('env', 'HOME') }}/.test_dotfiles"
-    # Determine repo root based on environment
-    repo_root: "{{ lookup('env', 'GITHUB_WORKSPACE') | default(playbook_dir ~ '/../../', true) }}"
+    test_dir: "{{ test_base_dir }}/dotfiles"
+    test_type: "dotfiles"
   tasks:
     - name: Create test directory
       file:

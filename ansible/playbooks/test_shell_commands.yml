@@ -4,10 +4,11 @@
   connection: local
   become: false
   gather_facts: true
+  vars_files:
+    - ../vars/test_config.yml
   vars:
-    repo_root: "{{ lookup('env', 'GITHUB_WORKSPACE') | default(playbook_dir ~ '/../../', true) }}"
-    test_dir: "{{ lookup('env', 'HOME') }}/.test_shell_commands"
-    ruby_version: "3.1.2"
+    test_dir: "{{ test_base_dir }}/shell_commands"
+    test_type: "shell_commands"
   tasks:
     - name: Create test directory
       file:

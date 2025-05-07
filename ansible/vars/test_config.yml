@@ -1,0 +1,15 @@
+---
+# Shared test configuration variables
+
+# Base directory for all tests
+test_base_dir: "{{ lookup('env', 'HOME') }}/.ansible_tests"
+
+# Repository root path (works in both local and GitHub Actions environments)
+repo_root: "{{ lookup('env', 'GITHUB_WORKSPACE') | default(playbook_dir ~ '/../../', true) }}"
+
+# Test mode settings
+cleanup_after_tests: true  # Clean up test directories after tests
+test_mode: true           # Use check mode for installation tests
+
+# Role-specific test settings
+ruby_version: "3.1.2"     # Ruby version to use in tests

@@ -1,0 +1,19 @@
+---
+# Central verification playbook for all roles
+- name: Verify
+  hosts: all
+  gather_facts: true
+  tasks:
+    - name: Verify Ansible facts are available
+      assert:
+        that: ansible_facts is defined
+        fail_msg: "Ansible facts are not available"
+        success_msg: "Ansible facts are available"
+
+    - name: Verify system is reachable
+      ping:
+      changed_when: false
+
+    - name: Verify basic system information
+      debug:
+        msg: "System {{ ansible_distribution }} {{ ansible_distribution_version }} is properly configured"

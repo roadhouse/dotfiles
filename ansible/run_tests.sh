@@ -71,7 +71,7 @@ if command -v molecule &> /dev/null; then
     if [ -d "$role_dir" ]; then
       role_name=$(basename $(dirname "$role_dir"))
       echo -e "${YELLOW}Running Molecule Test: $role_name...${NC}"
-      if (cd "$(dirname "$role_dir")" && molecule test); then
+      if (cd "$(dirname "$role_dir")" && molecule --base-config=/home/roadhouse/code/dotfiles/ansible/molecule/default/molecule.yml test); then
         echo -e "${GREEN}✓ Molecule Test: $role_name passed${NC}\n"
       else
         echo -e "${RED}✗ Molecule Test: $role_name failed${NC}\n"

@@ -1,5 +1,7 @@
 ---
-# Preparation playbook for Golang role testing
+# Central preparation playbook for Molecule testing
+# This can be used by all roles to ensure consistent test environment setup
+
 - name: Prepare
   hosts: all
   become: true
@@ -19,6 +21,7 @@
           - dirmngr
           - gnupg
           - curl
+          - git
         state: present
       changed_when: false
 

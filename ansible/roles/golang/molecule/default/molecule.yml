@@ -12,5 +12,7 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
 provisioner:
   name: ansible
+  playbooks:
+    prepare: ../../../../molecule/default/prepare.yml  # Use central prepare.yml
 verifier:
   name: ansible

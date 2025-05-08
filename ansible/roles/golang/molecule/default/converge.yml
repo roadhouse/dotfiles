@@ -5,7 +5,7 @@
   vars_files:
     - ../../defaults/main.yml
   vars:
-    golang_version: "1.24"
+    code_dir: /root/code  # Required by common role
   pre_tasks:
     - name: Update apt cache
       apt:
@@ -23,36 +23,16 @@
         state: present
       changed_when: false
 
-    # Explicitly add the PPA and install Go for testing
-    - name: Add Golang backports PPA
-      apt_repository:
-        repo: ppa:longsleep/golang-backports
-        state: present
-      become: true
-
-    - name: Update apt cache after adding PPA
-      apt:
-        update_cache: yes
-      changed_when: false
-
-    - name: Install Golang {{ golang_version }}
-      apt:
-        name: "golang-{{ golang_version }}"
-        state: present
-      become: true
-
   tasks:
-    # Include the role for testing other aspects
+    # Include the role for testing
     - name: Include golang role
       include_role:
-        name: golang
-      ignore_errors: yes
+        name: "../../../golang"
 
-
+    # Add symlink for easier testing
     - name: Create symlink for go binary
       file:
         src: "{{ golang_bin_path }}/go"
         dest: /usr/bin/go
         state: link
-      become: true
       when: ansible_check_mode is not defined or not ansible_check_mode

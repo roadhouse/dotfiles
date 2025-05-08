@@ -6,25 +6,8 @@
     - ../../defaults/main.yml
   vars:
     code_dir: /root/code  # Required by common role
-  pre_tasks:
-    - name: Update apt cache
-      apt:
-        update_cache: yes
-      changed_when: false
-
-    - name: Install required packages
-      apt:
-        name:
-          - software-properties-common
-          - apt-transport-https
-          - ca-certificates
-          - dirmngr
-          - gnupg
-        state: present
-      changed_when: false
-
   tasks:
-    # Include the role for testing
+    # Test the role
     - name: Include golang role
       include_role:
         name: "../../../golang"

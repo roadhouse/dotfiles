@@ -1,0 +1,29 @@
+---
+# Preparation playbook for Golang role testing
+- name: Prepare
+  hosts: all
+  become: true
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+      changed_when: false
+
+    - name: Install common dependencies
+      apt:
+        name:
+          - software-properties-common
+          - apt-transport-https
+          - ca-certificates
+          - dirmngr
+          - gnupg
+          - curl
+        state: present
+      changed_when: false
+
+    - name: Create code directory
+      file:
+        path: /root/code
+        state: directory
+        mode: '0755'

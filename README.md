@@ -40,16 +40,29 @@ ansible-playbook -i inventory playbooks/site.yml --tags git,ruby,nvim --ask-beco
 
 This repository includes comprehensive testing capabilities to verify role functionality before applying changes to your system.
 
-### Running All Tests Locally
+### Molecule Testing (Recommended)
 
-A test script is provided to run all tests in sequence:
+Molecule provides a standardized way to test Ansible roles in isolated Docker containers:
+
+```bash
+cd ansible
+molecule test
+```
+
+This will:
+1. Create a Docker container with Ubuntu 24.04
+2. Apply the roles defined in the converge.yml file
+3. Verify that each role's components are correctly installed and configured
+4. Clean up the test environment
+
+### Legacy Test Script
+
+A test script is also available for running traditional Ansible test playbooks:
 
 ```bash
 cd ansible
 ./run_tests.sh
 ```
-
-This will run all test playbooks and provide a color-coded summary of results.
 
 ### Individual Test Playbooks
 
@@ -103,34 +116,39 @@ ansible-playbook playbooks/site.yml --syntax-check
 For more comprehensive testing, you can install additional tools:
 
 ```bash
-pip install ansible-lint yamllint molecule molecule-docker
+pip install ansible molecule molecule-plugins[docker] docker
 ```
 
-These tools enable:
+#### Molecule Testing
 
-#### Linting
-
-Check YAML syntax and Ansible best practices:
+The project now uses Molecule for testing roles in isolated Docker containers. This provides a more reliable and consistent testing environment.
 
 ```bash
+# Run Molecule tests for all roles
+cd ansible
+molecule test
+```
+
+The Molecule tests use a dynamic verification approach that:
+
+1. Automatically detects which roles are being tested
+2. Includes role-specific verification tasks
+3. Verifies that each role's components are correctly installed and configured
+
+To add verification for a new role, create a `molecule/verify.yml` file in the role directory with the specific verification tasks for that role.
+
+#### Linting (Optional)
+
+For code quality checks, you can install and run linting tools:
+
+```bash
+pip install ansible-lint yamllint
+
 # Check YAML syntax
 yamllint ansible/
 
 # Check Ansible best practices
 ansible-lint ansible/
-```
-
-#### Molecule Testing
-
-Test individual roles in isolated environments:
-
-```bash
-# Initialize Molecule for a role
-cd ansible/roles/git
-molecule init scenario default -d docker
-
-# Run Molecule tests
-molecule test
 ```
 
 ## Role Organization
@@ -159,6 +177,21 @@ The `roles/common/tasks/includes/` directory contains reusable tasks that can be
       - { src: 'gitconfig', dest: '.gitconfig' }
     role_name: git
 ```
+
+## Continuous Integration
+
+This repository uses GitHub Actions for automated testing on every push and pull request.
+
+### GitHub Actions Workflow
+
+The workflow in `.github/workflows/ansible-test.yml` automatically runs:
+
+1. **Linting**: Checks YAML syntax and Ansible best practices
+2. **Molecule Tests**: Runs the Molecule tests against the roles
+
+This ensures that changes to the Ansible roles are tested before they are merged into the main branch.
+
+To manually trigger the workflow, go to the Actions tab in the GitHub repository and select "Run workflow".
 
 ---
 Made with ❤️ 🤖 🐱

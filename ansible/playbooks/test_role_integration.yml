@@ -10,7 +10,6 @@
     # Set test directory for role integration tests
     test_dir: "{{ test_base_dir }}/role_integration"
     test_type: "role_integration"
-    code_dir: "{{ test_dir }}/code"
   tasks:
     - name: Create test directory
       file:
@@ -23,21 +22,16 @@
         msg: "Testing role integration in {{ test_dir }}"
 
     # Test common role
-    - name: 📂 Test common role - directory creation
-      file:
-        path: "{{ item }}"
-        state: directory
-        mode: '0755'
-      loop:
-        - "{{ test_dir }}/.config"
-        - "{{ code_dir }}"
-      register: common_dir_result
+    - name: 📂 Test common role - package check
+      command: dpkg -l | grep -E 'bat|curl|fzf|jq|software-properties-common|xclip'
+      register: common_pkg_result
       failed_when: false
+      changed_when: false
       tags: common
 
     - name: Report common role status
       debug:
-        msg: "Common role directory creation {{ 'succeeded' if common_dir_result is succeeded else 'failed' }}"
+        msg: "Common role package check {{ 'succeeded' if common_pkg_result.rc == 0 else 'failed' }}"
       tags: common
 
     # Test Git role

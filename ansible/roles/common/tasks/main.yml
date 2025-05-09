@@ -12,12 +12,6 @@
   vars:
     ansible_python_interpreter: /usr/bin/python3
 
-- name: 📂 Ensure code directory exists
-  file:
-    path: "{{ code_dir }}"
-    state: directory
-    mode: '0755'
-
 - name: 📁 Ensure ~/.config exists
   file:
     path: "{{ lookup('env', 'HOME') }}/.config"

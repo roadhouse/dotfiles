@@ -4,3 +4,5 @@ fzf
 jq
 software-properties-common
 xclip
+gpg-agent
+dirmngr

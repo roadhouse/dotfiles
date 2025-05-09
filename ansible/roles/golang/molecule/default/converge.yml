@@ -4,8 +4,7 @@
   become: true
   vars_files:
     - ../../defaults/main.yml
-  vars:
-    code_dir: /root/code  # Required by common role
+
   tasks:
     # Test the role
     - name: Include golang role

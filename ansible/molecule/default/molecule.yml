@@ -1,8 +1,10 @@
 ---
 driver:
   name: docker
+  options:
+    destroy: never
 platforms:
-  - name: instance
+  - name: ubuntu
     image: geerlingguy/docker-ubuntu2404-ansible:latest
     pre_build_image: true
     privileged: true

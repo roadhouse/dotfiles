@@ -17,3 +17,22 @@
     - name: Verify basic system information
       debug:
         msg: "System {{ ansible_distribution }} {{ ansible_distribution_version }} is properly configured"
+
+    # Dynamically include role verification tasks
+    - name: Check for role in converge.yml
+      slurp:
+        src: "{{ playbook_dir }}/converge.yml"
+      register: converge_content
+      delegate_to: localhost
+
+    # Include verification tasks for each role
+    - name: Include verification for golang role
+      include_tasks: includes/verify_role.yml
+      vars:
+        role_name: golang
+
+    # Example of how to add more roles (uncomment and modify as needed)
+    # - name: Include verification for git role
+    #   include_tasks: includes/verify_role.yml
+    #   vars:
+    #     role_name: git

@@ -55,61 +55,33 @@ This will:
 3. Verify that each role's components are correctly installed and configured
 4. Clean up the test environment
 
-### Legacy Test Script
+### Testing Specific Roles
 
-A test script is also available for running traditional Ansible test playbooks:
-
-```bash
-cd ansible
-./run_tests.sh
-```
-
-### Individual Test Playbooks
-
-#### Testing Dotfiles Linking
-
-Test the reusable dotfiles linking task across roles:
+To test a specific role with Molecule:
 
 ```bash
-ansible-playbook playbooks/test_dotfiles.yml --check -v
+cd ansible/roles/golang  # Replace with the role you want to test
+molecule test
 ```
 
-#### Testing All Role Tasks
+### Dry Run (Check Mode)
 
-Run a comprehensive test of all roles:
-
-```bash
-ansible-playbook playbooks/test_all.yml -v
-```
-
-#### Testing Specific Roles
-
-Test only specific roles using tags:
-
-```bash
-# Test only git role tasks
-ansible-playbook playbooks/test_all.yml -v --tags git
-
-# Test only installation tasks across all roles
-ansible-playbook playbooks/test_all.yml -v --tags test --skip-tags config
-```
-
-#### Dry Run (Check Mode)
-
-Simulate changes without making them:
+You can still use Ansible's check mode to simulate changes without making them:
 
 ```bash
 # Simulate changes without making them
 ansible-playbook playbooks/site.yml --check --diff --tags git,ruby
 ```
 
-#### Syntax Check
+### Syntax Check
 
 Verify your playbook syntax without making any changes:
 
 ```bash
 ansible-playbook playbooks/site.yml --syntax-check
 ```
+
+For more detailed information about testing, see the [TESTING.md](ansible/TESTING.md) file.
 
 ### Advanced Testing Tools
 

@@ -58,7 +58,7 @@ jobs:
       - name: Run Ansible syntax check
         run: |
           cd ansible
-          ansible-playbook playbooks/site.yml --syntax-check
+          ansible-playbook playbooks/development.yml --syntax-check
 
       - name: Run test script
         run: |

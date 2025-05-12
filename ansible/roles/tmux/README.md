@@ -21,5 +21,5 @@ After installation, tmux will be available with the configuration in `~/.config/
 To run only this role:
 
 ```bash
-ansible-playbook -i inventory playbooks/site.yml --tags tmux
+ansible-playbook -i inventory playbooks/development.yml --tags tmux
 ```

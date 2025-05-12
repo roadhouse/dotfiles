@@ -22,5 +22,3 @@
           - gnupg
           - curl
           - git
-        state: present
-      changed_when: false

@@ -23,3 +23,6 @@
     # Shell enhancements
     - { role: starship, tags: [starship, base] }
     - { role: atuin, tags: [atuin, base] }
+
+    # For desktop environment setup, use desktop.yml playbook
+    # For server infrastructure setup, use servers.yml playbook

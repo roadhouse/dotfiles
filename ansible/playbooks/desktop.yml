@@ -1,0 +1,11 @@
+---
+- name: Desktop Environment Setup
+  hosts: localhost
+  become: true
+  gather_facts: false
+  roles:
+    # Desktop environment
+    - { role: i3, tags: [i3, desktop] }
+    - { role: autorandr, tags: [autorandr, desktop] }
+    - { role: alacritty, tags: [alacritty, desktop] }
+    - { role: rofi, tags: [rofi, desktop] }

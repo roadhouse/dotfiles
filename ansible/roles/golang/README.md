@@ -22,5 +22,5 @@ After installation, Golang will be available at `/usr/lib/go-1.24/bin/go` by def
 To run only this role:
 
 ```bash
-ansible-playbook -i inventory playbooks/site.yml --tags golang
+ansible-playbook -i inventory playbooks/development.yml --tags golang
 ```

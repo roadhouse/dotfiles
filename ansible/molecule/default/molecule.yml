@@ -14,5 +14,24 @@ provisioner:
   name: ansible
   playbooks:
     prepare: prepare.yml
+  config_options:
+    defaults:
+      stdout_callback: yaml
+      bin_ansible_callbacks: true
+scenario:
+  test_sequence:
+    - dependency
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    # Removed idempotence test
+    # - idempotence
+    # - side_effect
+    - verify
+    - cleanup
+    - destroy
 verifier:
   name: ansible

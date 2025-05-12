@@ -9,5 +9,9 @@
 
 - name: Include {{ role_name }} verification tasks
   include_tasks: "{{ playbook_dir }}/../../roles/{{ role_name }}/molecule/verify.yml"
-  when: "role_name in converge_content['content'] | b64decode and
-        lookup('first_found', [playbook_dir + '/../../roles/' + role_name + '/molecule/verify.yml'], errors='ignore') != ''"
+  when:
+    - role_name in converge_content['content'] | b64decode
+    - lookup('first_found',
+        [playbook_dir + '/../../roles/' + role_name + '/molecule/verify.yml'],
+        errors='ignore'
+      ) != ''

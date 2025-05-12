@@ -3,8 +3,8 @@
   apt_repository:
     repo: ppa:longsleep/golang-backports
     state: present
+    update_cache: yes
   become: true
-  notify: Update apt cache
 
 - name: 🐋 Install Golang {{ golang_version }}
   apt:

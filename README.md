@@ -43,22 +43,47 @@ git update-index --no-skip-worktree ansible/roles/atuin/files/config/config.toml
 
 ## Structure
 
-- `playbooks/`: Contains the main playbook (`site.yml`) and test playbooks
+- `playbooks/`: Contains multiple playbooks for different environments:
+  - `development.yml`: Core system and development tools
+  - `desktop.yml`: Desktop environment configuration
+  - `servers.yml`: Server infrastructure setup
 - `roles/`: Contains modular roles for different applications and tools
 - `roles/common/tasks/includes/`: Contains reusable tasks shared across roles
 
-## Running the Playbook
+## Running the Playbooks
 
-To apply all configurations, run from the project root or the `ansible/` directory:
+This repository contains multiple playbooks for different environments and purposes.
+
+### Core System Setup
+
+To set up the core system with development tools, run:
 
 ```bash
-ansible-playbook -i inventory playbooks/site.yml --ask-become-pass
+ansible-playbook -i inventory playbooks/development.yml --ask-become-pass
 ```
 
-To apply specific roles using tags:
+### Desktop Environment Setup
+
+To configure the desktop environment (i3, rofi, etc.), run:
 
 ```bash
-ansible-playbook -i inventory playbooks/site.yml --tags git,ruby,nvim --ask-become-pass
+ansible-playbook -i inventory playbooks/desktop.yml --ask-become-pass
+```
+
+### Server Infrastructure Setup
+
+To set up server infrastructure tools (k3s, etc.), run:
+
+```bash
+ansible-playbook -i inventory playbooks/servers.yml --ask-become-pass
+```
+
+### Using Tags
+
+You can apply specific roles using tags with any playbook:
+
+```bash
+ansible-playbook -i inventory playbooks/development.yml --tags git,ruby,nvim --ask-become-pass
 ```
 
 ## Testing

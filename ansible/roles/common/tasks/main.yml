@@ -6,9 +6,18 @@
 
 - name: Install base packages
   apt:
-    pkg: "{{ item }}"
+    name:
+      - bat
+      - curl
+      - fzf
+      - jq
+      - software-properties-common
+      - xclip
+      - gpg-agent
+      - dirmngr
     state: present
-  loop: "{{ lookup('file', role_path + '/files/base.pkgs.txt').splitlines() }}"
+  become: true
+  tags: common
   vars:
     ansible_python_interpreter: /usr/bin/python3
 

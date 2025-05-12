@@ -1,5 +1,0 @@
-blueman
-bpytop
-brightnessctl
-rofi
-rxvt-unicode

@@ -1,6 +1,11 @@
 ---
 - name: Install Xorg packages
   apt:
-    pkg: "{{ item }}"
+    name:
+      - blueman
+      - bpytop
+      - brightnessctl
+      - rxvt-unicode
     state: present
-  loop: "{{ lookup('file', role_path + '/files/xorg.pkgs.txt').splitlines() }}"
+  become: true
+  tags: xorg

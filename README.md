@@ -1,6 +1,31 @@
 # Personal Notebook Ansible Setup
 
+[![Ansible Test](https://github.com/roadhouse/dotfiles/actions/workflows/ansible-test.yml/badge.svg)](https://github.com/roadhouse/dotfiles/actions/workflows/ansible-test.yml)
+
 This repository contains Ansible roles and playbooks for setting up a personal development environment with various tools and configurations.
+
+## Prerequisites
+
+Before using this repository, ensure you have the following:
+
+### System Requirements
+- **Operating System**: Ubuntu 24.04 (primary target) or other Debian-based distributions
+- **Python**: 3.10 or newer
+- **Ansible**: 2.15 or newer
+
+### For Development and Testing
+- **Docker**: 24.0 or newer (required for Molecule tests)
+- **Pip packages**: `ansible molecule molecule-plugins[docker] docker`
+
+### Installation
+
+```bash
+# Install Ansible and related tools
+pip install ansible
+
+# For development and testing
+pip install molecule molecule-plugins[docker] docker ansible-lint yamllint
+```
 
 ## Git File Management Notes
 
@@ -40,7 +65,7 @@ ansible-playbook -i inventory playbooks/site.yml --tags git,ruby,nvim --ask-beco
 
 This repository includes comprehensive testing capabilities to verify role functionality before applying changes to your system.
 
-### Molecule Testing (Recommended)
+### Molecule Testing
 
 Molecule provides a standardized way to test Ansible roles in isolated Docker containers:
 
@@ -55,7 +80,13 @@ This will:
 3. Verify that each role's components are correctly installed and configured
 4. Clean up the test environment
 
-### Testing Specific Roles
+The Molecule tests use a dynamic verification approach that:
+
+1. Automatically detects which roles are being tested
+2. Includes role-specific verification tasks
+3. Verifies that each role's components are correctly installed and configured
+
+#### Testing Specific Roles
 
 To test a specific role with Molecule:
 
@@ -64,16 +95,22 @@ cd ansible/roles/golang  # Replace with the role you want to test
 molecule test
 ```
 
-### Dry Run (Check Mode)
+#### Adding Verification for New Roles
 
-You can still use Ansible's check mode to simulate changes without making them:
+To add verification for a new role, create a `verify_tasks.yml` file in the role's `molecule/default/` directory with specific verification tasks.
+
+### Other Testing Methods
+
+#### Dry Run (Check Mode)
+
+Use Ansible's check mode to simulate changes without making them:
 
 ```bash
 # Simulate changes without making them
 ansible-playbook playbooks/site.yml --check --diff --tags git,ruby
 ```
 
-### Syntax Check
+#### Syntax Check
 
 Verify your playbook syntax without making any changes:
 
@@ -81,37 +118,9 @@ Verify your playbook syntax without making any changes:
 ansible-playbook playbooks/site.yml --syntax-check
 ```
 
-For more detailed information about testing, see the [TESTING.md](ansible/TESTING.md) file.
+#### Linting
 
-### Advanced Testing Tools
-
-For more comprehensive testing, you can install additional tools:
-
-```bash
-pip install ansible molecule molecule-plugins[docker] docker
-```
-
-#### Molecule Testing
-
-The project now uses Molecule for testing roles in isolated Docker containers. This provides a more reliable and consistent testing environment.
-
-```bash
-# Run Molecule tests for all roles
-cd ansible
-molecule test
-```
-
-The Molecule tests use a dynamic verification approach that:
-
-1. Automatically detects which roles are being tested
-2. Includes role-specific verification tasks
-3. Verifies that each role's components are correctly installed and configured
-
-To add verification for a new role, create a `molecule/verify.yml` file in the role directory with the specific verification tasks for that role.
-
-#### Linting (Optional)
-
-For code quality checks, you can install and run linting tools:
+For code quality checks, install and run linting tools:
 
 ```bash
 pip install ansible-lint yamllint
@@ -125,13 +134,26 @@ ansible-lint ansible/
 
 ## Role Organization
 
-Roles are organized into logical sections:
+Roles are organized into logical sections with specific purposes:
 
-1. **Core system**: common
-2. **Base components**: git, xorg, zsh, nushell, tmux, touchpad
-3. **Development tools**: nvim, ruby, golang
-4. **Shell enhancements**: starship, atuin
-5. **Desktop environment**: i3, autorandr, alacritty, rofi
+| Category | Role | Purpose/Key Tasks |
+|----------|------|-------------------|
+| **Core System** | common | Base system configuration and shared tasks |
+| **Base Components** | git | Installs Git, configures global settings and aliases |
+| | xorg | Sets up X11 configuration and input device settings |
+| | zsh | Installs and configures Zsh shell with plugins |
+| | nushell | Modern shell alternative with structured data handling |
+| | tmux | Terminal multiplexer with custom key bindings |
+| | touchpad | Configures touchpad settings for laptops |
+| **Development Tools** | nvim | Installs Neovim editor with plugins and custom configuration |
+| | ruby | Installs Ruby, Bundler, and development tools |
+| | golang | Installs Go language toolchain and sets GOPATH |
+| **Shell Enhancements** | starship | Cross-shell prompt with Git integration |
+| | atuin | Shell history search and sync tool |
+| **Desktop Environment** | i3 | Tiling window manager with custom keybindings |
+| | autorandr | Automatic display configuration |
+| | alacritty | GPU-accelerated terminal emulator |
+| | rofi | Application launcher and window switcher |
 
 ## Reusable Tasks
 
@@ -150,6 +172,41 @@ The `roles/common/tasks/includes/` directory contains reusable tasks that can be
     role_name: git
 ```
 
+## Variable Management and Secrets
+
+### Variable Hierarchy
+
+This project uses Ansible's variable precedence system:
+
+1. **Role defaults** (`roles/[role_name]/defaults/main.yml`): Default values that can be overridden
+2. **Group variables** (`group_vars/[group_name].yml`): Settings for specific host groups
+3. **Host variables** (`host_vars/[hostname].yml`): Host-specific settings
+
+### Managing Secrets
+
+For sensitive information like API keys or passwords:
+
+```bash
+# Create an encrypted file
+ansible-vault create ansible/group_vars/all/vault.yml
+
+# Edit an encrypted file
+ansible-vault edit ansible/group_vars/all/vault.yml
+
+# Run playbooks with vault password
+ansible-playbook -i inventory playbooks/site.yml --ask-vault-pass
+```
+
+For files that contain sensitive information but need local modifications:
+
+```bash
+# Ignore changes to a file
+git update-index --skip-worktree [path/to/sensitive/file]
+
+# Resume tracking changes when needed
+git update-index --no-skip-worktree [path/to/sensitive/file]
+```
+
 ## Continuous Integration
 
 This repository uses GitHub Actions for automated testing on every push and pull request.
@@ -159,7 +216,8 @@ This repository uses GitHub Actions for automated testing on every push and pull
 The workflow in `.github/workflows/ansible-test.yml` automatically runs:
 
 1. **Linting**: Checks YAML syntax and Ansible best practices
-2. **Molecule Tests**: Runs the Molecule tests against the roles
+2. **Syntax Check**: Verifies playbook syntax
+3. **Molecule Tests**: Runs the Molecule tests against the roles
 
 This ensures that changes to the Ansible roles are tested before they are merged into the main branch.
 

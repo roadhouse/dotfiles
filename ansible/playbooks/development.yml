@@ -2,7 +2,7 @@
 - name: Personal Notebook Setup
   hosts: localhost
   become: true
-  gather_facts: false
+  gather_facts: true
   roles:
     # Core system
     - { role: common, tags: [common, base] }

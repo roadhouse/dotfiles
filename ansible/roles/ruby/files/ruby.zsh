@@ -7,4 +7,4 @@ alias gmi='gem install'
 alias sp='RAILS_ENV=test bundle exec rspec -fp'
 alias be='bundle exec'
 
-eval "$(rbenv init -)"
+command -v rbenv >/dev/null 2>&1 && eval "$(rbenv init -)"

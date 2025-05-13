@@ -1,6 +1,6 @@
 # Personal Notebook Ansible Setup
 
-[![Ansible Test](https://github.com/roadhouse/dotfiles/actions/workflows/ansible-test.yml/badge.svg)](https://github.com/roadhouse/dotfiles/actions/workflows/ansible-test.yml)
+[![Ansible Test](https://github.com/roadhouse/dotfiles/actions/workflows/ansible-test.yml/badge.svg)](https://github.com/roadhouse/dotfiles/actions/workflows/ansible-test.yml) ![Ansible](https://img.shields.io/badge/ansible-%3E%3D2.15-blue) ![Python](https://img.shields.io/badge/python-%3E%3D3.10-blue) ![OS Support](https://img.shields.io/badge/os-ubuntu%2024.04-orange)
 
 This repository contains Ansible roles and playbooks for setting up a personal development environment with various tools and configurations.
 
@@ -178,6 +178,7 @@ Roles are organized into logical sections with specific purposes:
 | **Desktop Environment** | i3 | Tiling window manager with custom keybindings |
 | | autorandr | Automatic display configuration |
 | | alacritty | GPU-accelerated terminal emulator |
+| | ghostty | Modern GPU-accelerated terminal with advanced features |
 | | rofi | Application launcher and window switcher |
 
 ## Reusable Tasks

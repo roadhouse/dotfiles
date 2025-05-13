@@ -35,7 +35,3 @@ bindkey '^I^I' autosuggest-accept
 
 # Customizations
 for file in $HOME/code/dotfiles/ansible/roles/**/files/*.zsh; do source $file; done
-
-. "$HOME/.atuin/bin/env"
-
-eval "$(atuin init zsh)"

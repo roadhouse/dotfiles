@@ -1,5 +1,6 @@
 ---
-- hosts: all
+- name: Install programming languages
+  hosts: all
   become: true
   gather_facts: false
   roles:

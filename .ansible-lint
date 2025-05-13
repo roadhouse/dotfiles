@@ -1,0 +1,34 @@
+---
+# Root-level ansible-lint configuration
+
+# Skip rules that are giving false positives or are not relevant
+skip_list:
+  - 'meta-no-info'  # Skip galaxy_info metadata check
+  - 'role-name[path]'  # Skip warnings about using paths when importing roles
+  - 'fqcn'  # Skip fully qualified collection name warnings
+  - 'name[template]'  # Skip template in name warnings
+  - 'var-naming'  # Skip variable naming warnings
+  - 'no-changed-when'  # Skip changed_when warnings
+
+# Enable specific rules
+enable_list:
+  - name  # Check task names
+  - no-changed-when  # Ensure changed_when is set for commands
+
+# Set the default verbosity level
+verbosity: 1
+
+# Exclude specific paths from linting
+exclude_paths:
+  - .git/
+  - .github/
+  - .venv/
+  - venv/
+  - .cache/
+  - .pytest_cache/
+
+# Use default rules
+use_default_rules: true
+
+# Offline mode
+offline: false

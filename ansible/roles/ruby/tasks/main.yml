@@ -32,7 +32,7 @@
     rbenv global {{ ruby_version }}
   args:
     executable: /bin/bash
-    creates: "{{ lookup('env','HOME') }}/.rbenv/versions/{{ ruby_version }}/bin/ruby"
+    creates: "{{ lookup('env', 'HOME') }}/.rbenv/versions/{{ ruby_version }}/bin/ruby"
   tags: ruby
 
 - name: 🔗 Link Ruby dotfiles

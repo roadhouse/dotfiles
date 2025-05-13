@@ -47,6 +47,7 @@ git update-index --no-skip-worktree ansible/roles/atuin/files/config/config.toml
   - `development.yml`: Core system and development tools
   - `desktop.yml`: Desktop environment configuration
   - `servers.yml`: Server infrastructure setup
+  - `languages.yml`: Programming languages with explicit versions
 - `roles/`: Contains modular roles for different applications and tools
 - `roles/common/tasks/includes/`: Contains reusable tasks shared across roles
 
@@ -76,6 +77,14 @@ To set up server infrastructure tools (k3s, etc.), run:
 
 ```bash
 ansible-playbook -i inventory playbooks/servers.yml --ask-become-pass
+```
+
+### Programming Languages Setup
+
+To install programming languages with specific versions, run:
+
+```bash
+ansible-playbook -i inventory playbooks/languages.yml --ask-become-pass
 ```
 
 ### Using Tags
@@ -171,7 +180,7 @@ Roles are organized into logical sections with specific purposes:
 | | tmux | Terminal multiplexer with custom key bindings |
 | | touchpad | Configures touchpad settings for laptops |
 | **Development Tools** | nvim | Installs Neovim editor with plugins and custom configuration |
-| | ruby | Installs Ruby, Bundler, and development tools |
+| **Programming Languages** | ruby | Installs Ruby, Bundler, and development tools |
 | | golang | Installs Go language toolchain and sets GOPATH |
 | **Shell Enhancements** | starship | Cross-shell prompt with Git integration |
 | | atuin | Shell history search and sync tool |

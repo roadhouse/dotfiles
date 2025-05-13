@@ -15,6 +15,16 @@ This role installs Golang on Ubuntu systems using the official PPA.
     - { role: golang, golang_version: "1.24" }
 ```
 
+This role is now included in the languages playbook with the version explicitly defined:
+
+```yaml
+- hosts: all
+  become: true
+  gather_facts: false
+  roles:
+    - { role: golang, tags: [go, dev, languages], golang_version: "1.24" }
+```
+
 ## Usage
 
 After installation, Golang will be available at `/usr/lib/go-1.24/bin/go` by default.
@@ -22,5 +32,9 @@ After installation, Golang will be available at `/usr/lib/go-1.24/bin/go` by def
 To run only this role:
 
 ```bash
-ansible-playbook -i inventory playbooks/development.yml --tags golang
+ansible-playbook -i inventory playbooks/languages.yml --tags golang
 ```
+
+## Implementation Notes
+
+- Uses the Ansible `package` module for better cross-platform compatibility

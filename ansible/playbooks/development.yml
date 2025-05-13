@@ -17,8 +17,6 @@
 
     # Development tools
     - { role: nvim, tags: [nvim, base] }
-    - { role: ruby, tags: [ruby, dev] }
-    - { role: golang, tags: [go, dev] }
 
     # Shell enhancements
     - { role: starship, tags: [starship, base] }

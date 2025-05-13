@@ -1,6 +1,6 @@
 ---
 - name: 💾 Ensure curl is present
-  apt:
+  package:
     name: curl
     state: present
   become: true

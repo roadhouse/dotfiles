@@ -1,6 +1,6 @@
 ---
 - name: 💾 Install tmux
-  apt:
+  package:
     name: tmux
     state: present
   become: true

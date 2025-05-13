@@ -1,6 +1,6 @@
 ---
 - name: 💾 Ensure Ruby dependencies
-  apt:
+  package:
     name:
       - git
       - curl

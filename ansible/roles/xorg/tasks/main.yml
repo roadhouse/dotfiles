@@ -1,6 +1,6 @@
 ---
 - name: Install Xorg packages
-  apt:
+  package:
     name:
       - blueman
       - bpytop

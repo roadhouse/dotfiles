@@ -1,6 +1,6 @@
 ---
 - name: 💾 Install autorandr
-  apt:
+  package:
     name: autorandr
     state: present
   become: true

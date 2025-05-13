@@ -1,6 +1,6 @@
 ---
 - name: 💾 Install git
-  apt:
+  package:
     name: git
     state: present
   become: true

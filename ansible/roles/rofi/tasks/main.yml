@@ -1,6 +1,6 @@
 ---
 - name: 💾 Install rofi
-  apt:
+  package:
     name: rofi
     state: present
   become: true

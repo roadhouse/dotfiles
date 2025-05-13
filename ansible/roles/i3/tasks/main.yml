@@ -1,6 +1,6 @@
 ---
 - name: 💾 Install i3 and related packages
-  apt:
+  package:
     name:
       - i3
       - i3blocks

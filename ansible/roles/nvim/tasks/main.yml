@@ -1,6 +1,6 @@
 ---
 - name: 💻 Install Neovim build dependencies
-  apt:
+  package:
     name:
       - ninja-build
       - gettext

@@ -23,7 +23,7 @@
     role_name: nushell
 
 - name: 💾 Install nushell
-  apt:
+  package:
     name: nushell
     state: present
     update_cache: yes

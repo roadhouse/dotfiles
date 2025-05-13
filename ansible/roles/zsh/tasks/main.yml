@@ -1,6 +1,6 @@
 ---
 - name: 💾 Install zsh and plugins
-  apt:
+  package:
     name:
       - zsh
       - zsh-autosuggestions

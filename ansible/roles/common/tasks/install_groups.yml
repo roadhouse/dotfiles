@@ -1,6 +1,6 @@
 ---
 - name: Install group packages
-  apt:
+  package:
     pkg: "{{ lookup('file', role_path + '/files/' + group_name + '.pkgs.txt').splitlines() }}"
     state: present
   vars:

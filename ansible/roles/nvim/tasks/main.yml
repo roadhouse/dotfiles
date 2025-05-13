@@ -1,5 +1,5 @@
 ---
-- name: 💻 Install Neovim build dependencies
+- name:  Install Neovim build dependencies (Debian)
   package:
     name:
       - ninja-build
@@ -11,25 +11,38 @@
       - unzip
       - curl
     state: present
+  become: true
+  when: ansible_facts['os_family'] == "Debian"
 
-- name: 🔍 Clone Neovim repo
+- name:  Install Neovim (macOS)
+  homebrew:
+    name: neovim
+    state: present
+  when: ansible_facts['os_family'] == "Darwin"
+
+- name:  Clone Neovim repo (Debian)
   git:
     repo: https://github.com/neovim/neovim.git
     dest: /tmp/neovim
     depth: 1
     version: stable
+  when: ansible_facts['os_family'] == "Debian"
 
-- name: 🔨 Build Neovim
+- name:  Build Neovim (Debian)
   command: make CMAKE_BUILD_TYPE=RelWithDebInfo
   args:
     chdir: /tmp/neovim
+  become: true
+  when: ansible_facts['os_family'] == "Debian"
 
-- name: 💾 Install Neovim
+- name:  Install Neovim (Debian)
   command: make install
   args:
     chdir: /tmp/neovim
+  become: true
+  when: ansible_facts['os_family'] == "Debian"
 
-- name: 🔗 Link Neovim config directory
+- name:  Link Neovim config directory
   file:
     src: "{{ role_path }}/files/config"
     dest: "{{ lookup('env', 'HOME') }}/.config/nvim"

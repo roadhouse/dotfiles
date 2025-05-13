@@ -1,20 +1,19 @@
 ---
-- name: 💾 Install zsh and plugins
-  package:
-    name:
-      - zsh
-      - zsh-autosuggestions
-      - zsh-syntax-highlighting
-    state: present
-  become: true
-  tags: zsh
+# Include OS-specific tasks
+- name: Include OS-specific tasks for Debian
+  include_tasks: debian.yml
+  when: ansible_facts['os_family'] == "Debian"
 
-- name: 🔄 Change shell to zsh
+- name: Include OS-specific tasks for macOS
+  include_tasks: darwin.yml
+  when: ansible_facts['os_family'] == "Darwin"
+
+- name:  Change shell to zsh
   shell: |
     [ -x "$(command -v zsh)" ] && chsh -s "$(command -v zsh)"
   become: yes
 
-- name: 🔗 Link dotfiles to home directory
+- name:  Link dotfiles to home directory
   file:
     src: "{{ role_path }}/files/{{ item.src }}"
     dest: "{{ lookup('env', 'HOME') }}/{{ item.dest }}"

@@ -1,0 +1,6 @@
+---
+- name:  Install git (macOS)
+  homebrew:
+    name: git
+    state: present
+  tags: git

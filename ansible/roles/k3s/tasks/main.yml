@@ -1,5 +1,5 @@
 ---
-- name: 💾 Ensure curl is present
+- name:  Ensure curl is present
   package:
     name: curl
     state: present

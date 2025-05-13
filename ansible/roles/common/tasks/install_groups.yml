@@ -1,7 +1,0 @@
----
-- name: Install group packages
-  package:
-    pkg: "{{ lookup('file', role_path + '/files/' + group_name + '.pkgs.txt').splitlines() }}"
-    state: present
-  vars:
-    group_name: "{{ group | default('base') }}"

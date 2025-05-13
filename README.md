@@ -12,6 +12,7 @@ Before using this repository, ensure you have the following:
 - **Operating System**: Ubuntu 24.04 (primary target) or other Debian-based distributions
 - **Python**: 3.10 or newer
 - **Ansible**: 2.15 or newer
+- **Nerd Font**: For proper icon display in task names and documentation
 
 ### For Development and Testing
 - **Docker**: 24.0 or newer (required for Molecule tests)
@@ -189,6 +190,25 @@ Roles are organized into logical sections with specific purposes:
 | | alacritty | GPU-accelerated terminal emulator |
 | | ghostty | Modern GPU-accelerated terminal with advanced features |
 | | rofi | Application launcher and window switcher |
+
+## Nerd Font Icons
+
+This project uses Nerd Font icons throughout the Ansible tasks for better visual organization. A Nerd Font-compatible terminal and editor are recommended for the best experience.
+
+### Icon Standards
+
+The project follows these icon standards:
+
+| Task Type | Icon | Description |
+|-----------|------|-------------|
+| Debian-specific installation | | Debian logo for Debian tasks |
+| macOS-specific installation | | Apple logo for macOS tasks |
+| Configuration/Linking | | Link icon for configuration file tasks |
+| Repository operations | | Branch icon for repository tasks |
+| Building | | Hammer icon for build tasks |
+| Service management | | Server icon for service tasks |
+
+A complete reference can be found in `/ansible/roles/common/files/icon_reference.md`
 
 ## Reusable Tasks
 

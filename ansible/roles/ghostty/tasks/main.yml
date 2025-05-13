@@ -1,24 +1,9 @@
 ---
-- name: 📦 Add Ghostty repository and key
-  become: true
-  apt_repository:
-    repo: deb http://download.opensuse.org/repositories/home:/clayrisser:/bookworm/Debian_12/ /
-    filename: home:clayrisser:bookworm
-    state: present
-    update_cache: no
-  tags: ghostty
+# Include OS-specific tasks
+- name: Include OS-specific tasks for Debian
+  include_tasks: debian.yml
+  when: ansible_facts['os_family'] == "Debian"
 
-- name: 🔑 Add Ghostty repository signing key
-  become: true
-  apt_key:
-    url: https://download.opensuse.org/repositories/home:clayrisser:bookworm/Debian_12/Release.key
-    state: present
-  tags: ghostty
-
-- name: 📦 Install Ghostty
-  become: true
-  package:
-    name: ghostty
-    state: present
-    update_cache: yes
-  tags: ghostty
+- name: Include OS-specific tasks for macOS
+  include_tasks: darwin.yml
+  when: ansible_facts['os_family'] == "Darwin"

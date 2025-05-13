@@ -1,13 +1,9 @@
 ---
-- name: 📚 Add Golang backports PPA
-  apt_repository:
-    repo: ppa:longsleep/golang-backports
-    state: present
-    update_cache: yes
-  become: true
+# Include OS-specific tasks
+- name: Include OS-specific tasks for Debian
+  include_tasks: debian.yml
+  when: ansible_facts['os_family'] == "Debian"
 
-- name: 🐋 Install Golang {{ golang_version }}
-  package:
-    name: "golang-{{ golang_version }}"
-    state: present
-  become: true
+- name: Include OS-specific tasks for macOS
+  include_tasks: darwin.yml
+  when: ansible_facts['os_family'] == "Darwin"

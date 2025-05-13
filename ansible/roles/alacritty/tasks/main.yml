@@ -1,12 +1,14 @@
 ---
-- name: 💾 Install alacritty
-  package:
-    name: alacritty
-    state: present
-  become: true
-  tags: alacritty
+# Include OS-specific tasks
+- name: Include OS-specific tasks for Debian
+  include_tasks: debian.yml
+  when: ansible_facts['os_family'] == "Debian"
 
-- name: 🔗 Link alacritty config directory
+- name: Include OS-specific tasks for macOS
+  include_tasks: darwin.yml
+  when: ansible_facts['os_family'] == "Darwin"
+
+- name:  Link alacritty config directory
   file:
     src: "{{ role_path }}/files/config"
     dest: "{{ lookup('env', 'HOME') }}/.config/alacritty"

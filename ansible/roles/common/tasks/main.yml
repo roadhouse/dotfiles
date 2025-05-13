@@ -1,10 +1,10 @@
 ---
-- name: Update apt cache
+- name:  Update apt cache
   package:
     update_cache: yes
     cache_valid_time: 3600
 
-- name: Install base packages
+- name:  Install base packages
   package:
     name:
       - bat
@@ -21,7 +21,7 @@
   vars:
     ansible_python_interpreter: /usr/bin/python3
 
-- name: 📁 Ensure ~/.config exists
+- name:  Ensure ~/.config exists
   file:
     path: "{{ lookup('env', 'HOME') }}/.config"
     state: directory

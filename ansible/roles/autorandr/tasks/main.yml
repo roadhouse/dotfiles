@@ -1,12 +1,12 @@
 ---
-- name: 💾 Install autorandr
+- name:  Install autorandr
   package:
     name: autorandr
     state: present
   become: true
   tags: autorandr
 
-- name: 🔗 Link autorandr config directory
+- name:  Link autorandr config directory
   file:
     src: "{{ role_path }}/files/config"
     dest: "{{ lookup('env', 'HOME') }}/.config/autorandr"

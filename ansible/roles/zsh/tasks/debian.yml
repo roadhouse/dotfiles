@@ -1,0 +1,10 @@
+---
+- name: Install zsh and plugins (Debian)
+  package:
+    name:
+      - zsh
+      - zsh-autosuggestions
+      - zsh-syntax-highlighting
+    state: present
+  become: true
+  tags: zsh

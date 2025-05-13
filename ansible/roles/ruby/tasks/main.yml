@@ -1,5 +1,5 @@
 ---
-- name: 💾 Ensure Ruby dependencies
+- name:  Ensure Ruby dependencies
   package:
     name:
       - git
@@ -8,7 +8,7 @@
   become: true
   tags: ruby
 
-- name: 💾 Download rbenv installer
+- name:  Download rbenv installer
   get_url:
     url: https://rbenv.org/install.sh
     dest: /tmp/rbenv-installer.sh
@@ -16,7 +16,7 @@
   register: rbenv_download
   tags: ruby
 
-- name: 🔗 Install rbenv via official script
+- name:  Install rbenv via official script
   shell: |
     bash /tmp/rbenv-installer.sh
   args:
@@ -24,7 +24,7 @@
   register: rbenv_install
   tags: ruby
 
-- name: 🔗 Install Ruby {{ ruby_version }}
+- name:  Install Ruby {{ ruby_version }}
   shell: |
     export PATH="{{ lookup('env', 'HOME') }}/.rbenv/bin:$PATH"
     eval "$(~/.rbenv/bin/rbenv init - bash)"
@@ -35,7 +35,7 @@
     creates: "{{ lookup('env', 'HOME') }}/.rbenv/versions/{{ ruby_version }}/bin/ruby"
   tags: ruby
 
-- name: 🔗 Link Ruby dotfiles
+- name:  Link Ruby dotfiles
   include_tasks: ../../common/tasks/includes/link_dotfiles.yml
   vars:
     dotfiles:

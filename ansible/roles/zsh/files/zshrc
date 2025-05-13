@@ -6,6 +6,7 @@ GREP_COLOR="4;33"
 GREP_OPTIONS="--color=auto"
 PATH=./bin:$HOME/.local/bin:/usr/local/bin:/snap/bin/:$PATH
 TERM='tmux-256color'
+VISUAL=$EDITOR
 
 # ensures that all variables defined in the .env file become environment variables in your current shell session
 set -o allexport; [ -f .env ] && source .env; set +o allexport

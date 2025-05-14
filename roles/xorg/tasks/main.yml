@@ -1,0 +1,11 @@
+---
+- name: Install Xorg packages
+  package:
+    name:
+      - blueman
+      - bpytop
+      - brightnessctl
+      - rxvt-unicode
+    state: present
+  become: true
+  tags: xorg

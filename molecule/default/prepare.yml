@@ -1,0 +1,24 @@
+---
+# Central preparation playbook for Molecule testing
+# This can be used by all roles to ensure consistent test environment setup
+
+- name: Prepare
+  hosts: all
+  become: true
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+      changed_when: false
+
+    - name: Install common dependencies
+      apt:
+        name:
+          - software-properties-common
+          - apt-transport-https
+          - ca-certificates
+          - dirmngr
+          - gnupg
+          - curl
+          - git

@@ -1,0 +1,7 @@
+---
+- name:  Install git (Debian)
+  package:
+    name: git
+    state: present
+  become: true
+  tags: git

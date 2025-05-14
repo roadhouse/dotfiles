@@ -1,0 +1,6 @@
+---
+- name: Install Ghostty (macOS)
+  homebrew:
+    name: ghostty
+    state: present
+  tags: ghostty

@@ -1,0 +1,15 @@
+---
+- name: Add Golang backports PPA (Debian)
+  apt_repository:
+    repo: ppa:longsleep/golang-backports
+    state: present
+    update_cache: yes
+  become: true
+  tags: golang
+
+- name: Install Golang {{ golang_version }} (Debian)
+  package:
+    name: "golang-{{ golang_version }}"
+    state: present
+  become: true
+  tags: golang

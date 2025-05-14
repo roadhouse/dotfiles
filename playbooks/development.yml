@@ -1,0 +1,24 @@
+---
+- name: Personal Notebook Setup
+  hosts: localhost
+  become: true
+  gather_facts: true
+  roles:
+    # Core system
+    - { role: common, tags: [common, base] }
+
+    # Base components with no dependencies
+    - { role: git, tags: [git, dev, base] }
+    - { role: zsh, tags: [zsh, base] }
+    - { role: nushell, tags: [nushell, shell] }
+    - { role: tmux, tags: [tmux, base] }
+
+    # Development tools
+    - { role: nvim, tags: [nvim, base] }
+
+    # Shell enhancements
+    - { role: starship, tags: [starship, base] }
+    - { role: atuin, tags: [atuin, base] }
+
+    # For desktop environment setup, use desktop.yml playbook
+    # For server infrastructure setup, use servers.yml playbook

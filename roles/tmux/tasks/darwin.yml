@@ -1,0 +1,6 @@
+---
+- name:  Install tmux (macOS)
+  homebrew:
+    name: tmux
+    state: present
+  tags: tmux

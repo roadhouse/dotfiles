@@ -1,0 +1,21 @@
+---
+# This is a reusable task for linking dotfiles
+# Usage example:
+# - name: 🔗 Link git dotfiles
+#   include_tasks: roles/common/tasks/includes/link_dotfiles.yml
+#   vars:
+#     dotfiles:
+#       - { src: 'gitconfig', dest: '.gitconfig' }
+#     role_name: git
+
+- name:  Link {{ role_name | default('dotfiles') }} files to home directory
+  file:
+    src: "{{ source_path | default(lookup('vars', 'role_path', default='')) }}/files/{{ item.src }}"
+    dest: "{{ lookup('env', 'HOME') }}/{{ item.dest }}"
+    state: link
+    force: no
+  loop: "{{ dotfiles }}"
+  tags: ["{{ role_name | default('dotfiles') }}", config]
+  register: link_result
+  failed_when: link_result.failed and not ('file already exists' in link_result.msg or 'file exists' in link_result.msg)
+  changed_when: link_result.changed

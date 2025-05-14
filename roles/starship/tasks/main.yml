@@ -1,0 +1,15 @@
+---
+- name: 🚀 Download starship installer
+  get_url:
+    url: https://starship.rs/install.sh
+    dest: /tmp/starship-installer.sh
+    mode: '0755'
+  register: starship_download
+  tags: starship
+
+- name: 🚀 Install starship prompt
+  command: /usr/bin/sh -s -- --force
+  args:
+    stdin: "{{ lookup('file', '/tmp/starship-installer.sh') }}"
+    creates: /usr/local/bin/starship
+  tags: starship

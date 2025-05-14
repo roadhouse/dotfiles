@@ -1,0 +1,27 @@
+---
+- name:  Install i3 and related packages
+  package:
+    name:
+      - i3
+      - i3blocks
+      - i3lock
+      - i3status
+    state: present
+  become: true
+  tags: i3
+
+- name:  Link i3 config directory
+  file:
+    src: "{{ role_path }}/files/config"
+    dest: "{{ lookup('env', 'HOME') }}/.config/i3"
+    state: link
+    force: no
+  tags: [i3, config]
+
+- name:  Link i3blocks config directory
+  file:
+    src: "{{ role_path }}/files/config/i3blocks"
+    dest: "{{ lookup('env', 'HOME') }}/.config/i3blocks"
+    state: link
+    force: no
+  tags: [i3, i3blocks, config]

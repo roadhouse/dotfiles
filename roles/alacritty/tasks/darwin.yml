@@ -1,0 +1,6 @@
+---
+- name: Install alacritty (macOS)
+  homebrew:
+    name: alacritty
+    state: present
+  tags: alacritty

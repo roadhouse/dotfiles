@@ -1,0 +1,16 @@
+---
+- name: Desktop Environment Setup
+  hosts: localhost
+  become: true
+  gather_facts: true
+  roles:
+    # Base display components
+    - { role: xorg, tags: [xorg, desktop] }
+    - { role: touchpad, tags: [touchpad, notebook] }
+
+    # Desktop environment
+    - { role: i3, tags: [i3, desktop] }
+    - { role: autorandr, tags: [autorandr, desktop] }
+    - { role: alacritty, tags: [alacritty, desktop] }
+    - { role: ghostty, tags: [ghostty, desktop] }
+    - { role: rofi, tags: [rofi, desktop] }

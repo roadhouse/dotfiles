@@ -1,0 +1,15 @@
+---
+- name:  Install rofi
+  package:
+    name: rofi
+    state: present
+  become: true
+  tags: rofi
+
+- name:  Link rofi config directory
+  file:
+    src: "{{ role_path }}/files/config"
+    dest: "{{ lookup('env', 'HOME') }}/.config/rofi"
+    state: link
+    force: no
+  tags: [rofi, config]

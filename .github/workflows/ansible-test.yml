@@ -4,11 +4,19 @@ on:
   push:
     branches: [main, master]
     paths:
-      - 'ansible/**'
+      - 'playbooks/**'
+      - 'roles/**'
+      - 'molecule/**'
+      - 'ansible.cfg'
+      - 'inventory'
   pull_request:
     branches: [main, master]
     paths:
-      - 'ansible/**'
+      - 'playbooks/**'
+      - 'roles/**'
+      - 'molecule/**'
+      - 'ansible.cfg'
+      - 'inventory'
   workflow_dispatch:  # Allow manual triggering
 
 jobs:
@@ -31,11 +39,11 @@ jobs:
 
       - name: Lint YAML files
         run: |
-          yamllint ansible/
+          yamllint playbooks/ roles/ molecule/
 
       - name: Lint Ansible files
         run: |
-          ansible-lint ansible/
+          ansible-lint playbooks/ roles/
 
   test:
     name: Test
@@ -57,10 +65,8 @@ jobs:
 
       - name: Run Ansible syntax check
         run: |
-          cd ansible
           ansible-playbook playbooks/development.yml --syntax-check
 
       - name: Run test script
         run: |
-          cd ansible
           molecule test

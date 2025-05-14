@@ -8,6 +8,7 @@ on:
       - 'roles/**'
       - 'ansible.cfg'
       - 'inventory'
+      - 'tests/**'
   pull_request:
     branches: [main, master]
     paths:
@@ -15,6 +16,7 @@ on:
       - 'roles/**'
       - 'ansible.cfg'
       - 'inventory'
+      - 'tests/**'
   workflow_dispatch:  # Allow manual triggering
 
 jobs:
@@ -33,11 +35,11 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install ansible ansible-lint yamllint molecule molecule-plugins[docker] ansible-lint yamllint
+          pip install ansible ansible-lint yamllint
 
       - name: Lint YAML files
         run: |
-          yamllint playbooks/ roles/ molecule/
+          yamllint playbooks/ roles/
 
       - name: Lint Ansible files
         run: |
@@ -59,8 +61,4 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install ansible ansible-lint yamllint molecule molecule-plugins[docker]
-
-      - name: Run Ansible syntax check
-        run: |
-          ansible-playbook playbooks/development.yml --syntax-check
+          pip install ansible

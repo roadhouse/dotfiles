@@ -15,8 +15,8 @@ Before using this repository, ensure you have the following:
 - **Nerd Font**: For proper icon display in task names and documentation
 
 ### For Development and Testing
-- **Docker**: 24.0 or newer (required for Molecule tests)
-- **Pip packages**: `ansible molecule molecule-plugins[docker] docker`
+- **Docker**: 24.0 or newer
+- **Pip packages**: `ansible docker`
 
 ### Installation
 
@@ -25,7 +25,7 @@ Before using this repository, ensure you have the following:
 pip install ansible
 
 # For development and testing
-pip install molecule molecule-plugins[docker] docker ansible-lint yamllint
+pip install docker ansible-lint yamllint
 ```
 
 ## Git File Management Notes
@@ -100,41 +100,7 @@ ansible-playbook -i inventory playbooks/development.yml --tags git,ruby,nvim --a
 
 This repository includes comprehensive testing capabilities to verify role functionality before applying changes to your system.
 
-### Molecule Testing
-
-Molecule provides a standardized way to test Ansible roles in isolated Docker containers:
-
-```bash
-cd ansible
-molecule test
-```
-
-This will:
-1. Create a Docker container with Ubuntu 24.04
-2. Apply the roles defined in the converge.yml file
-3. Verify that each role's components are correctly installed and configured
-4. Clean up the test environment
-
-The Molecule tests use a dynamic verification approach that:
-
-1. Automatically detects which roles are being tested
-2. Includes role-specific verification tasks
-3. Verifies that each role's components are correctly installed and configured
-
-#### Testing Specific Roles
-
-To test a specific role with Molecule:
-
-```bash
-cd ansible/roles/golang  # Replace with the role you want to test
-molecule test
-```
-
-#### Adding Verification for New Roles
-
-To add verification for a new role, create a `verify_tasks.yml` file in the role's `molecule/default/` directory with specific verification tasks.
-
-### Other Testing Methods
+### Testing Methods
 
 #### Dry Run (Check Mode)
 

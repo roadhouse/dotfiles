@@ -1,10 +1,28 @@
 ---
 - name: Install zsh and plugins (Debian)
-  package:
-    name:
+  include_tasks: ../../common/tasks/includes/install_packages.yml
+  vars:
+    package_names:
       - zsh
       - zsh-autosuggestions
       - zsh-syntax-highlighting
-    state: present
-  become: true
-  tags: zsh
+    role_name: zsh
+
+- name: Get zsh path
+  command: which zsh
+  register: zsh_path
+  changed_when: false
+  failed_when: false
+
+- name: Get current username
+  command: whoami
+  register: current_user
+  changed_when: false
+
+- name: Change shell to zsh (Debian)
+  user:
+    name: "{{ current_user.stdout }}"
+    shell: "{{ zsh_path.stdout }}"
+  become: yes
+  when: zsh_path.rc == 0 and zsh_path.stdout != ""
+  failed_when: false

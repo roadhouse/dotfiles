@@ -1,0 +1,34 @@
+---
+# This is a reusable task for installing packages
+# Usage examples:
+# When package name matches role name:
+# - name: Install rofi
+#   include_tasks: ../../common/tasks/includes/install_packages.yml
+#   vars:
+#     role_name: rofi
+#
+# When package name differs from role name:
+# - name: Install Golang
+#   include_tasks: ../../common/tasks/includes/install_packages.yml
+#   vars:
+#     package_name: "golang-1.20"
+#     role_name: golang
+#
+# Multiple packages:
+# - name: Install i3 and related packages
+#   include_tasks: ../../common/tasks/includes/install_packages.yml
+#   vars:
+#     package_names:
+#       - i3
+#       - i3blocks
+#       - i3lock
+#     role_name: i3
+
+- name: Install {{ role_name | default('package') }}
+  apt:
+    name: "{{ package_names | default([package_name | default(role_name)]) }}"
+    state: "{{ package_state | default('present') }}"
+    update_cache: "{{ update_cache | default(false) }}"
+    cache_valid_time: "{{ cache_valid_time | default(3600) }}"
+  become: "{{ become_install | default(true) }}"
+  tags: ["{{ role_name | default('package') }}", install]

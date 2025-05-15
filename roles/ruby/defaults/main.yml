@@ -1,2 +1,2 @@
 ---
-ruby_version: "3.4.3"
+# ruby_version is now passed from the playbook

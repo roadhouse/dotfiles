@@ -1,0 +1,4 @@
+---
+ghostty_repo_base_url: https://download.opensuse.org/repositories/home:clayrisser:bookworm/Debian_12/
+ghostty_repo_line: "deb {{ ghostty_repo_base_url }} /"
+ghostty_repo_key_url: "{{ ghostty_repo_base_url }}Release.key"

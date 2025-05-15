@@ -1,7 +1,5 @@
 ---
 - name: Install alacritty (Debian)
-  package:
-    name: alacritty
-    state: present
-  become: true
-  tags: alacritty
+  include_tasks: ../../common/tasks/includes/install_packages.yml
+  vars:
+    role_name: alacritty

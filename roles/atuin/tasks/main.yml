@@ -1,11 +1,9 @@
 ---
-- name:  Link atuin config directory
-  file:
-    src: "{{ role_path }}/files/config"
-    dest: "{{ lookup('env', 'HOME') }}/.config/atuin"
-    state: link
-    force: no
-  tags: [atuin, config]
+- name: Link atuin config directory
+  include_tasks: ../../common/tasks/includes/link_dotfiles.yml
+  vars:
+    config_dir: true
+    role_name: atuin
 
 - name:  Download atuin installer
   get_url:

@@ -1,0 +1,28 @@
+---
+# This is a reusable task for adding repositories and their signing keys
+# Usage example:
+# - name: Add Ghostty repository
+#   include_tasks: ../../common/tasks/includes/add_repository.yml
+#   vars:
+#     role_name: ghostty
+#     repo_url: https://download.opensuse.org/repositories/home:clayrisser:bookworm/Debian_12/
+#     repo_key_url: https://download.opensuse.org/repositories/home:clayrisser:bookworm/Debian_12/Release.key
+#     repo_line: deb {{ repo_url }} /
+
+- name: Add {{ role_name | default('package') }} repository signing key
+  apt_key:
+    url: "{{ repo_key_url }}"
+    state: "{{ repo_key_state | default('present') }}"
+    {{ repo_key_options | default({}) | to_nice_yaml | indent(4) }}
+  become: true
+  tags: ["{{ role_name }}", repo]
+  when: repo_key_url is defined
+
+- name: Add {{ role_name | default('package') }} repository
+  apt_repository:
+    repo: "{{ repo_line }}"
+    filename: "{{ repo_filename | default(role_name) }}"
+    state: "{{ repo_state | default('present') }}"
+    update_cache: "{{ update_cache | default(true) }}"
+  become: true
+  tags: ["{{ role_name }}", repo]

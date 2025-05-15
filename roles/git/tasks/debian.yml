@@ -1,7 +1,6 @@
 ---
-- name:  Install git (Debian)
-  package:
-    name: git
-    state: present
-  become: true
+- name: Install git (Debian)
+  include_tasks: ../../common/tasks/includes/install_packages.yml
+  vars:
+    role_name: git
   tags: git

@@ -1,8 +1,4 @@
 ---
-- name: Copy touchpad tap config
-  copy:
-    src: touchpad-tap.conf
-    dest: /etc/X11/xorg.conf.d/touchpad-tap.conf
-    owner: root
-    group: root
-    mode: '0644'
+# Include OS-specific tasks
+- name: Include OS-specific touchpad configuration
+  include_tasks: "{{ ansible_facts['os_family'] | lower }}.yml"

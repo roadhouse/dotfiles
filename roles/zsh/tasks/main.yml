@@ -1,24 +1,12 @@
 ---
 # Include OS-specific tasks
-- name: Include OS-specific tasks for Debian
-  include_tasks: debian.yml
-  when: ansible_facts['os_family'] == "Debian"
+- name: Include OS-specific tasks
+  include_tasks: "{{ os_task_file }}"
 
-- name: Include OS-specific tasks for macOS
-  include_tasks: darwin.yml
-  when: ansible_facts['os_family'] == "Darwin"
-
-- name:  Change shell to zsh
-  shell: |
-    [ -x "$(command -v zsh)" ] && chsh -s "$(command -v zsh)"
-  become: yes
-
-- name:  Link dotfiles to home directory
-  file:
-    src: "{{ role_path }}/files/{{ item.src }}"
-    dest: "{{ lookup('env', 'HOME') }}/{{ item.dest }}"
-    state: link
-    force: no
-  loop:
-    - { src: 'zshrc', dest: '.zshrc' }
+- name:  Link zsh dotfiles
+  include_tasks: ../../common/tasks/includes/link_dotfiles.yml
+  vars:
+    dotfiles:
+      - { src: 'zshrc', dest: '.zshrc' }
+    role_name: zsh
   tags: [zsh, config]

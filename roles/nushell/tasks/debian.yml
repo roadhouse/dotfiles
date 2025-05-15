@@ -7,18 +7,18 @@
   become: true
   tags: nushell
 
-- name:  Add Nushell repository (Debian)
-  apt_repository:
-    repo: deb https://apt.fury.io/nushell/ /
-    state: present
-    filename: fury
-  become: true
-  tags: nushell
+- name: Add Nushell repository (Debian)
+  include_tasks: ../../common/tasks/includes/add_repository.yml
+  vars:
+    role_name: nushell
+    repo_url: https://apt.fury.io/nushell/
+    repo_key_url: "{{ repo_url }}gpg.key"
+    repo_line: "deb {{ repo_url }} /"
+    repo_filename: fury
+    repo_key_options:
+      keyring: /etc/apt/trusted.gpg.d/fury-nushell.gpg
 
-- name:  Install nushell (Debian)
-  package:
-    name: nushell
-    state: present
-    update_cache: yes
-  become: true
-  tags: nushell
+- name: Install nushell (Debian)
+  include_tasks: ../../common/tasks/includes/install_packages.yml
+  vars:
+    role_name: nushell

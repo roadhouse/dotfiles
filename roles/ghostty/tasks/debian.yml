@@ -1,22 +1,17 @@
 ---
-- name: Add Ghostty repository (Debian)
-  become: true
-  apt_repository:
-    repo: deb https://download.opensuse.org/repositories/home:clayrisser:bookworm/Debian_12/ /
-    state: present
-  tags: ghostty
+- name: Include OS-specific variables
+  include_vars: ../vars/debian.yml
 
-- name: Add Ghostty repository signing key (Debian)
-  become: true
-  apt_key:
-    url: https://download.opensuse.org/repositories/home:clayrisser:bookworm/Debian_12/Release.key
-    state: present
-  tags: ghostty
+- name: Add Ghostty repository (Debian)
+  include_tasks: ../../common/tasks/includes/add_repository.yml
+  vars:
+    role_name: ghostty
+    repo_url: "{{ ghostty_repo_base_url }}"
+    repo_key_url: "{{ ghostty_repo_key_url }}"
+    repo_line: "{{ ghostty_repo_line }}"
 
 - name: Install Ghostty (Debian)
-  become: true
-  package:
-    name: ghostty
-    state: present
-    update_cache: yes
-  tags: ghostty
+  include_tasks: ../../common/tasks/includes/install_packages.yml
+  vars:
+    role_name: ghostty
+    update_cache: true

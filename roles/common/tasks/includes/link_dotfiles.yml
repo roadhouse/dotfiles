@@ -1,21 +1,40 @@
 ---
-# This is a reusable task for linking dotfiles
-# Usage example:
-# - name: 🔗 Link git dotfiles
-#   include_tasks: roles/common/tasks/includes/link_dotfiles.yml
-#   vars:
-#     dotfiles:
-#       - { src: 'gitconfig', dest: '.gitconfig' }
-#     role_name: git
+# Reusable task for linking dotfiles and config directories
+#
+# For dotfiles:
+#   - name: Link git dotfiles
+#     include_tasks: ../../common/tasks/includes/link_dotfiles.yml
+#     vars:
+#       dotfiles:
+#         - { src: 'gitconfig', dest: '.gitconfig' }
+#       role_name: git
+#
+# For config directories:
+#   - name: Link tmux config
+#     include_tasks: ../../common/tasks/includes/link_dotfiles.yml
+#     vars:
+#       config_dir: true
+#       role_name: tmux
 
-- name:  Link {{ role_name | default('dotfiles') }} files to home directory
+- name: Create symlinks for dotfiles
   file:
-    src: "{{ source_path | default(lookup('vars', 'role_path', default='')) }}/files/{{ item.src }}"
+    src: "{{ role_path }}/files/{{ item.src }}"
     dest: "{{ lookup('env', 'HOME') }}/{{ item.dest }}"
     state: link
-    force: no
-  loop: "{{ dotfiles }}"
-  tags: ["{{ role_name | default('dotfiles') }}", config]
+    force: true
+  become: false
+  loop: "{{ dotfiles | default([]) }}"
+  when: dotfiles is defined and not (config_dir | default(false))
   register: link_result
-  failed_when: link_result.failed and not ('file already exists' in link_result.msg or 'file exists' in link_result.msg)
-  changed_when: link_result.changed
+  failed_when: false
+
+- name: Create symlinks for config directories
+  file:
+    src: "{{ role_path }}/files/config"
+    dest: "{{ lookup('env', 'HOME') }}/.config/{{ role_name }}"
+    state: link
+    force: true
+  become: false
+  when: config_dir | default(false) and role_name is defined
+  register: config_link_result
+  failed_when: false

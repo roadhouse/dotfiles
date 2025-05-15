@@ -1,0 +1,16 @@
+---
+- name:  Ensure X11 config directory exists
+  file:
+    path: /etc/X11/xorg.conf.d
+    state: directory
+    mode: '0755'
+    owner: root
+    group: root
+
+- name:  Copy touchpad tap config
+  copy:
+    src: touchpad-tap.conf
+    dest: /etc/X11/xorg.conf.d/90-touchpad.conf
+    owner: root
+    group: root
+    mode: '0644'

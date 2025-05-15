@@ -1,0 +1,5 @@
+---
+nushell_repo_base_url: https://apt.fury.io/nushell/
+nushell_repo_line: "deb {{ nushell_repo_base_url }} /"
+nushell_repo_key_url: "{{ nushell_repo_base_url }}gpg.key"
+nushell_repo_key_path: /etc/apt/trusted.gpg.d/fury-nushell.gpg

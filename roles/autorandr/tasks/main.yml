@@ -1,15 +1,13 @@
 ---
 - name:  Install autorandr
-  package:
+  apt:
     name: autorandr
     state: present
   become: true
   tags: autorandr
 
-- name:  Link autorandr config directory
-  file:
-    src: "{{ role_path }}/files/config"
-    dest: "{{ lookup('env', 'HOME') }}/.config/autorandr"
-    state: link
-    force: no
-  tags: [autorandr, config]
+- name: Link autorandr config directory
+  include_tasks: ../../common/tasks/includes/link_dotfiles.yml
+  vars:
+    config_dir: true
+    role_name: autorandr

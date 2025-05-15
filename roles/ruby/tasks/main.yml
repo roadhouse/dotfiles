@@ -1,12 +1,11 @@
 ---
-- name:  Ensure Ruby dependencies
-  package:
-    name:
+- name: Ensure Ruby dependencies
+  include_tasks: ../../common/tasks/includes/install_packages.yml
+  vars:
+    package_names:
       - git
       - curl
-    state: present
-  become: true
-  tags: ruby
+    role_name: ruby
 
 - name:  Download rbenv installer
   get_url:

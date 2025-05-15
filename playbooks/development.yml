@@ -2,23 +2,20 @@
 - name: Personal Notebook Setup
   hosts: localhost
   become: true
-  gather_facts: true
-  roles:
-    # Core system
-    - { role: common, tags: [common, base] }
+  gather_facts: false
+  
+  vars:
+    os_name: "{{ os | default('debian') | lower }}"
+    ansible_facts:
+      os_family: "{{ os_name }}"
+    os_task_file: "{{ os_name }}.yml"
 
-    # Base components with no dependencies
+  roles:
+    - { role: common, tags: [common, base] }
     - { role: git, tags: [git, dev, base] }
     - { role: zsh, tags: [zsh, base] }
     - { role: nushell, tags: [nushell, shell] }
     - { role: tmux, tags: [tmux, base] }
-
-    # Development tools
     - { role: nvim, tags: [nvim, base] }
-
-    # Shell enhancements
     - { role: starship, tags: [starship, base] }
     - { role: atuin, tags: [atuin, base] }
-
-    # For desktop environment setup, use desktop.yml playbook
-    # For server infrastructure setup, use servers.yml playbook

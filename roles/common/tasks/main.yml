@@ -1,25 +1,7 @@
 ---
-- name:  Update apt cache
-  package:
-    update_cache: yes
-    cache_valid_time: 3600
-
-- name:  Install base packages
-  package:
-    name:
-      - bat
-      - curl
-      - fzf
-      - jq
-      - software-properties-common
-      - xclip
-      - gpg-agent
-      - dirmngr
-    state: present
-  become: true
-  tags: common
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
+# Include OS-specific tasks
+- name: Include OS-specific package installation
+  include_tasks: "{{ os_task_file }}"
 
 - name:  Ensure ~/.config exists
   file:

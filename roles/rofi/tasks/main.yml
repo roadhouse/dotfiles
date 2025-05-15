@@ -1,15 +1,11 @@
 ---
-- name:  Install rofi
-  package:
-    name: rofi
-    state: present
-  become: true
-  tags: rofi
+- name: Install rofi
+  include_tasks: ../../common/tasks/includes/install_packages.yml
+  vars:
+    role_name: rofi
 
-- name:  Link rofi config directory
-  file:
-    src: "{{ role_path }}/files/config"
-    dest: "{{ lookup('env', 'HOME') }}/.config/rofi"
-    state: link
-    force: no
-  tags: [rofi, config]
+- name: Link rofi config directory
+  include_tasks: ../../common/tasks/includes/link_dotfiles.yml
+  vars:
+    config_dir: true
+    role_name: rofi

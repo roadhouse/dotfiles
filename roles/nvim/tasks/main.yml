@@ -1,7 +1,8 @@
 ---
-- name:  Install Neovim build dependencies (Debian)
-  package:
-    name:
+- name: Install Neovim build dependencies (Debian)
+  include_tasks: ../../common/tasks/includes/install_packages.yml
+  vars:
+    package_names:
       - ninja-build
       - gettext
       - libtool-bin
@@ -10,8 +11,7 @@
       - pkg-config
       - unzip
       - curl
-    state: present
-  become: true
+    role_name: nvim
   when: ansible_facts['os_family'] == "Debian"
 
 - name:  Install Neovim (macOS)
@@ -42,10 +42,8 @@
   become: true
   when: ansible_facts['os_family'] == "Debian"
 
-- name:  Link Neovim config directory
-  file:
-    src: "{{ role_path }}/files/config"
-    dest: "{{ lookup('env', 'HOME') }}/.config/nvim"
-    state: link
-    force: no
-  tags: [nvim, config]
+- name: Link Neovim config directory
+  include_tasks: ../../common/tasks/includes/link_dotfiles.yml
+  vars:
+    config_dir: true
+    role_name: nvim

@@ -9,4 +9,3 @@
     dotfiles:
       - { src: 'zshrc', dest: '.zshrc' }
     role_name: zsh
-  tags: [zsh, config]

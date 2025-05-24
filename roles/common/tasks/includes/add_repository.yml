@@ -13,7 +13,8 @@
   apt_key:
     url: "{{ repo_key_url }}"
     state: "{{ repo_key_state | default('present') }}"
-    {{ repo_key_options | default({}) | to_nice_yaml | indent(4) }}
+  vars:
+    repo_key_extra_options: "{{ repo_key_options | default({}) }}"
   become: true
   tags: ["{{ role_name }}", repo]
   when: repo_key_url is defined

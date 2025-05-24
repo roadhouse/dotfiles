@@ -1,9 +1,9 @@
 ---
 - name: Personal Notebook Setup
   hosts: localhost
-  become: true
+  become: false
   gather_facts: false
-  
+
   vars:
     os_name: "{{ os | default('debian') | lower }}"
     ansible_facts:

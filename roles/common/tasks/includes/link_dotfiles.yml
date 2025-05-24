@@ -22,7 +22,6 @@
     dest: "{{ lookup('env', 'HOME') }}/{{ item.dest }}"
     state: link
     force: true
-  become: false
   loop: "{{ dotfiles | default([]) }}"
   when: dotfiles is defined and not (config_dir | default(false))
   register: link_result
@@ -34,7 +33,6 @@
     dest: "{{ lookup('env', 'HOME') }}/.config/{{ role_name }}"
     state: link
     force: true
-  become: false
   when: config_dir | default(false) and role_name is defined
   register: config_link_result
   failed_when: false

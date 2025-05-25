@@ -5,17 +5,15 @@
     config_dir: true
     role_name: atuin
 
-- name:  Download atuin installer
-  get_url:
-    url: https://setup.atuin.sh
-    dest: /tmp/atuin-installer.sh
-    mode: '0755'
-  register: atuin_download
+- name: Check if atuin is already installed
+  command: which atuin
+  register: atuin_check
+  changed_when: false
+  failed_when: false
+  check_mode: false
   tags: atuin
 
-- name:  Install atuin shell history
-  command: /usr/bin/sh -s -- -y
-  args:
-    stdin: "{{ lookup('file', '/tmp/atuin-installer.sh') }}"
-    creates: /usr/local/bin/atuin
+- name: Include atuin installation tasks
+  include_tasks: install.yml
+  when: atuin_check.rc != 0
   tags: atuin

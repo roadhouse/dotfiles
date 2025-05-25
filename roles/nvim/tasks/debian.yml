@@ -1,0 +1,33 @@
+---
+- name: Install Neovim build dependencies (Debian)
+  include_tasks: ../../common/tasks/includes/install_packages.yml
+  vars:
+    package_names:
+      - ninja-build
+      - gettext
+      - libtool-bin
+      - cmake
+      - g++
+      - pkg-config
+      - unzip
+      - curl
+    role_name: nvim
+
+- name: Clone Neovim repo (Debian)
+  git:
+    repo: https://github.com/neovim/neovim.git
+    dest: /tmp/neovim
+    depth: 1
+    version: stable
+
+- name: Build Neovim (Debian)
+  command: make CMAKE_BUILD_TYPE=RelWithDebInfo
+  args:
+    chdir: /tmp/neovim
+  become: true
+
+- name: Install Neovim (Debian)
+  command: make install
+  args:
+    chdir: /tmp/neovim
+  become: true

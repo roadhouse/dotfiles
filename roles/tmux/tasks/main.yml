@@ -1,7 +1,7 @@
 ---
 # Include OS-specific tasks
 - name: Include OS-specific tasks
-  include_tasks: "{{ ansible_facts['os_family'] | lower }}.yml"
+  include_tasks: "{{ os_task_file }}"
 
 - name: Link tmux config directory
   include_tasks: ../../common/tasks/includes/link_dotfiles.yml

@@ -1,0 +1,5 @@
+---
+- name: Install Neovim (macOS)
+  homebrew:
+    name: neovim
+    state: present

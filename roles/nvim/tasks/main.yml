@@ -1,46 +1,6 @@
 ---
-- name: Install Neovim build dependencies (Debian)
-  include_tasks: ../../common/tasks/includes/install_packages.yml
-  vars:
-    package_names:
-      - ninja-build
-      - gettext
-      - libtool-bin
-      - cmake
-      - g++
-      - pkg-config
-      - unzip
-      - curl
-    role_name: nvim
-  when: ansible_facts['os_family'] == "Debian"
-
-- name:  Install Neovim (macOS)
-  homebrew:
-    name: neovim
-    state: present
-  when: ansible_facts['os_family'] == "Darwin"
-
-- name:  Clone Neovim repo (Debian)
-  git:
-    repo: https://github.com/neovim/neovim.git
-    dest: /tmp/neovim
-    depth: 1
-    version: stable
-  when: ansible_facts['os_family'] == "Debian"
-
-- name:  Build Neovim (Debian)
-  command: make CMAKE_BUILD_TYPE=RelWithDebInfo
-  args:
-    chdir: /tmp/neovim
-  become: true
-  when: ansible_facts['os_family'] == "Debian"
-
-- name:  Install Neovim (Debian)
-  command: make install
-  args:
-    chdir: /tmp/neovim
-  become: true
-  when: ansible_facts['os_family'] == "Debian"
+- name: Include OS-specific tasks for {{ os_name }}
+  include_tasks: "{{ os_task_file }}"
 
 - name: Link Neovim config directory
   include_tasks: ../../common/tasks/includes/link_dotfiles.yml

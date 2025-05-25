@@ -1,6 +1,56 @@
 ---
-- name: Install Ghostty (macOS)
-  homebrew:
-    name: ghostty
-    state: present
+- name: Check if Ghostty is already installed
+  command: which ghostty
+  register: ghostty_check
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  tags: ghostty
+
+- name: Create temporary directory for Ghostty download
+  file:
+    path: /tmp/ghostty_install
+    state: directory
+    mode: '0755'
+  when: ghostty_check.rc != 0
+  tags: ghostty
+
+- name: Download Ghostty DMG from official site
+  get_url:
+    url: https://ghostty.org/releases/ghostty-latest.dmg
+    dest: /tmp/ghostty_install/ghostty.dmg
+    mode: '0644'
+  when: ghostty_check.rc != 0
+  register: dmg_download
+  tags: ghostty
+
+- name: Mount Ghostty DMG
+  command: hdiutil attach /tmp/ghostty_install/ghostty.dmg
+  when: ghostty_check.rc != 0 and dmg_download.changed
+  register: mount_result
+  tags: ghostty
+
+- name: Copy Ghostty app to Applications folder
+  command: cp -R /Volumes/Ghostty/Ghostty.app /Applications/
+  when: ghostty_check.rc != 0 and mount_result.changed
+  tags: ghostty
+
+- name: Unmount Ghostty DMG
+  command: hdiutil detach /Volumes/Ghostty
+  when: ghostty_check.rc != 0 and mount_result.changed
+  tags: ghostty
+
+- name: Create symlink to Ghostty binary
+  file:
+    src: /Applications/Ghostty.app/Contents/MacOS/ghostty
+    dest: /usr/local/bin/ghostty
+    state: link
+  when: ghostty_check.rc != 0
+  tags: ghostty
+
+- name: Cleanup temporary files
+  file:
+    path: /tmp/ghostty_install
+    state: absent
+  when: ghostty_check.rc != 0
   tags: ghostty

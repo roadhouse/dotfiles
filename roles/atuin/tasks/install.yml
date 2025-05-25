@@ -1,5 +1,5 @@
 ---
-- name:  Download atuin installer
+- name: Download atuin installer
   get_url:
     url: https://setup.atuin.sh
     dest: /tmp/atuin-installer.sh
@@ -7,7 +7,7 @@
   register: atuin_download
   tags: atuin
 
-- name:  Install atuin shell history
+- name: Install atuin shell history
   command: /usr/bin/sh -s -- -y
   args:
     stdin: "{{ lookup('file', '/tmp/atuin-installer.sh') }}"

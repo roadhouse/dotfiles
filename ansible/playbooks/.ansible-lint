@@ -1,7 +1,0 @@
----
-# Playbooks-specific ansible-lint configuration
-skip_list:
-  - 'meta-no-info'  # Skip galaxy_info metadata check
-
-exclude_paths:
-  - '../molecule/'  # Exclude molecule test files

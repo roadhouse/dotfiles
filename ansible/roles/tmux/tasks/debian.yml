@@ -1,7 +1,0 @@
----
-- name:  Install tmux (Debian)
-  package:
-    name: tmux
-    state: present
-  become: true
-  tags: tmux

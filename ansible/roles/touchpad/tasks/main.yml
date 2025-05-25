@@ -1,8 +1,0 @@
----
-- name: Copy touchpad tap config
-  copy:
-    src: touchpad-tap.conf
-    dest: /etc/X11/xorg.conf.d/touchpad-tap.conf
-    owner: root
-    group: root
-    mode: '0644'

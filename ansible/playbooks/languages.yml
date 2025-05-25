@@ -1,9 +1,0 @@
----
-- name: Install programming languages
-  hosts: all
-  become: true
-  gather_facts: false
-  roles:
-    # Programming languages
-    - { role: ruby, tags: [ruby, dev, languages], ruby_version: "3.4.3" }
-    - { role: golang, tags: [go, dev, languages], golang_version: "1.24" }

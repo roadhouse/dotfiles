@@ -1,8 +1,0 @@
----
-- name: Server Infrastructure Setup
-  hosts: localhost
-  become: true
-  gather_facts: false
-  roles:
-    # Infrastructure
-    - { role: k3s, tags: [k3s, infra] }

@@ -1,6 +1,0 @@
----
-- name: Install Golang (macOS)
-  homebrew:
-    name: "go@{{ golang_version }}"
-    state: present
-  tags: golang

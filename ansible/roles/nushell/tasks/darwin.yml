@@ -1,6 +1,0 @@
----
-- name: \uf302 Install nushell (macOS)
-  homebrew:
-    name: nushell
-    state: present
-  tags: nushell

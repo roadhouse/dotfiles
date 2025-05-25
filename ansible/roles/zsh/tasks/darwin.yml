@@ -1,9 +1,0 @@
----
-- name: Install zsh and plugins (macOS)
-  homebrew:
-    name:
-      - zsh
-      - zsh-autosuggestions
-      - zsh-syntax-highlighting
-    state: present
-  tags: zsh

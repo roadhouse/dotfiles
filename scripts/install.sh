@@ -14,5 +14,5 @@ if [ ! -d "$CODE_DIR/dotfiles" ]; then
   git clone --depth 1 https://github.com/roadhouse/dotfiles.git "$CODE_DIR/dotfiles"
 fi
 
-cd "$CODE_DIR/dotfiles/ansible"
+cd "$CODE_DIR/dotfiles"
 ansible-playbook -i inventory playbooks/site.yml --ask-become-pass

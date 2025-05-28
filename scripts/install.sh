@@ -15,4 +15,4 @@ if [ ! -d "$CODE_DIR/dotfiles" ]; then
 fi
 
 cd "$CODE_DIR/dotfiles"
-ansible-playbook -i inventory playbooks/site.yml --ask-become-pass
+ansible-playbook -i inventory playbooks/development.yml --ask-become-pass

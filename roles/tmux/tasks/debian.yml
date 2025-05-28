@@ -2,6 +2,6 @@
 - name: Install tmux (Debian)
   include_tasks: ../../common/tasks/includes/install_packages.yml
   vars:
+    package_names:
+      - tmux
     role_name: tmux
-  become: true
-  tags: tmux

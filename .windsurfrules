@@ -126,3 +126,4 @@ shellcheck **/*.sh
 nu --check ~/.config/nushell/config.nu
 ```
 ```
+

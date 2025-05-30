@@ -1,0 +1,128 @@
+```markdown
+## Product Requirements Document (PRD)
+
+### Project Name
+
+**roadhouse/dotfiles**
+
+### Owner
+
+Senior Web Developer (personal use)
+
+---
+
+### Purpose
+
+Provision and maintain a personal CLI-focused development environment using Ansible and dotfiles, ensuring:
+
+- Portability between macOS and Debian-based Linux (Ubuntu, Kali)
+- Fast and deterministic runs (no dynamic fact gathering)
+- Declarative and modular structure
+
+---
+
+### Supported Platforms
+
+- **macOS** (via `homebrew`)
+- **Debian-based Linux**: specifically **Ubuntu** and **Kali** (via `apt`)
+
+---
+
+## Functional Requirements
+
+### 1. Dotfiles Management
+
+- All files reside under `dotfiles/`
+- Ansible roles manage copying and symlinking using:
+  - `file` (with `state: link`)
+  - `copy`
+- Do **not** use shell scripts or external dotfile managers
+
+### 2. Role and Playbook Design
+
+- All playbooks must have:
+  ```yaml
+  gather_facts: false
+  ```
+- OS-specific task logic must be abstracted via the `os_task_file` pattern.
+  
+Example:
+
+```yaml
+- name: Include OS-specific tasks
+  include_tasks: "{{ os_task_file }}"
+```
+
+- The `os_task_file` variable must be manually defined using `lookup('first_found', ...)` and not rely on `ansible_facts`.
+
+- Avoid `when:` logic for OS branching; instead, create separate files per OS and include them dynamically.
+
+- `become: true` should not be used; prefer user-space installation.
+
+### 3. Package Management
+
+- Use only:
+  - `apt` module for Ubuntu/Kali
+  - `homebrew` module for macOS
+- Do **not** use the generic `package` module
+- Prefer idempotent installations with `state: present`
+
+### 4. Shell Configuration
+
+- Manage `.zshrc`, `.config/nushell/config.nu`, aliases, and environment variables with Ansible `template` or `copy`
+- Avoid Jinja logic inside templates
+- Avoid sourcing external shell logic unless managed in this repo
+
+---
+
+## Non-Functional Requirements
+
+- All Ansible runs must be fast: **no fact gathering, no remote shell execution unless absolutely necessary**
+- All shell scripts (if present) must pass `shellcheck`
+- All YAML files must pass `yamllint`
+- All Nushell configs must parse cleanly via `nu --check`
+
+---
+
+## Success Criteria
+
+- A fresh macOS or Ubuntu/Kali system can be configured by:
+  ```sh
+  ansible-playbook -i localhost, -c local -e os_family=Darwin playbook.yml
+  ```
+- All tools (Zsh, Nushell, Tmux, Neovim) are configured with no errors
+- Ansible tasks are idempotent and complete in <5 seconds on re-run
+- No dynamic facts, no brittle conditionals, no shell hacks
+
+---
+
+## Risks & Mitigations
+
+| Risk | Mitigation |
+|------|------------|
+| Package differences | Limit to apt/homebrew and test on both |
+| OS detection failure | Require manual `os_task_file` logic per run |
+| Fact-dependent roles | Ensure roles never rely on `ansible_facts.*` |
+| Jinja complexity | Avoid; encode logic via `vars` and task includes |
+
+---
+
+## Appendix
+
+### Allowed Ansible Modules
+
+| Type     | Module     |
+|----------|------------|
+| Packages | `apt`, `homebrew` |
+| Files    | `file`, `copy`, `template` |
+| OS Logic | via `os_task_file` includes only |
+
+### Linting / Validation
+
+```sh
+ansible-lint
+yamllint .
+shellcheck **/*.sh
+nu --check ~/.config/nushell/config.nu
+```
+```

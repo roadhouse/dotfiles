@@ -45,7 +45,7 @@ Provision and maintain a personal CLI-focused development environment using Ansi
   gather_facts: false
   ```
 - OS-specific task logic must be abstracted via the `os_task_file` pattern.
-  
+
 Example:
 
 ```yaml
@@ -126,4 +126,3 @@ shellcheck **/*.sh
 nu --check ~/.config/nushell/config.nu
 ```
 ```
-

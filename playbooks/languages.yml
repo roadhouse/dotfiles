@@ -1,8 +1,15 @@
 ---
 - name: Install programming languages
-  hosts: all
-  become: true
+  hosts: localhost
+  become: false
   gather_facts: false
+
+  vars:
+    os_name: "{{ os | default('debian') | lower }}"
+    ansible_facts:
+      os_family: "{{ os_name }}"
+    os_task_file: "{{ os_name }}.yml"
+
   roles:
     # Programming languages
     - { role: ruby, tags: [ruby, dev, languages], ruby_version: "3.4.3" }

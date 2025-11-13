@@ -26,6 +26,7 @@
   when: dotfiles is defined and not (config_dir | default(false))
   register: link_result
   failed_when: false
+  tags: [link]
 
 - name: Create symlinks for config directories
   file:
@@ -36,3 +37,4 @@
   when: config_dir | default(false) and role_name is defined
   register: config_link_result
   failed_when: false
+  tags: [link]

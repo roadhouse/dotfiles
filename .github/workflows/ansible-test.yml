@@ -64,3 +64,7 @@ jobs:
       - name: Run Ansible syntax check
         run: |
           ansible-playbook playbooks/development.yml --syntax-check
+          ansible-playbook playbooks/desktop.yml --syntax-check
+          ansible-playbook playbooks/site.yml --syntax-check
+          ansible-playbook playbooks/servers.yml --syntax-check
+          ansible-playbook playbooks/languages.yml --syntax-check

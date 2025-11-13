@@ -56,6 +56,18 @@ git update-index --no-skip-worktree ansible/roles/atuin/files/config/config.toml
 
 This repository contains multiple playbooks for different environments and purposes.
 
+### Running on Different Operating Systems
+
+All playbooks support both Linux (default) and macOS:
+
+```bash
+# Linux (default)
+ansible-playbook -i inventory playbooks/development.yml
+
+# macOS
+ansible-playbook -i inventory playbooks/development.yml -e os=darwin
+```
+
 ### Core System Setup
 
 To set up the core system with development tools, run:

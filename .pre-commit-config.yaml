@@ -8,12 +8,11 @@ repos:
       - id: check-yaml
       - id: check-added-large-files
 
-  # Ansible-lint temporarily disabled
-  # - repo: https://github.com/ansible-community/ansible-lint
-  #   rev: v6.14.3
-  #   hooks:
-  #     - id: ansible-lint
-  #       files: \.(yaml|yml)$
+  - repo: https://github.com/ansible-community/ansible-lint
+    rev: v6.14.3
+    hooks:
+      - id: ansible-lint
+        files: \.(yaml|yml)$
 
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.29.0

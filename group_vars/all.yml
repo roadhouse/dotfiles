@@ -1,0 +1,10 @@
+---
+# OS detection variables for all playbooks
+os_name: "{{ os | default('debian') | lower }}"
+ansible_facts:
+  os_family: "{{ os_name }}"
+os_task_file: "{{ os_name }}.yml"
+
+# Programming language versions
+ruby_version: "3.4.3"
+golang_version: "1.24"

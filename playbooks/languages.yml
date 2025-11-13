@@ -6,5 +6,5 @@
 
   roles:
     # Programming languages
-    - { role: ruby, tags: [ruby, dev, languages], ruby_version: "3.4.3" }
-    - { role: golang, tags: [go, dev, languages], golang_version: "1.24" }
+    - { role: ruby, tags: [ruby, dev, languages] }
+    - { role: golang, tags: [go, dev, languages] }

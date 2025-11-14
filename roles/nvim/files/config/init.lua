@@ -1,4 +1,5 @@
 require("options")
 require("mappings")
 require("config.lazy")
+require("config.filetypes")
 vim.cmd('colorscheme tokyonight')

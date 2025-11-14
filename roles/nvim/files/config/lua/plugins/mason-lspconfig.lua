@@ -24,64 +24,65 @@ return {
     config = function()
       local mason_lspconfig = require("mason-lspconfig")
       local lspconfig = require("lspconfig")
+      local util = require("lspconfig.util")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       -- Enhanced language server configurations
       local servers = {
         -- Web Development
         'html', 'cssls', 'emmet_ls', 'tailwindcss', 'astro', 'svelte',
-        
+
         -- Python
         'pyright', 'ruff', 'basedpyright', 'pylsp',
-        
+
         -- Lua
         'lua_ls',
-        
+
         -- Go
         'gopls',
-        
+
         -- Ruby
         'rubocop', 'ruby_lsp', 'solargraph',
-        
+
         -- PHP
         'intelephense', 'phpactor',
-        
+
         -- Java
         'jdtls',
-        
+
         -- C/C++
         'clangd',
-        
+
         -- Shell
         'bashls',
-        
+
         -- YAML
         'yamlls',
-        
+
         -- Docker
         'dockerls', 'docker_compose_language_service',
-        
+
         -- Terraform
         'terraformls',
-        
+
         -- SQL
         'sqlls',
-        
+
         -- Markdown
         'marksman',
-        
+
         -- GraphQL
         'graphql',
-        
+
         -- Ansible
         'ansiblels',
-        
+
         -- Kubernetes
         'helm_ls',
-        
+
         -- TOML
         'taplo',
-        
+
         -- XML
         'lemminx',
       }
@@ -110,7 +111,7 @@ return {
             },
           },
         },
-        
+
         pyright = {
           python = {
             analysis = {
@@ -124,7 +125,7 @@ return {
             },
           },
         },
-        
+
         gopls = {
           gopls = {
             gofumpt = true,
@@ -151,24 +152,21 @@ return {
             usePlaceholders = true,
           },
         },
-        
+
         jsonls = {
           json = {
             validate = { enable = true },
           },
         },
-        
+
         yamlls = {
-          yaml = {
-            validate = true,
-            completion = true,
-          },
+          filetypes = { 'yaml', 'yaml.docker-compose', 'yaml.gitlab' },
         },
-        
+
         bashls = {
           filetypes = { 'sh', 'bash', 'zsh' },
         },
-        
+
         html = {
           html = {
             format = {
@@ -178,7 +176,7 @@ return {
             },
           },
         },
-        
+
         cssls = {
           css = {
             validate = true,
@@ -186,6 +184,11 @@ return {
               unknownProperties = "warning",
             },
           },
+        },
+
+        helm_ls = {
+          filetypes = { 'helm' },
+          root_dir = util.root_pattern("Chart.yaml"),
         },
       }
 

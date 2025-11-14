@@ -1,9 +1,17 @@
 return {
   {
-    -- Mason is needed by mason-lspconfig
     "williamboman/mason.nvim",
     config = function()
-      require("mason").setup()
+      require("mason").setup({
+        ui = {
+          border = "rounded",
+          icons = {
+            package_pending = " ",
+            package_installed = "󰄳 ",
+            package_uninstalled = "󰅖 ",
+          },
+        },
+      })
     end
   },
   {
@@ -11,69 +19,278 @@ return {
     dependencies = {
       "williamboman/mason.nvim",
       "neovim/nvim-lspconfig",
-      "hrsh7th/cmp-nvim-lsp", -- if you use cmp for auto-completion
+      "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
-      -- OPTIONAL: if you want explicit config for mason-lspconfig itself
-      -- require("mason-lspconfig").setup({
-      --   ensure_installed = { "lua_ls", "pyright", "tsserver" }, -- example
-      -- })
-
       local mason_lspconfig = require("mason-lspconfig")
       local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      local langconf = {
-        -- Example: custom settings for Lua
+      -- Enhanced language server configurations
+      local servers = {
+        -- Web Development
+        'html', 'cssls', 'emmet_ls', 'tailwindcss', 'astro', 'svelte',
+        
+        -- JavaScript/TypeScript
+        'tsserver', 'eslint', 'biome', 'jsonls',
+        
+        -- Python
+        'pyright', 'ruff_lsp', 'basedpyright', 'pylsp',
+        
+        -- Lua
+        'lua_ls',
+        
+        -- Go
+        'gopls',
+        
+        -- Rust
+        'rust_analyzer',
+        
+        -- Ruby
+        'rubocop', 'ruby_lsp', 'solargraph',
+        
+        -- PHP
+        'intelephense', 'phpactor',
+        
+        -- Java
+        'jdtls',
+        
+        -- C/C++
+        'clangd',
+        
+        -- Shell
+        'bashls',
+        
+        -- YAML
+        'yamlls',
+        
+        -- Docker
+        'dockerls', 'docker_compose_language_service',
+        
+        -- Terraform
+        'terraformls',
+        
+        -- SQL
+        'sqlls',
+        
+        -- Markdown
+        'marksman',
+        
+        -- Vue
+        'vuels',
+        
+        -- Ansible
+        'ansiblels',
+        
+        -- Kubernetes
+        'yamlls', 'helm_ls',
+        
+        -- GraphQL
+        'graphql',
+        
+        -- TOML
+        'taplo',
+        
+        -- XML
+        'lemminx',
+      }
+
+      -- Server-specific configurations
+      local server_configs = {
         lua_ls = {
           Lua = {
             diagnostics = {
-              globals = { "vim" },
+              globals = { 'vim' },
+              disable = { 'lowercase-global' },
             },
+            workspace = {
+              checkThirdParty = false,
+              library = {
+                vim.env.VIMRUNTIME,
+                "${3rd}/luv/library",
+                "${3rd}/busted/library",
+                "${3rd}/luacheck/library",
+              },
+            },
+            telemetry = { enable = false },
+            completion = {
+              callSnippet = "Replace",
+            },
+          },
+        },
+        
+        pyright = {
+          python = {
+            analysis = {
+              typeCheckingMode = "basic",
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              diagnosticSeverityOverrides = {
+                reportUnusedVariable = "warning",
+                reportUnusedImport = "warning",
+              },
+            },
+          },
+        },
+        
+        tsserver = {
+          typescript = {
+            inlayHints = {
+              includeInlayParameterNameHints = 'all',
+              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            },
+          },
+          javascript = {
+            inlayHints = {
+              includeInlayParameterNameHints = 'all',
+              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            },
+          },
+        },
+        
+        gopls = {
+          gopls = {
+            gofumpt = true,
+            codelenses = {
+              gc_details = false,
+              generate = true,
+              regenerate_cgo = true,
+              run_govulncheck = true,
+              test = true,
+              tidy = true,
+              upgrade_dependency = true,
+              vendor = true,
+            },
+            hints = {
+              assignVariableTypes = true,
+              compositeLiteralFields = true,
+              compositeLiteralTypes = true,
+              constantValues = true,
+              functionTypeParameters = true,
+              parameterNames = true,
+              rangeVariableTypes = true,
+            },
+            staticcheck = true,
+            usePlaceholders = true,
+          },
+        },
+        
+        rust_analyzer = {
+          ['rust-analyzer'] = {
+            checkOnSave = {
+              command = "clippy",
+            },
+            cargo = {
+              loadOutDirsFromCheck = true,
+            },
+            procMacro = {
+              enable = true,
+            },
+          },
+        },
+        
+        jsonls = {
+          json = {
+            schemas = require('schemastore').json.schemas(),
+            validate = { enable = true },
+          },
+        },
+        
+        yamlls = {
+          yaml = {
+            schemas = require('schemastore').yaml.schemas(),
+            validate = true,
+            completion = true,
+          },
+        },
+        
+        bashls = {
+          filetypes = { 'sh', 'bash', 'zsh' },
+        },
+        
+        html = {
+          html = {
+            format = {
+              templating = true,
+              wrapLineLength = 120,
+              wrapAttributes = 'auto-aligned',
+            },
+          },
+        },
+        
+        cssls = {
+          css = {
+            validate = true,
+            lint = {
+              unknownProperties = "warning",
+            },
+          },
+        },
+        
+        eslint = {
+          settings = {
+            codeAction = {
+              disableRuleComment = {
+                enable = true,
+                location = "separateLine",
+              },
+              showDocumentation = {
+                enable = true,
+              },
+            },
+            codeActionOnSave = {
+              enable = false,
+              mode = "all",
+            },
+            format = true,
+            quiet = false,
+            run = "onType",
+            sourceType = "module",
           },
         },
       }
 
-      -- 'setup_handlers' automatically calls mason-lspconfig's internal 'setup'.
-      mason_lspconfig.setup_handlers({
-        -- Default handler (for every installed server that doesn't have a dedicated handler):
-        function(server_name)
-          lspconfig[server_name].setup({
-            settings = langconf[server_name],  -- only applies if present
-            capabilities = capabilities,
-            -- on_attach = on_attach -- if you have a custom attach function
-          })
-        end
+      -- Setup mason-lspconfig
+      mason_lspconfig.setup({
+        ensure_installed = servers,
+        automatic_installation = true,
       })
 
-      -- Auto-command: Set up buffer-specific LSP mappings once the server attaches
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-        callback = function(ev)
-          -- Enable <C-x><C-o> for LSP-based omnifunc
-          vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-          -- Buffer-local mappings
-          local opts = { buffer = ev.buf }
-          vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-          vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-          vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-          vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-          vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-          vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
-          vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
-          vim.keymap.set("n", "<space>wl", function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end, opts)
-          vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, opts)
-          vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
-          vim.keymap.set("n", "<space>ca", vim.lsp.buf.code_action, opts)
-          vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-          vim.keymap.set("n", "<space>f", function()
-            vim.lsp.buf.format({ async = true })
-          end, opts)
+      -- Setup handlers for each server
+      mason_lspconfig.setup_handlers({
+        function(server_name)
+          local config = server_configs[server_name] or {}
+          lspconfig[server_name].setup({
+            capabilities = capabilities,
+            settings = config.settings or config,
+            filetypes = config.filetypes,
+            root_dir = config.root_dir,
+            single_file_support = config.single_file_support ~= false,
+            on_attach = config.on_attach,
+          })
         end,
       })
+
+      -- Custom commands for LSP management
+      vim.api.nvim_create_user_command('LspInstallAll', function()
+        for _, server in ipairs(servers) do
+          vim.cmd('MasonInstall ' .. server)
+        end
+      end, { desc = 'Install all configured LSP servers' })
+
+      vim.api.nvim_create_user_command('LspInfo', function()
+        vim.cmd('LspInfo')
+      end, { desc = 'Show LSP information' })
     end,
   },
 }

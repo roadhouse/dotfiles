@@ -1,16 +1,11 @@
 return {
   "neovim/nvim-lspconfig",
-  -- opts ={
-    -- settings = {
-      -- gopls = {
-        -- analyses = {
-          -- unusedparams = true,
-        -- },
-        -- completeUnimported = true,
-        -- gofumpt = true,
-        -- staticcheck = true,
-        -- usePlaceholders = true
-      -- }
-    -- }
-  -- }
+  event = { "BufReadPre", "BufNewFile" },
+  dependencies = {
+    "hrsh7th/cmp-nvim-lsp",
+  },
+  config = function()
+    -- This is handled by mason-lspconfig and lsp-zero
+    -- No additional config needed here
+  end
 }

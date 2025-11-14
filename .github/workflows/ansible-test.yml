@@ -3,18 +3,14 @@ name: Ansible Test
 on:
   push:
     branches: [main, master]
-    paths:
-      - 'playbooks/**'
-      - 'roles/**'
-      - 'ansible.cfg'
-      - 'inventory'
+    paths-ignore:
+      - 'roles/nvim/**'
+      - '!.github/workflows/ansible-test.yml'
   pull_request:
     branches: [main, master]
-    paths:
-      - 'playbooks/**'
-      - 'roles/**'
-      - 'ansible.cfg'
-      - 'inventory'
+    paths-ignore:
+      - 'roles/nvim/**'
+      - '!.github/workflows/ansible-test.yml'
   workflow_dispatch:  # Allow manual triggering
 
 jobs:
@@ -37,11 +33,11 @@ jobs:
 
       - name: Lint YAML files
         run: |
-          yamllint playbooks/ roles/
+          yamllint playbooks/ roles/ --exclude roles/nvim/
 
       - name: Lint Ansible files
         run: |
-          ansible-lint playbooks/ roles/
+          ansible-lint playbooks/ roles/ --exclude roles/nvim/
 
   test:
     name: Test

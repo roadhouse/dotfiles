@@ -1,5 +1,4 @@
 require("options")
 require("mappings")
 require("config.lazy")
-require("lsp-utils")
 vim.cmd('colorscheme tokyonight')

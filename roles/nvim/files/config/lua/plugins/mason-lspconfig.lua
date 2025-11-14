@@ -214,10 +214,6 @@ return {
           vim.cmd('MasonInstall ' .. server)
         end
       end, { desc = 'Install all configured LSP servers' })
-
-      vim.api.nvim_create_user_command('LspInfo', function()
-        vim.cmd('LspInfo')
-      end, { desc = 'Show LSP information' })
     end,
   },
 }

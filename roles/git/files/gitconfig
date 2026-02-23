@@ -1,6 +1,6 @@
 [user]
-	name = Jean Uchoa
-	email = jean.uchoa@gmail.com
+	name = RoadHouse
+	email = poserpride@gmail.com
 
 [alias]
         a = add -p
@@ -66,3 +66,5 @@
 
 [apply]
         whitespace = fix
+[init]
+	defaultBranch = main

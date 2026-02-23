@@ -1,1 +1,4 @@
-return {"fatih/vim-go", lazy = false }
+return {
+  "fatih/vim-go",
+  ft = { "go", "gomod", "gowork", "gotmpl" },
+}

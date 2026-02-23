@@ -1,222 +1,197 @@
 return {
   {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup({
-        ui = {
-          border = "rounded",
-          icons = {
-            package_pending = " ",
-            package_installed = "󰄳 ",
-            package_uninstalled = "󰅖 ",
-          },
+    "mason-org/mason.nvim",
+    opts = {
+      ui = {
+        border = "rounded",
+        icons = {
+          package_pending = "o",
+          package_installed = "+",
+          package_uninstalled = "-",
         },
-      })
-    end
+      },
+    },
   },
   {
-    "williamboman/mason-lspconfig.nvim",
+    "mason-org/mason-lspconfig.nvim",
     dependencies = {
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
       "neovim/nvim-lspconfig",
-      "hrsh7th/cmp-nvim-lsp",
     },
     config = function()
       local mason_lspconfig = require("mason-lspconfig")
-      local lspconfig = require("lspconfig")
-      local util = require("lspconfig.util")
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      -- Enhanced language server configurations
       local servers = {
-        -- Web Development
-        'html', 'cssls', 'emmet_ls', 'tailwindcss', 'astro', 'svelte',
+        -- Frontend / Web
+        "html", "cssls", "emmet_ls", "tailwindcss", "astro", "svelte",
+        "jsonls",
 
-        -- Python
-        'pyright', 'ruff', 'basedpyright', 'pylsp',
+        -- Core languages
+        "pyright", "ruff",
+        "lua_ls",
+        "gopls",
+        "ruby_lsp",
+        "intelephense",
+        "clangd",
 
-        -- Lua
-        'lua_ls',
+        -- Infra / DevOps
+        "bashls",
+        "yamlls",
+        "dockerls", "docker_compose_language_service",
+        "terraformls",
+        "ansiblels",
+        "helm_ls",
+        "taplo",
 
-        -- Go
-        'gopls',
-
-        -- Ruby
-        'rubocop', 'ruby_lsp', 'solargraph',
-
-        -- PHP
-        'intelephense', 'phpactor',
-
-        -- Java
-        'jdtls',
-
-        -- C/C++
-        'clangd',
-
-        -- Shell
-        'bashls',
-
-        -- YAML
-        'yamlls',
-
-        -- Docker
-        'dockerls', 'docker_compose_language_service',
-
-        -- Terraform
-        'terraformls',
-
-        -- SQL
-        'sqlls',
-
-        -- Markdown
-        'marksman',
-
-        -- GraphQL
-        'graphql',
-
-        -- Ansible
-        'ansiblels',
-
-        -- Kubernetes
-        'helm_ls',
-
-        -- TOML
-        'taplo',
-
-        -- XML
-        'lemminx',
+        -- Data / Docs
+        "marksman",
+        "graphql",
       }
 
-      -- Server-specific configurations
       local server_configs = {
         lua_ls = {
-          Lua = {
-            diagnostics = {
-              globals = { 'vim' },
-              disable = { 'lowercase-global' },
-            },
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                vim.env.VIMRUNTIME,
-                "${3rd}/luv/library",
-                "${3rd}/busted/library",
-                "${3rd}/luacheck/library",
-                "/path/to/your/custom/library",
+          settings = {
+            Lua = {
+              runtime = {
+                version = "LuaJIT",
               },
-            },
-            telemetry = { enable = false },
-            completion = {
-              callSnippet = "Replace",
+              diagnostics = {
+                globals = { "vim", "use", "describe", "it", "assert", "before_each", "after_each" },
+                disable = { "lowercase-global", "undefined-global" },
+              },
+              workspace = {
+                checkThirdParty = false,
+                library = {
+                  vim.env.VIMRUNTIME,
+                  "${3rd}/luv/library",
+                  "${3rd}/busted/library",
+                },
+                maxPreload = 100000,
+                preloadFileSize = 10000,
+              },
+              telemetry = { enable = false },
+              completion = {
+                callSnippet = "Replace",
+                keywordSnippet = "Replace",
+              },
+              hint = {
+                enable = true,
+                arrayIndex = "Disable",
+                await = true,
+                paramName = "Disable",
+                paramType = true,
+                semicolon = "Disable",
+                setType = false,
+              },
             },
           },
         },
-
         pyright = {
-          python = {
-            analysis = {
-              typeCheckingMode = "basic",
-              autoSearchPaths = true,
-              useLibraryCodeForTypes = true,
-              diagnosticSeverityOverrides = {
-                reportUnusedVariable = "warning",
-                reportUnusedImport = "warning",
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = "basic",
+                autoSearchPaths = true,
+                useLibraryCodeForTypes = true,
+                autoImportCompletions = true,
+                diagnosticSeverityOverrides = {
+                  reportUnusedVariable = "warning",
+                  reportUnusedImport = "warning",
+                  reportMissingImports = "error",
+                  reportMissingTypeStubs = "warning",
+                },
               },
             },
           },
         },
-
         gopls = {
-          gopls = {
-            gofumpt = true,
-            codelenses = {
-              gc_details = false,
-              generate = true,
-              regenerate_cgo = true,
-              run_govulncheck = true,
-              test = true,
-              tidy = true,
-              upgrade_dependency = true,
-              vendor = true,
+          settings = {
+            gopls = {
+              gofumpt = true,
+              codelenses = {
+                gc_details = false,
+                generate = true,
+                regenerate_cgo = true,
+                run_govulncheck = true,
+                test = true,
+                tidy = true,
+                upgrade_dependency = true,
+                vendor = true,
+              },
+              hints = {
+                assignVariableTypes = true,
+                compositeLiteralFields = true,
+                compositeLiteralTypes = true,
+                constantValues = true,
+                functionTypeParameters = true,
+                parameterNames = true,
+                rangeVariableTypes = true,
+              },
+              analyses = {
+                unusedparams = true,
+                shadow = true,
+              },
+              staticcheck = true,
+              usePlaceholders = true,
             },
-            hints = {
-              assignVariableTypes = true,
-              compositeLiteralFields = true,
-              compositeLiteralTypes = true,
-              constantValues = true,
-              functionTypeParameters = true,
-              parameterNames = true,
-              rangeVariableTypes = true,
-            },
-            staticcheck = true,
-            usePlaceholders = true,
           },
         },
-
         jsonls = {
-          json = {
-            validate = { enable = true },
+          settings = {
+            json = {
+              validate = { enable = true },
+            },
           },
         },
-
         yamlls = {
-          filetypes = { 'yaml', 'yaml.docker-compose', 'yaml.gitlab' },
+          filetypes = { "yaml", "yaml.docker-compose", "yaml.gitlab" },
         },
-
         bashls = {
-          filetypes = { 'sh', 'bash', 'zsh' },
+          filetypes = { "sh", "bash", "zsh" },
         },
-
         html = {
-          html = {
-            format = {
-              templating = true,
-              wrapLineLength = 120,
-              wrapAttributes = 'auto-aligned',
+          settings = {
+            html = {
+              format = {
+                templating = true,
+                wrapLineLength = 120,
+                wrapAttributes = "auto-aligned",
+              },
             },
           },
         },
-
         cssls = {
-          css = {
-            validate = true,
-            lint = {
-              unknownProperties = "warning",
+          settings = {
+            css = {
+              validate = true,
+              lint = {
+                unknownProperties = "warning",
+              },
             },
           },
         },
-
         helm_ls = {
-          filetypes = { 'helm' },
-          root_dir = util.root_pattern("Chart.yaml"),
+          filetypes = { "helm" },
+          root_markers = { "Chart.yaml" },
         },
       }
 
-      -- Setup mason-lspconfig with handlers
       mason_lspconfig.setup({
         ensure_installed = servers,
-        automatic_installation = true,
-        handlers = {
-          function(server_name)
-            local config = server_configs[server_name] or {}
-            lspconfig[server_name].setup({
-              capabilities = capabilities,
-              settings = config.settings or config,
-              filetypes = config.filetypes,
-              root_dir = config.root_dir,
-              single_file_support = config.single_file_support ~= false,
-              on_attach = config.on_attach,
-            })
-          end,
-        },
+        automatic_enable = false,
       })
 
-      -- Custom commands for LSP management
-      vim.api.nvim_create_user_command('LspInstallAll', function()
+      for _, server_name in ipairs(servers) do
+        vim.lsp.config(server_name, server_configs[server_name] or {})
+      end
+
+      vim.lsp.enable(servers)
+
+      vim.api.nvim_create_user_command("LspInstallAll", function()
         for _, server in ipairs(servers) do
-          vim.cmd('MasonInstall ' .. server)
+          vim.cmd("MasonInstall " .. server)
         end
-      end, { desc = 'Install all configured LSP servers' })
+      end, { desc = "Install all configured LSP servers" })
     end,
   },
 }

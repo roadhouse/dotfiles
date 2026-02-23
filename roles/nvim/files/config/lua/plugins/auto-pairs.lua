@@ -1,1 +1,4 @@
-return {"jiangmiao/auto-pairs", lazy = false }
+return {
+  "jiangmiao/auto-pairs",
+  event = "InsertEnter",
+}

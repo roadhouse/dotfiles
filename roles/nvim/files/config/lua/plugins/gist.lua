@@ -1,5 +1,6 @@
 return {
   "mattn/gist-vim",
+  cmd = { "Gist", "GistList", "GistGet", "GistPut", "GistDelete" },
   dependencies = { "mattn/webapi-vim" },
   config = function()
     vim.g.gist_open_browser_after_post = 1

@@ -39,7 +39,7 @@ vim.keymap.set('n', '<leader>fr', ':Telescope lsp_references<cr>', {})
 vim.keymap.set('n', '<leader>fd', ':Telescope lsp_definitions<cr>', {})
 
 -- Trouble
-vim.keymap.set('n', '<leader>ft', ':TroubleToggle<cr>', {})
+vim.keymap.set('n', '<leader>ft', '<cmd>Trouble diagnostics toggle<cr>', {})
 
 -- Alias
 vim.cmd("ab pry require 'pry'; binding.pry;")

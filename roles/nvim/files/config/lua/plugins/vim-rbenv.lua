@@ -1,1 +1,4 @@
-return {"tpope/vim-rbenv", lazy = false }
+return {
+  "tpope/vim-rbenv",
+  ft = { "ruby", "eruby" },
+}

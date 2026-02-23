@@ -1,3 +1,13 @@
 return {
-  "alvan/vim-closetag", lazy = false
+  "alvan/vim-closetag",
+  ft = {
+    "html",
+    "xml",
+    "javascriptreact",
+    "typescriptreact",
+    "javascript",
+    "typescript",
+    "svelte",
+    "vue",
+  },
 }

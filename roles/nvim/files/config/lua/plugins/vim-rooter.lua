@@ -1,3 +1,4 @@
 return {
-  "airblade/vim-rooter", lazy = false
+  "airblade/vim-rooter",
+  event = { "BufReadPre", "BufNewFile" },
 }

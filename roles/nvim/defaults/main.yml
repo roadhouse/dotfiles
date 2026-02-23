@@ -1,0 +1,5 @@
+---
+nvim_code_dir: "{{ lookup('env', 'HOME') }}/code"
+nvim_config_repo: "git@github.com:roadhouse/neovim-config.git"
+nvim_config_version: "main"
+nvim_config_path: "{{ nvim_code_dir }}/neovim-config"

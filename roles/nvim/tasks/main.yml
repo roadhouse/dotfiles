@@ -2,8 +2,22 @@
 - name: Include OS-specific tasks for {{ os_name }}
   include_tasks: "{{ os_task_file }}"
 
+- name: Ensure code directory exists
+  file:
+    path: "{{ nvim_code_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Clone or update Neovim config repository
+  git:
+    repo: "{{ nvim_config_repo }}"
+    dest: "{{ nvim_config_path }}"
+    version: "{{ nvim_config_version }}"
+    update: true
+
 - name: Link Neovim config directory
   include_tasks: ../../common/tasks/includes/link_dotfiles.yml
   vars:
     config_dir: true
     role_name: nvim
+    config_src: "{{ nvim_config_path }}"

@@ -15,6 +15,14 @@
 #     vars:
 #       config_dir: true
 #       role_name: tmux
+#
+# For external config directories:
+#   - name: Link external Neovim config
+#     include_tasks: ../../common/tasks/includes/link_dotfiles.yml
+#     vars:
+#       config_dir: true
+#       role_name: nvim
+#       config_src: "{{ lookup('env', 'HOME') }}/code/neovim-config"
 
 - name: Create symlinks for dotfiles
   file:
@@ -30,7 +38,7 @@
 
 - name: Create symlinks for config directories
   file:
-    src: "{{ role_path }}/files/config"
+    src: "{{ config_src | default(role_path ~ '/files/config') }}"
     dest: "{{ lookup('env', 'HOME') }}/.config/{{ role_name }}"
     state: link
     force: true

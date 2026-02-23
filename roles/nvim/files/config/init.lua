@@ -1,6 +1,0 @@
-require("options")
-require("mappings")
-require("commands")
-require("config.lazy")
-require("config.filetypes")
-vim.cmd('colorscheme tokyonight')

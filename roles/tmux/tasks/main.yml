@@ -3,6 +3,25 @@
 - name: Include OS-specific tasks
   include_tasks: "{{ os_task_file }}"
 
+- name: Ensure code directory exists
+  file:
+    path: "{{ tmux_code_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Ensure tmux plugins directory exists
+  file:
+    path: "{{ tmux_plugins_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Clone or update TPM repository
+  git:
+    repo: "{{ tmux_tpm_repo }}"
+    dest: "{{ tmux_tpm_path }}"
+    version: "{{ tmux_tpm_version }}"
+    update: true
+
 - name: Link tmux config directory
   include_tasks: ../../common/tasks/includes/link_dotfiles.yml
   vars:

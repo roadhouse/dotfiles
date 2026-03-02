@@ -1,0 +1,6 @@
+---
+tmux_code_dir: "{{ lookup('env', 'HOME') }}/code"
+tmux_plugins_dir: "{{ tmux_code_dir }}/tmux-plugins"
+tmux_tpm_repo: "https://github.com/tmux-plugins/tpm.git"
+tmux_tpm_version: "master"
+tmux_tpm_path: "{{ tmux_plugins_dir }}/tpm"
